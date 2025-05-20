@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
+        isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(0.5f, 0.2f, 0.5f), Quaternion.identity, groundMask);
 
         if (isGrounded && ySpeed < 0)
         {
@@ -37,7 +37,8 @@ public class Movement : MonoBehaviour
 
             if (isGrounded && Input.GetButton("Jump"))
             {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                print("jump");
             }
         }
 
