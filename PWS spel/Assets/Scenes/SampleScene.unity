@@ -287,7 +287,7 @@ MonoBehaviour:
   originalProjectile: {fileID: 937350870}
   projectileParent: {fileID: 1717748149}
   player: {fileID: 1389374215}
-  speed: 0.02
+  speed: 0.2
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 937350873}
   - component: {fileID: 937350872}
   - component: {fileID: 937350871}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,9 +670,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f043816f306ba6b428ed7caa5cca473d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notPlayer:
+  hitable:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 8
   velocity: {x: 0, y: 0, z: 0}
 --- !u!135 &937350872
 SphereCollider:
@@ -800,6 +800,7 @@ MonoBehaviour:
   speed: 12
   gravity: -10
   jumpHeight: 3
+  velocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1026,7 +1027,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

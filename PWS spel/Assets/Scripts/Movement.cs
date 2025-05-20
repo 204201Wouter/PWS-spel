@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
     public float jumpHeight = 3f;
     bool canMove = true;
 
-    Vector3 velocity;
+    float ySpeed;
+    public Vector3 velocity;
+    Vector3 lastPos;
 
     public LayerMask groundMask;
     public Transform groundCheck;
@@ -19,9 +21,9 @@ public class Movement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
 
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded && ySpeed < 0)
         {
-            velocity.y = -2;
+            ySpeed = -2;
         }
 
         if (canMove)
@@ -39,9 +41,9 @@ public class Movement : MonoBehaviour
             }
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        ySpeed += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.LeftShift)) speed = 20f;
         else speed = 12f;
@@ -50,5 +52,8 @@ public class Movement : MonoBehaviour
         {
             transform.position = new Vector3(0, 5, 0);
         }
+
+        velocity = transform.position - lastPos;
+        lastPos = transform.position;
     }
 }

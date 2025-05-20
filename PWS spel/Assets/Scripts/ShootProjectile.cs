@@ -14,7 +14,7 @@ public class ShootProjectile : MonoBehaviour
         {
             GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
             projectile.GetComponent<ProjectileScript>().enabled = true;
-            projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed;
+            projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity * 0.8f;
         }
     }
 }
