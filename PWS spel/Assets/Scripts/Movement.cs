@@ -4,7 +4,7 @@ public class Movement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float speed = 12f;
+    public float speed = 2f;
     public float gravity = -10f;
     public float jumpHeight = 3f;
     bool canMove = true;
@@ -44,8 +44,8 @@ public class Movement : MonoBehaviour
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift)) speed = 20f;
-        else speed = 12f;
+        if (Input.GetKey(KeyCode.LeftShift)) speed = 8f;
+        else speed = 2f;
 
         if (transform.position.y < -20)
         {
