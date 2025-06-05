@@ -8,9 +8,11 @@ public class ShootProjectile : MonoBehaviour
     public GameObject player;
 
     public float speed;
-    public int ammo = 30;
+    public int ammo;
     public TextMeshProUGUI AmmoText;
     public GameObject sight;
+
+    public MouseLook Mouselook;
 
 
 
@@ -22,7 +24,7 @@ public class ShootProjectile : MonoBehaviour
             {
                 GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
                 projectile.GetComponent<ProjectileScript>().enabled = true;
-                projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity * 0.8f;
+                projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity;
                 ammo--;
 
                 AmmoText.text = "Ammo: " + ammo.ToString();
@@ -31,9 +33,10 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {   
-            if (GetComponent<Camera>().fieldOfView > 60 * 1 / 1.4f) 
+            if (GetComponent<Camera>().fieldOfView > 60 * 1 / 10f) 
             {
                 GetComponent<Camera>().fieldOfView -= 1;
+                Mouselook.mouseSensitivity -= 2;
             }
                 
             sight.SetActive(true);
@@ -43,6 +46,7 @@ public class ShootProjectile : MonoBehaviour
             if (GetComponent<Camera>().fieldOfView < 60)
             {
                 GetComponent<Camera>().fieldOfView += 1;
+                Mouselook.mouseSensitivity += 2;
             }
 
             sight.SetActive(false);

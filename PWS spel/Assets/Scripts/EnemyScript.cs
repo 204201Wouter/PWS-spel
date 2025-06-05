@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class EnemyScript : MonoBehaviour
 {
-    public int health = 5;
+    public int health = 1000;
 
     CharacterController controller;
     public LayerMask groundMask;
