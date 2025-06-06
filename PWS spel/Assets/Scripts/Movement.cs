@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 
     public float speed = 2f;
     public float gravity = -10f;
-    public float jumpHeight = 3f;
+    public float jumpHeight = 1f;
     bool canMove = true;
 
     float ySpeed;
@@ -44,8 +44,9 @@ public class Movement : MonoBehaviour
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift)) speed = 8f;
-        else speed = 2f;
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded) speed = 8f;
+        if (!Input.GetKey(KeyCode.LeftShift)) speed = 2f;
+
 
         if (transform.position.y < -20)
         {

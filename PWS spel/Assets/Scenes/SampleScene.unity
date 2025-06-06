@@ -1646,7 +1646,7 @@ MonoBehaviour:
   controller: {fileID: 1389374217}
   speed: 12
   gravity: -10
-  jumpHeight: 3
+  jumpHeight: 1
   velocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -1672,8 +1672,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5000001
-  m_SlopeLimit: 45
-  m_StepOffset: 1
+  m_SlopeLimit: 40
+  m_StepOffset: 0.25
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
