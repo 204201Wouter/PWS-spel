@@ -1,4 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
+using static UnityEngine.UI.Image;
 
 public class Movement : MonoBehaviour
 {
@@ -17,6 +21,8 @@ public class Movement : MonoBehaviour
     public Transform groundCheck;
     bool isGrounded;
 
+
+
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
@@ -24,7 +30,7 @@ public class Movement : MonoBehaviour
         {
             ySpeed = -2;
         }
-
+        bool climbing = false;
         if (canMove)
         {
             float x = Input.GetAxis("Horizontal");
@@ -34,9 +40,24 @@ public class Movement : MonoBehaviour
 
             controller.Move(speed * Time.deltaTime * move);
 
-            if (isGrounded && Input.GetButton("Jump"))
+            if (Input.GetButton("Jump"))
             {
-                ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+
+                Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
+                Ray rayTop = new Ray(transform.position+new Vector3(0, 1.5f, 0), transform.forward);
+
+                if (isGrounded)
+                {
+                    ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                }
+
+                if (Physics.Raycast(rayBottom, out RaycastHit hit, 0.6f, groundMask) && !Physics.Raycast(rayTop, out RaycastHit hit2, 0.6f, groundMask))
+                {
+                    climbing = true;
+                    ySpeed = 2f;
+                }
+               
             }
         }
 
@@ -44,8 +65,8 @@ public class Movement : MonoBehaviour
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded) speed = 8f;
-        if (!Input.GetKey(KeyCode.LeftShift)) speed = 2f;
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing) speed = 8f;
+        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing) speed = 2f;
 
 
         if (transform.position.y < -20)
