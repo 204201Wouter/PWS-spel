@@ -13,18 +13,21 @@ public class ShootProjectile : MonoBehaviour
     public int ammo;
     public TextMeshProUGUI AmmoText;
     public GameObject sight;
+    public float shotCooldown;
+    public float reloadTime;
 
     public MouseLook Mouselook;
     public bool automatic;
     private float recoilXSaved;
     private float recoilYSaved;
-
+    private float lastShot;
+    private float reloadStart;
 
 
     void Update()
     {
 
-        if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0)
+        if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
         {
       
             GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
@@ -51,6 +54,10 @@ public class ShootProjectile : MonoBehaviour
             recoilYSaved += recoilY;
             Mouselook.recoilY = recoilY;
 
+            lastShot = Time.time;
+
+            reloadStart = -1;
+
             AmmoText.text = "Ammo: " + ammo.ToString();
 
 
@@ -67,7 +74,7 @@ public class ShootProjectile : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && reloadStart == -1)
         {   
             if (GetComponent<Camera>().fieldOfView > 60 * 1 / 2f) 
             {
@@ -92,10 +99,25 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ammo = 30;
-            AmmoText.text = "Ammo: " + ammo.ToString();
-
+            if (reloadStart == -1)
+            {
+                reloadStart = Time.time;
+                AmmoText.text = "Reloading...";
+            }
+            else 
+            { 
+                reloadStart = -1;
+                AmmoText.text = "Ammo: " + ammo.ToString();
+            }
 
         }
+
+        if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
+        {
+            ammo = 30;
+            AmmoText.text = "Ammo: " + ammo.ToString();
+            reloadStart = -1;
+        }
+
     }
 }

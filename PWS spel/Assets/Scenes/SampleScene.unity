@@ -401,6 +401,8 @@ MonoBehaviour:
   ammo: 30
   AmmoText: {fileID: 790313115}
   sight: {fileID: 864002439}
+  shotCooldown: 0
+  reloadTime: 1
   Mouselook: {fileID: 330585548}
   automatic: 1
 --- !u!1 &385845828
