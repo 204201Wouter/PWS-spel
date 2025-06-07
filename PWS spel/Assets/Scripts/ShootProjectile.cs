@@ -7,6 +7,10 @@ public class ShootProjectile : MonoBehaviour
 {
     public GameObject originalProjectile;
     public Transform projectileParent;
+
+    public GameObject originalGrenade;
+    public Transform grenadeParent;
+
     public GameObject player;
 
     public float speed;
@@ -109,6 +113,16 @@ public class ShootProjectile : MonoBehaviour
                 reloadStart = -1;
                 AmmoText.text = "Ammo: " + ammo.ToString();
             }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            GameObject Grenade = Instantiate(originalGrenade, transform.position, transform.rotation, grenadeParent);
+
+            Grenade.GetComponent<BounceProjectileScript>().enabled = true;
+            Grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f+ GetComponentInParent<Movement>().velocity;
+            Grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
 
         }
 

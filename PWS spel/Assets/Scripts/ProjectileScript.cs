@@ -25,13 +25,13 @@ public class ProjectileScript : MonoBehaviour
             dragFactor = 1f;
             transform.position = hit.point;
 
+
             EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
             if (enemyScript != null)
             {
                 enemyScript.health--;
                 print("hit");
             }
-
         }
 
         else 
