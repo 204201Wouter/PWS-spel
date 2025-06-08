@@ -68,13 +68,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing) speed = 8f;
         if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing) speed = 2f;
 
+     //    if (Input.GetKey(KeyCode.LeftControl); crouch
+    //    if (!Input.GetKey(KeyCode.X); crawl
 
         if (transform.position.y < -20)
         {
             transform.position = new Vector3(0, 5, 0);
         }
 
-        velocity = transform.position - lastPos;
+        velocity = (transform.position - lastPos)*Time.deltaTime;
         lastPos = transform.position;
     }
 }

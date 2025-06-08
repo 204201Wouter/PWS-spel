@@ -2612,6 +2612,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   dragFactor: 0.000823
   fuse: -1
+  originalProjectile: {fileID: 937350870}
+  projectileParent: {fileID: 1717748149}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
+using TreeEditor;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
@@ -12,7 +14,8 @@ public class BounceProjectileScript : MonoBehaviour
     public float fuse = -1;
 
 
-
+    public GameObject originalProjectile;
+    public Transform projectileParent;
 
     void FixedUpdate()
     {
@@ -21,9 +24,19 @@ public class BounceProjectileScript : MonoBehaviour
         velocity = (velocity+ gravity * 0.02f) /(1+ dragFactor * velocity.magnitude * 0.02f) ;
         Vector3 nextPos = transform.position + velocity * 0.02f;
 
-        Ray ray = new Ray(transform.position, velocity.normalized );
 
-        if (Physics.SphereCast(ray, 0.25f, out RaycastHit hit, velocity.magnitude * 0.02f, hitable))
+
+        Vector3 bounceVel = velocity * 0.02f;
+
+        Vector3 velOutLen;
+        Vector3 velocityNormal;
+        Vector3 velocityTangential;
+        Vector3 newVelocityNormal;
+        Vector3 velOut;
+
+
+
+        while (Physics.SphereCast(new Ray(transform.position, bounceVel.normalized), 0.25f, out RaycastHit hit, bounceVel.magnitude, hitable) && bounceVel.magnitude > 0)
         {
 
             hit.point += hit.normal.normalized * 0.25f;
@@ -32,67 +45,47 @@ public class BounceProjectileScript : MonoBehaviour
 
 
 
-            Vector3 velOutLen = (velocity * 0.02f - velIn);
+            velOutLen = (bounceVel - velIn);
+            velocityNormal = Vector3.Dot(velOutLen, hit.normal) * hit.normal;
+            velocityTangential = (velOutLen - velocityNormal)*0.92f;
+            newVelocityNormal = -velocityNormal * 0.6f;
+            velOut = velocityTangential + newVelocityNormal;
 
 
-            Vector3 velocityNormal = Vector3.Dot(velOutLen, hit.normal) * hit.normal;
-
-
-            Vector3 velocityTangential = (velOutLen - velocityNormal)*0.92f;
-
-
-            Vector3 newVelocityNormal = -velocityNormal * 0.6f;
-
-
-            Vector3 velOut = velocityTangential + newVelocityNormal;
-
-
-            //  Vector3 velOut = Vector3.Reflect(velOutLen, hit.normal);
-            // moving = false;
-
-
-
-
-            transform.position += velOut;
-
-
-
-         //   velocity = Vector3.Reflect(velocity, hit.normal) * 0.6f;
+            bounceVel = velOut;
 
 
 
 
             velocityNormal = Vector3.Dot(velocity, hit.normal) * hit.normal;
-
-
             velocityTangential = (velocity - velocityNormal)*0.92f;
-
-
             newVelocityNormal = -velocityNormal * 0.6f;
-
-
             velocity = velocityTangential + newVelocityNormal;
 
 
 
-
-
+            nextPos = transform.position + velOut;
 
 
         }
 
 
-        else
-        {
 
-            transform.position = nextPos; 
+        transform.position = nextPos; 
 
-            
-            
-        }
 
         if (Time.time >= fuse+5 && fuse != -1)
         {
+            for (int i = 0; i<200; i++)
+            {
+
+                Vector3 Direction = Random.onUnitSphere;
+
+                GameObject projectile = Instantiate(originalProjectile, transform.position, Quaternion.LookRotation(Direction), projectileParent);
+                projectile.GetComponent<ProjectileScript>().enabled = true;
+                projectile.GetComponent<ProjectileScript>().velocity = Direction * 1000 + velocity;
+            }
+
             Destroy(gameObject);
         }
 
