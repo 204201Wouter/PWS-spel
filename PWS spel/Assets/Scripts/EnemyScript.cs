@@ -14,7 +14,10 @@ public class EnemyScript : MonoBehaviour
 
     float ySpeed;
     public float gravity = -10f;
+    public float speed = 2f;
     bool isGrounded = false;
+
+    Vector3 targetPos = Vector3.zero;
 
     List<Vector2Int> sides = new();
     List<Vector2Int> corners = new();
@@ -25,6 +28,9 @@ public class EnemyScript : MonoBehaviour
 
     public bool findPath;
     bool currentState;
+    List<Vector2Int> path = new();
+
+    public bool spawnSpheres;
     public GameObject sphereObject;
     public Transform sphereParent;
     List<GameObject> spheres = new();
@@ -69,7 +75,7 @@ public class EnemyScript : MonoBehaviour
 
         if (currentState != findPath)
         {
-            if (spheres.Count > 0)
+            if (spheres.Count > 0 && spawnSpheres)
             {
                 foreach (GameObject sphere in spheres)
                 {
@@ -78,16 +84,61 @@ public class EnemyScript : MonoBehaviour
                 spheres.Clear();
             }
 
-            List<Vector2Int> path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
+            path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
             foreach (Vector2Int tile in path)
             {
-                print(tile);
-                Vector3 pos = new Vector3(tile.x, map[tile], tile.y);
-                spheres.Add(Instantiate(sphereObject, pos, Quaternion.identity, sphereParent));
+                Vector3 pos = new(tile.x, map[tile], tile.y);
+                if (spawnSpheres) spheres.Add(Instantiate(sphereObject, pos, Quaternion.identity, sphereParent));
             }
+            targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
 
             currentState = findPath;
         }
+
+        targetPos.y = transform.position.y;
+        Vector3 diffTargetPos = targetPos - transform.position;
+        if (diffTargetPos.magnitude > 0.2f)
+        {
+            controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
+        }
+        else if(path.Count > 1)
+        {
+            path.RemoveAt(path.Count - 1);
+            if (spawnSpheres)
+            {
+                Destroy(spheres[path.Count]);
+                spheres.RemoveAt(path.Count);
+            }
+            targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+        }
+        else
+        {
+            if (spheres.Count > 0 && spawnSpheres)
+            {
+                foreach (GameObject sphere in spheres)
+                {
+                    Destroy(sphere);
+                }
+                spheres.Clear();
+            }
+
+            path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
+            if (path.Count > 0)
+            {
+                foreach (Vector2Int tile in path)
+                {
+                    Vector3 pos = new(tile.x, map[tile], tile.y);
+                    if (spawnSpheres) spheres.Add(Instantiate(sphereObject, pos, Quaternion.identity, sphereParent));
+                }
+                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+            }
+            else
+            {
+                Vector2 playerPos = ConvertPos(player.transform.position);
+                targetPos = new Vector3(playerPos.x, transform.position.y, playerPos.y);
+            }
+        }
+        
     }
 
     List<Vector2Int> AStar(Vector2Int pos, Vector2Int target)
@@ -146,7 +197,6 @@ public class EnemyScript : MonoBehaviour
                     cameFrom.Add(neighbor, bestTile);
                 }
             }
-            print("checked tile");
         }
 
         print("no path found");
