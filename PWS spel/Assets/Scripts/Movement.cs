@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
                     ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 }
 
-                if (Physics.Raycast(rayBottom, out RaycastHit hit, 0.6f, groundMask) && !Physics.Raycast(rayTop, out RaycastHit hit2, 0.6f, groundMask))
+                if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
                 {
                     climbing = true;
                     ySpeed = 2f;

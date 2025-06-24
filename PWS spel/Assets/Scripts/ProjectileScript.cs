@@ -6,6 +6,7 @@ public class ProjectileScript : MonoBehaviour
 {
     public LayerMask hitable;
     public Vector3 velocity;
+    public int damage = 1;
 
     public float dragFactor;
 
@@ -30,7 +31,7 @@ public class ProjectileScript : MonoBehaviour
             EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
             if (enemyScript != null)
             {
-                enemyScript.health--;
+                enemyScript.Hit(damage);
                 print("hit");
             }
         }
