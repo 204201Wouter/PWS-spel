@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class EnemyMovementScript : MonoBehaviour
 {
@@ -26,6 +29,12 @@ public class EnemyMovementScript : MonoBehaviour
     public int mapMaxHeight;
     Vector2Int mapTopRight;
     Vector2Int mapBottomLeft;
+
+    public int ammo = 30;
+    float lastShot;
+    public float reloadStart;
+
+
 
     List<Vector2Int> path = new();
 
@@ -54,6 +63,28 @@ public class EnemyMovementScript : MonoBehaviour
 
     void Update()
     {
+
+
+        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + 0.1f)
+        {
+            lastShot = Time.time;
+           // Debug.Log(HasLineOfSight());
+            player.GetComponent<PlayerHealth>().Hit(1);
+            ammo -= 1;
+        }
+
+        if (ammo == 0 && reloadStart == -1) 
+        {
+            reloadStart = Time.time; 
+        }
+        if (Time.time > reloadStart + 3f && reloadStart != -1)
+        {
+            reloadStart = -1;
+            ammo = 30;
+        }
+
+
+        
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
 
         if (isGrounded && ySpeed < 0)
@@ -105,10 +136,22 @@ public class EnemyMovementScript : MonoBehaviour
 
     }  
 
-    public bool HasLineOfSight(Vector3 position)
+    public bool HasLineOfSight()
     {
-        return Physics.Raycast(position, player.transform.position - position, 100, playerMask);
+        Vector3 dir = (player.transform.position - transform.position).normalized;
+        if (Vector3.Angle(dir, transform.forward) < 40f)
+        {
+          //  Debug.DrawRay(transform.position, dir * 100, Color.red, 2f);
+
+            return !Physics.Raycast(transform.position, dir, (player.transform.position - transform.position).magnitude, groundMask);
+        }
+        else { return false; }
+        
     }
+
+
+
+    
 
     public Vector2Int TileBehind(Vector2Int tile)
     {

@@ -23,8 +23,11 @@ public class Movement : MonoBehaviour
 
 
 
+
+
     void Update()
     {
+
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
         if (isGrounded && ySpeed < 0)
         {
@@ -42,6 +45,7 @@ public class Movement : MonoBehaviour
 
             if (Input.GetButton("Jump"))
             {
+  
 
 
                 Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
