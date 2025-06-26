@@ -76,18 +76,46 @@ public class BounceProjectileScript : MonoBehaviour
 
         if (Time.time >= fuse+5 && fuse != -1)
         {
-            for (int i = 0; i<200; i++)
+            for (int i = 0; i<500; i++)
             {
+                Vector3 dir = Random.onUnitSphere;
+                Ray ray = new Ray(transform.position, dir);
 
-                Vector3 Direction = Random.onUnitSphere;
+                if (Physics.Raycast(ray, out RaycastHit hit, 100, hitable))
+                {
+             
 
-                GameObject projectile = Instantiate(originalProjectile, transform.position, Quaternion.LookRotation(Direction), projectileParent);
-                projectile.GetComponent<ProjectileScript>().enabled = true;
-                projectile.GetComponent<ProjectileScript>().velocity = Direction * 1000 + velocity;
+                    EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
+                    if (enemyScript != null)
+                    {
+                        enemyScript.Hit(1);
+                        print("hit");
+                    }
+                    PlayerHealth playerHealth = hit.collider.GetComponent<PlayerHealth>();
+                    if (playerHealth != null)
+                    {
+                        playerHealth.Hit(1);
+                        print("hit");
+                    }
+                }
+
+                //   Vector3 Direction = Random.onUnitSphere;
+              //  Vector3 dir = (player.transform.position - transform.position).normalized;
+
+             //   Debug.DrawRay(transform.position, Direction * 100, Color.red, 2f);
+
+                   // return !Physics.Raycast(transform.position, dir, (player.transform.position - transform.position).magnitude, groundMask);
+
+
+                //   GameObject projectile = Instantiate(originalProjectile, transform.position, Quaternion.LookRotation(Direction), projectileParent);
+                //   projectile.GetComponent<ProjectileScript>().enabled = true;
+                //  projectile.GetComponent<ProjectileScript>().velocity = Direction * 1000 + velocity;
             }
 
             Destroy(gameObject);
         }
 
     }
+
+  
 }
