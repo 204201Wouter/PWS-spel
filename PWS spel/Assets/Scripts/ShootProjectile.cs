@@ -30,7 +30,6 @@ public class ShootProjectile : MonoBehaviour
 
     void Update()
     {
-
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
         {
       
@@ -38,7 +37,6 @@ public class ShootProjectile : MonoBehaviour
             projectile.GetComponent<ProjectileScript>().enabled = true;
             projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity;
             ammo--;
-
 
             float recoilX = Random.Range(-50f, 50f);
                 
@@ -51,9 +49,7 @@ public class ShootProjectile : MonoBehaviour
             {
                 recoilY = Random.Range(-0f, 50f);
       
-            }
-                
-      
+            }                     
             
             recoilYSaved += recoilY;
             Mouselook.recoilY = recoilY;
@@ -63,18 +59,13 @@ public class ShootProjectile : MonoBehaviour
             reloadStart = -1;
 
             AmmoText.text = "Ammo: " + ammo.ToString();
-
-
-            
         }
         else
         {
-
             Mouselook.recoilX = -recoilXSaved * 0.1f;
             Mouselook.recoilY = -recoilYSaved * 0.1f;
             recoilXSaved *= 0.9f;
             recoilYSaved *= 0.9f;
-
         }
 
 
@@ -99,8 +90,6 @@ public class ShootProjectile : MonoBehaviour
             sight.SetActive(false);
         }
             
-
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (reloadStart == -1)
@@ -113,7 +102,6 @@ public class ShootProjectile : MonoBehaviour
                 reloadStart = -1;
                 AmmoText.text = "Ammo: " + ammo.ToString();
             }
-
         }
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -123,7 +111,6 @@ public class ShootProjectile : MonoBehaviour
             Grenade.GetComponent<BounceProjectileScript>().enabled = true;
             Grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f+ GetComponentInParent<Movement>().velocity;
             Grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
-
         }
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
@@ -132,6 +119,5 @@ public class ShootProjectile : MonoBehaviour
             AmmoText.text = "Ammo: " + ammo.ToString();
             reloadStart = -1;
         }
-
     }
 }

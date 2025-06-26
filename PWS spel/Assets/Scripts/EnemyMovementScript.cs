@@ -65,6 +65,7 @@ public class EnemyMovementScript : MonoBehaviour
     {
 
 
+
         if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + 0.1f)
         {
             lastShot = Time.time;
@@ -85,7 +86,9 @@ public class EnemyMovementScript : MonoBehaviour
 
 
         
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
+
 
         if (isGrounded && ySpeed < 0)
         {
@@ -111,7 +114,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
-        if (diffTargetPos.magnitude > 0.2f)
+        if (diffTargetPos.magnitude > 0.05f)
         {
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
         }
@@ -163,7 +166,7 @@ public class EnemyMovementScript : MonoBehaviour
 
     public Vector2Int NearestCover()
     {
-        int playerY = Mathf.RoundToInt(player.transform.position.y);
+        int playerY = Mathf.RoundToInt(player.transform.position.y - 1.5f);
         List<Vector2Int> possibleTiles = new();
         for (int i = playerY + 1; i <= mapMaxHeight; i++)
         {

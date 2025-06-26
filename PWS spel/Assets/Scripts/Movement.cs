@@ -8,10 +8,10 @@ public class Movement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float speed = 2f;
+    public float speed = 4f;
     public float gravity = -10f;
     public float jumpHeight = 1f;
-    bool canMove = true;
+    public bool canMove = true;
 
     float ySpeed;
     public Vector3 velocity;
@@ -28,7 +28,8 @@ public class Movement : MonoBehaviour
     void Update()
     {
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
+
         if (isGrounded && ySpeed < 0)
         {
             ySpeed = -2;
@@ -70,17 +71,17 @@ public class Movement : MonoBehaviour
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
         if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing) speed = 8f;
-        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing) speed = 2f;
+        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing) speed = 4f;
 
-     //    if (Input.GetKey(KeyCode.LeftControl); crouch
-    //    if (!Input.GetKey(KeyCode.X); crawl
+        //if (Input.GetKey(KeyCode.LeftControl); crouch
+        //if (!Input.GetKey(KeyCode.X); crawl
 
         if (transform.position.y < -20)
         {
             transform.position = new Vector3(0, 5, 0);
         }
 
-        velocity = (transform.position - lastPos)*Time.deltaTime;
+        velocity = (transform.position - lastPos) * Time.deltaTime;
         lastPos = transform.position;
     }
 }
