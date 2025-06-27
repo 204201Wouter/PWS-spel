@@ -34,11 +34,9 @@ public class EnemyMovementScript : MonoBehaviour
     float lastShot;
     public float reloadStart;
 
-
+    float optimalDistance = 5f;
 
     List<Vector2Int> path = new();
-
-    float optimalDistance = 8;
 
     void Start()
     {
@@ -101,7 +99,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            path = AStar(ConvertPos(transform.position), NearestCover());
+            path = NearestCover();
             if (path.Count > 0)
             {
                 targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
@@ -144,12 +142,11 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 dir = (player.transform.position - transform.position).normalized;
         if (Vector3.Angle(dir, transform.forward) < 40f)
         {
-          //  Debug.DrawRay(transform.position, dir * 100, Color.red, 2f);
+            //Debug.DrawRay(transform.position, dir * 100, Color.red, 2f);
 
             return !Physics.Raycast(transform.position, dir, (player.transform.position - transform.position).magnitude, groundMask);
         }
-        else { return false; }
-        
+        else return false;
     }
 
 
@@ -164,34 +161,55 @@ public class EnemyMovementScript : MonoBehaviour
         return tile + new Vector2Int(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
     }
 
-    public Vector2Int NearestCover()
+    public List<Vector2Int> NearestCover()
     {
         int playerY = Mathf.RoundToInt(player.transform.position.y - 1.5f);
+
         List<Vector2Int> possibleTiles = new();
         for (int i = playerY + 1; i <= mapMaxHeight; i++)
         {
             possibleTiles.AddRange(inverseMap[i]);
         }
 
+        Vector2Int convertedPos = ConvertPos(transform.position);
+
         Vector2Int bestTile = Vector2Int.zero;
+        List<Vector2Int> bestPath = new();
         float bestScore = float.MaxValue;
+
         foreach (Vector2Int tile in possibleTiles)
         {
-            if (map[TileBehind(tile)] <= playerY)
+            Vector2Int tileBehind = TileBehind(tile);
+            if (map.ContainsKey(tileBehind) && map[tileBehind] <= playerY)
             {
+                float distance = (convertedPos - tileBehind).magnitude;
+                List<Vector2Int> thisPath = new();
+
                 float score = 0;
-                score += (ConvertPos(transform.position) - tile).magnitude;
-                score += Mathf.Abs(optimalDistance - (ConvertPos(player.transform.position) - tile).magnitude);
+                if (distance < 6f)
+                {
+                    thisPath = AStar(convertedPos, tileBehind);
+                    score += thisPath.Count;
+                }
+                else score += distance * 1.3f;
+
+                score += Mathf.Abs(optimalDistance - (ConvertPos(player.transform.position) - tileBehind).magnitude) * 1.5f;
 
                 if (score < bestScore)
                 {
                     bestScore = score;
-                    bestTile = tile;
+                    bestTile = tileBehind;
+                    bestPath = thisPath;
                 }
             }
         }
 
-        return TileBehind(bestTile);
+        if (bestPath.Count == 0)
+        {
+            bestPath = AStar(convertedPos, bestTile);
+        }
+
+        return bestPath;
     }
 
     List<Vector2Int> AStar(Vector2Int pos, Vector2Int target)
@@ -252,6 +270,7 @@ public class EnemyMovementScript : MonoBehaviour
         }
 
         print("no path found");
+        print(target);
         return new();
     }
 
