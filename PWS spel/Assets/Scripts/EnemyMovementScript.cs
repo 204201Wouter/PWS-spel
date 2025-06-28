@@ -30,7 +30,8 @@ public class EnemyMovementScript : MonoBehaviour
     Vector2Int mapTopRight;
     Vector2Int mapBottomLeft;
 
-    public int ammo = 30;
+
+    public int ammo;
     float lastShot;
     public float reloadStart;
 
@@ -40,6 +41,9 @@ public class EnemyMovementScript : MonoBehaviour
 
     void Start()
     {
+        ammo = GetComponentInChildren<MagazineScript>().cap;
+
+
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
@@ -64,7 +68,7 @@ public class EnemyMovementScript : MonoBehaviour
 
 
 
-        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + 0.1f)
+        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
         {
             lastShot = Time.time;
            // Debug.Log(HasLineOfSight());
@@ -76,10 +80,10 @@ public class EnemyMovementScript : MonoBehaviour
         {
             reloadStart = Time.time; 
         }
-        if (Time.time > reloadStart + 3f && reloadStart != -1)
+        if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
         {
             reloadStart = -1;
-            ammo = 30;
+            ammo = GetComponentInChildren<MagazineScript>().cap;
         }
 
 
