@@ -2520,8 +2520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 150, y: 0}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860934083
 MonoBehaviour:
@@ -2543,7 +2543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7c3d9339114cb444c9ca989ecf46d463, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2653,7 +2653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &895657774
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3854,6 +3854,7 @@ GameObject:
   - component: {fileID: 1389374217}
   - component: {fileID: 1389374216}
   - component: {fileID: 1389374222}
+  - component: {fileID: 1389374223}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -4015,6 +4016,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   healthText: {fileID: 1665808401}
+--- !u!114 &1389374223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389374215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb095200aaa06ad4c8ac0a8c16208686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gui: {fileID: 895657773}
+  primaryButton: {fileID: 413279692}
+  secundaryButton: {fileID: 1596064050}
+  weapon: {fileID: 860934083}
+  primaryPNG: {fileID: 21300000, guid: 7c3d9339114cb444c9ca989ecf46d463, type: 3}
+  secundaryPNG: {fileID: 21300000, guid: 10c752dba0ceb59438ac173f7c850ed1, type: 3}
 --- !u!1 &1396948236
 GameObject:
   m_ObjectHideFlags: 0
