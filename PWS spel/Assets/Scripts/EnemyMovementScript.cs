@@ -192,9 +192,21 @@ public class EnemyMovementScript : MonoBehaviour
 
             Vector3 dir = transform.position - player.transform.position;
 
-            Vector3 coverPos = dir.normalized * 1.5f + child.position;
-            Debug.DrawRay(coverPos, Vector3.up, Color.red, 10f);
+            RaycastHit hit;
+            Physics.Raycast(child.position, dir.normalized, out hit, 100f, groundMask);
+
+            Physics.Raycast(hit.point, -dir.normalized, out hit, 100f, groundMask);
+
+
+
+            Vector3 coverPos = hit.point + hit.normal * 0.5f;
+
+     
+         //   Debug.DrawRay(coverPos, Vector3.up * 100, Color.red, 10f);
             Debug.DrawRay(child.position, Vector3.up * 100, Color.blue, 10f);
+           // Debug.DrawRay(child.position, hit.normal*100f, Color.green, 10f);
+            Debug.DrawRay(hit.point, Vector3.up * 100, Color.green, 10f);
+            Debug.DrawLine(child.position, coverPos, Color.blue, 10f);
             if (!Physics.CheckSphere(coverPos, 0.4f, groundMask))
             {
 
