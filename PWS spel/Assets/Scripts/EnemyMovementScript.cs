@@ -114,6 +114,29 @@ public class EnemyMovementScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            path = AStar(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                Debug.DrawLine(start, end, Color.green, 100f);
+            }
+
+
+            if (path.Count > 0)
+            {
+                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+            }
+            else
+            {
+                targetPos = transform.position;
+            }
+        }
+
+
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
@@ -254,7 +277,8 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 start3 = new Vector3(start.x, 0.5f, start.y);
         Vector3 end3 = new Vector3(end.x, 0.5f, end.y);
 
-        return Physics.SphereCast(end3, 0.4f, (start3 - end3).normalized, out _, (start3 - end3).magnitude, groundMask);
+        return Physics.SphereCast(start3, 0.4f, (end3 - start3).normalized, out _, (end3 - start3).magnitude, groundMask);
+
     }
 
 
