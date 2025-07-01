@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem.HID;
+using static UnityEngine.GraphicsBuffer;
+using UnityEditor.Experimental.GraphView;
+using static UnityEditor.PlayerSettings;
+using Unity.Properties;
+using NUnit;
 
 public class EnemyMovementScript : MonoBehaviour
 {
@@ -21,23 +27,20 @@ public class EnemyMovementScript : MonoBehaviour
 
     Vector3 targetPos = Vector3.zero;
 
-    List<Vector2Int> sides = new();
-    List<Vector2Int> corners = new();
 
-    public Dictionary<Vector2Int, int> map = new();
-    public Dictionary<int, List<Vector2Int>> inverseMap = new();
-    public int mapMaxHeight;
-    Vector2Int mapTopRight;
-    Vector2Int mapBottomLeft;
+
+    public GameObject map;
+    public GameObject nodes;
+    
 
 
     public int ammo;
     float lastShot;
     public float reloadStart;
 
-    float optimalDistance = 5f;
 
-    List<Vector2Int> path = new();
+
+    List<Vector2> path = new();
 
     void Start()
     {
@@ -48,19 +51,7 @@ public class EnemyMovementScript : MonoBehaviour
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
 
-        sides.Add(Vector2Int.up);
-        sides.Add(Vector2Int.right);
-        sides.Add(Vector2Int.down);
-        sides.Add(Vector2Int.left);
 
-        corners.Add(new Vector2Int(1, 1));
-        corners.Add(new Vector2Int(-1, 1));
-        corners.Add(new Vector2Int(1, -1));
-        corners.Add(new Vector2Int(-1, -1));
-
-        mapTopRight = enemyHandler.mapTopRight;
-        mapBottomLeft = enemyHandler.mapBottomLeft;
-        map = enemyHandler.map;
     }
 
     void Update()
@@ -104,6 +95,15 @@ public class EnemyMovementScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             path = NearestCover();
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                Debug.DrawLine(start, end, Color.green, 100f);
+            }
+
+
             if (path.Count > 0)
             {
                 targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
@@ -155,166 +155,170 @@ public class EnemyMovementScript : MonoBehaviour
 
 
 
-    
 
-    public Vector2Int TileBehind(Vector2Int tile)
+
+    List<Vector2> NodesReachable(Vector2 pos)
     {
-        Vector2Int playerPos = ConvertPos(player.transform.position);
-        Vector2 direction = tile - playerPos;
-        direction.Normalize();
-        return tile + new Vector2Int(Mathf.RoundToInt(direction.x), Mathf.RoundToInt(direction.y));
-    }
 
-    public List<Vector2Int> NearestCover()
-    {
-        int playerY = Mathf.RoundToInt(player.transform.position.y - 1.5f);
+        Transform[] children = nodes.GetComponentsInChildren<Transform>();
+        List<Vector2> ReachableNodes = new();
 
-        List<Vector2Int> possibleTiles = new();
-        for (int i = playerY + 1; i <= mapMaxHeight; i++)
+
+        foreach (Transform child in children)
         {
-            possibleTiles.AddRange(inverseMap[i]);
-        }
+            Vector3 dir = new Vector3(pos.x, child.position.y,pos.y) - child.position;
 
-        Vector2Int convertedPos = ConvertPos(transform.position);
 
-        Vector2Int bestTile = Vector2Int.zero;
-        List<Vector2Int> bestPath = new();
-        float bestScore = float.MaxValue;
-
-        foreach (Vector2Int tile in possibleTiles)
-        {
-            Vector2Int tileBehind = TileBehind(tile);
-            if (map.ContainsKey(tileBehind) && map[tileBehind] <= playerY)
+            if (!Physics.SphereCast(child.position, 0.4f, dir.normalized, out _, dir.magnitude, groundMask))
+          //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
-                float distance = (convertedPos - tileBehind).magnitude;
-                List<Vector2Int> thisPath = new();
-
-                float score = 0;
-                if (distance < 6f)
-                {
-                    thisPath = AStar(convertedPos, tileBehind);
-                    score += thisPath.Count;
-                }
-                else score += distance * 1.3f;
-
-                score += Mathf.Abs(optimalDistance - (ConvertPos(player.transform.position) - tileBehind).magnitude) * 1.5f;
-
-                if (score < bestScore)
-                {
-                    bestScore = score;
-                    bestTile = tileBehind;
-                    bestPath = thisPath;
-                }
+                ReachableNodes.Add(new Vector2(child.position.x, child.position.z));
             }
         }
 
-        if (bestPath.Count == 0)
-        {
-            bestPath = AStar(convertedPos, bestTile);
-        }
-
-        return bestPath;
+        return ReachableNodes;
     }
 
-    List<Vector2Int> AStar(Vector2Int pos, Vector2Int target)
+
+    List<Vector2> NearestCover()
     {
-        List<Vector2Int> openSet = new();
-        List<Vector2Int> closedSet = new();
+        Transform[] children = map.GetComponentsInChildren<Transform>();
+
+        List<Vector2> NearestCover = new();
+        float NearestCoverDistance = float.PositiveInfinity;
+
+        foreach (Transform child in children)
+        {
+
+            Vector3 dir = transform.position - player.transform.position;
+
+            Vector3 coverPos = dir.normalized * 1.5f + child.position;
+            Debug.DrawRay(coverPos, Vector3.up, Color.red, 10f);
+            Debug.DrawRay(child.position, Vector3.up * 100, Color.blue, 10f);
+            if (!Physics.CheckSphere(coverPos, 0.4f, groundMask))
+            {
+
+                Vector2 coverPos2 = new Vector2(coverPos.x, coverPos.z);
+
+                List<Vector2> path = AStar(new Vector2(transform.position.x, transform.position.z), coverPos2);
+
+
+                if (path.Count > 0)
+                {
+                    float distance = 0;
+
+
+                    for (int i = 0; i < path.Count - 1; i++)
+                    {
+
+                        distance += HCost(path[i], path[i + 1]);
+
+                    }
+
+                    if (distance < NearestCoverDistance)
+                    {
+                        NearestCoverDistance = distance;
+                        NearestCover = path;
+
+
+                    }
+                }
+            }
+            
+
+        }
+
+        return NearestCover;
+
+
+    }
+
+
+
+
+
+    bool Cast(Vector2 start, Vector2 end)
+    {
+        Vector3 start3 = new Vector3(start.x, 0.5f, start.y);
+        Vector3 end3 = new Vector3(end.x, 0.5f, end.y);
+
+        return Physics.SphereCast(end3, 0.4f, (start3 - end3).normalized, out _, (start3 - end3).magnitude, groundMask);
+    }
+
+
+
+    List<Vector2> AStar(Vector2 pos, Vector2 target)
+    {
+        List<Vector2> openSet = new();
+        List<Vector2> closedSet = new();
         openSet.Add(pos);
 
-        Dictionary<Vector2Int, int> fScores = new();
-        Dictionary<Vector2Int, int> gScores = new();
+        Dictionary<Vector2, float> fScores = new();
+        Dictionary<Vector2, float> gScores = new();
         gScores.Add(pos, 0);
         fScores.Add(pos, HCost(pos, target));
 
-        Dictionary<Vector2Int, Vector2Int> cameFrom = new();
+        Dictionary<Vector2, Vector2> cameFrom = new();
 
         while (openSet.Count > 0)
         {
-            Vector2Int bestTile = Vector2Int.zero;
-            int bestScore = int.MaxValue;
-            foreach (Vector2Int tile in openSet)
+            Vector2 bestNode = Vector2.zero;
+            float bestScore = float.MaxValue;
+            foreach (Vector2 node in openSet)
             {
-                if (fScores[tile] < bestScore)
+                if (fScores[node] < bestScore)
                 {
-                    bestTile = tile;
-                    bestScore = fScores[tile];
+                    bestNode = node;
+                    bestScore = fScores[node];
                 }
             }
 
-            if (bestTile == target)
+            if (!Cast(bestNode, target))
             {
-                List<Vector2Int> path = new();
+                List<Vector2> path = new();
 
-                Vector2Int current = bestTile;
+                Vector2 current = bestNode;
+                path.Add(target);
                 path.Add(current);
                 while (cameFrom.ContainsKey(current))
                 {
                     current = cameFrom[current];
                     path.Add(current);
                 }
+                
 
                 return path;
             }
 
-            openSet.Remove(bestTile);
-            closedSet.Add(bestTile);
-            List<Vector2Int> neighbors = ValidNeighbors(bestTile);
-            foreach (Vector2Int neighbor in neighbors)
+            openSet.Remove(bestNode);
+            closedSet.Add(bestNode);
+            List<Vector2> neighbors = NodesReachable(bestNode);
+            foreach (Vector2 neighbor in neighbors)
             {
                 if (!openSet.Contains(neighbor) && !closedSet.Contains(neighbor))
                 {
                     openSet.Add(neighbor);
-                    int distance = HCost(bestTile, neighbor);
-                    gScores.Add(neighbor, gScores[bestTile] + distance);
-                    fScores.Add(neighbor, gScores[bestTile] + distance + HCost(neighbor, target));
-                    cameFrom.Add(neighbor, bestTile);
+                    float distance = HCost(bestNode, neighbor);
+                    gScores.Add(neighbor, gScores[bestNode] + distance);
+                    fScores.Add(neighbor, gScores[bestNode] + distance + HCost(neighbor, target));
+                    cameFrom.Add(neighbor, bestNode);
                 }
             }
         }
 
-        print("no path found");
-        print(target);
+       // print("no path found");
+       // print(target);
         return new();
     }
 
-    int HCost(Vector2Int pos, Vector2Int target)
+    float HCost(Vector2 pos, Vector2 target)
     {
-        Vector2Int diff = new Vector2Int(Mathf.Abs(pos.x - target.x), Mathf.Abs(pos.x - target.x));
+        return Vector2.Distance(pos, target);
 
-        if (diff.x > diff.y) return (diff.x - diff.y) * 10 + diff.y * 14;
-        else return (diff.y - diff.x) * 10 + diff.x * 14;
+
     }
 
-    List<Vector2Int> ValidNeighbors(Vector2Int tile)
-    {
-        List<Vector2Int> neighbors = new();
 
-        foreach (Vector2Int side in sides)
-        {
-            if (IsValid(tile, tile + side)) neighbors.Add(tile + side);
-        }
-
-        foreach (Vector2Int corner in corners)
-        {
-            if (IsValid(tile, tile + corner) && map[tile + new Vector2Int(corner.x, 0)] - map[tile] <= 1 && map[tile + new Vector2Int(0, corner.y)] - map[tile] <= 1) neighbors.Add(tile + corner);
-        }
-
-        return neighbors;
-    }
-
-    bool IsInMap(Vector2Int pos)
-    {
-        return pos.x <= mapTopRight.x && pos.y <= mapTopRight.y && pos.x >= mapBottomLeft.x && pos.y >= mapBottomLeft.y;
-    }
-
-    bool IsValid(Vector2Int pos, Vector2Int tile)
-    {
-        return IsInMap(tile) && map[tile] - map[pos] <= 1;
-    }
-
-    Vector2Int ConvertPos(Vector3 pos)
-    {
-        return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.z));
-    }
 }
+
+

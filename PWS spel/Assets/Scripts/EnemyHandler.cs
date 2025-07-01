@@ -39,9 +39,9 @@ public class EnemyHandler : MonoBehaviour
 
         foreach (EnemyMovementScript enemy in enemies)
         {
-            enemy.map = map;
-            enemy.inverseMap = inverseMap;
-            enemy.mapMaxHeight = mapMaxHeight;
+         //   enemy.map = map;
+          //  enemy.inverseMap = inverseMap;
+         //   enemy.mapMaxHeight = mapMaxHeight;
         }
     }
 }
