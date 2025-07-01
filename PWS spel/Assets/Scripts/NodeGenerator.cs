@@ -13,9 +13,10 @@ public class NodeGenerator : MonoBehaviour
     {
         List<Vector3> nodes = new List<Vector3>();
         Transform[] children = GetComponentsInChildren<Transform>();
-        // Debug.Log(children);
+        Debug.Log(children.Length);
         foreach (Transform child in children)
         {
+            Debug.Log(child.position);
             List<Vector3> item = new List<Vector3>();
             foreach (Transform child2 in children)
             {

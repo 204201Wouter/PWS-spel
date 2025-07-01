@@ -187,8 +187,9 @@ public class EnemyMovementScript : MonoBehaviour
         List<Vector2> ReachableNodes = new();
 
 
-        foreach (Transform child in children)
+        for (int i = 1; i < children.Length; i++)
         {
+            Transform child = children[i];
             Vector3 dir = new Vector3(pos.x, child.position.y,pos.y) - child.position;
 
 
@@ -210,8 +211,9 @@ public class EnemyMovementScript : MonoBehaviour
         List<Vector2> NearestCover = new();
         float NearestCoverDistance = float.PositiveInfinity;
 
-        foreach (Transform child in children)
+        for (int e = 1; e < children.Length; e++)
         {
+            Transform child = children[e];
 
             Vector3 dir = transform.position - player.transform.position;
 
