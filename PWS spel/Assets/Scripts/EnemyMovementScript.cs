@@ -29,8 +29,12 @@ public class EnemyMovementScript : MonoBehaviour
 
 
 
+
     public GameObject map;
     public GameObject nodes;
+    public GameObject cover;
+
+    public string mode;
     
 
 
@@ -59,22 +63,25 @@ public class EnemyMovementScript : MonoBehaviour
 
 
 
-        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
+        if (HasLineOfSight())
         {
-            lastShot = Time.time;
-           // Debug.Log(HasLineOfSight());
-            player.GetComponent<PlayerHealth>().Hit(1);
-            ammo -= 1;
-        }
+            if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
+            {
+                lastShot = Time.time;
+                // Debug.Log(HasLineOfSight());
+                player.GetComponent<PlayerHealth>().Hit(1);
+                ammo -= 1;
+            }
 
-        if (ammo == 0 && reloadStart == -1) 
-        {
-            reloadStart = Time.time; 
-        }
-        if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
-        {
-            reloadStart = -1;
-            ammo = GetComponentInChildren<MagazineScript>().cap;
+            if (ammo == 0 && reloadStart == -1)
+            {
+                reloadStart = Time.time;
+            }
+            if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
+            {
+                reloadStart = -1;
+                ammo = GetComponentInChildren<MagazineScript>().cap;
+            }
         }
 
 
@@ -94,7 +101,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            path = NearestCover();
+            path = NearestCover((player.transform.position-transform.position).magnitude);
 
             for (int i = 0; i < path.Count - 1; i++)
             {
@@ -141,7 +148,11 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
         {
+            Quaternion targetRotation = Quaternion.LookRotation(diffTargetPos);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRotation,360f * Time.deltaTime);
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
+            
         }
         else if (path.Count > 1)
         {
@@ -204,9 +215,9 @@ public class EnemyMovementScript : MonoBehaviour
     }
 
 
-    List<Vector2> NearestCover()
+    List<Vector2> NearestCover(float distanceFromPlayer)
     {
-        Transform[] children = map.GetComponentsInChildren<Transform>();
+        Transform[] children = cover.GetComponentsInChildren<Transform>();
 
         List<Vector2> NearestCover = new();
         float NearestCoverDistance = float.PositiveInfinity;
@@ -215,27 +226,11 @@ public class EnemyMovementScript : MonoBehaviour
         {
             Transform child = children[e];
 
-            Vector3 dir = transform.position - player.transform.position;
-
-            RaycastHit hit;
-            Physics.Raycast(child.position, dir.normalized, out hit, 100f, groundMask);
-
-            Physics.Raycast(hit.point, -dir.normalized, out hit, 100f, groundMask);
-
-
-
-            Vector3 coverPos = hit.point + hit.normal * 0.5f;
-
-     
-         //   Debug.DrawRay(coverPos, Vector3.up * 100, Color.red, 10f);
-            Debug.DrawRay(child.position, Vector3.up * 100, Color.blue, 10f);
-           // Debug.DrawRay(child.position, hit.normal*100f, Color.green, 10f);
-            Debug.DrawRay(hit.point, Vector3.up * 100, Color.green, 10f);
-            Debug.DrawLine(child.position, coverPos, Color.blue, 10f);
-            if (!Physics.CheckSphere(coverPos, 0.4f, groundMask))
+    
+            if (Physics.Raycast(player.transform.position, (child.position-player.transform.position).normalized, (child.position - player.transform.position).magnitude, groundMask))
             {
 
-                Vector2 coverPos2 = new Vector2(coverPos.x, coverPos.z);
+                Vector2 coverPos2 = new Vector2(child.position.x, child.position.z);
 
                 List<Vector2> path = AStar(new Vector2(transform.position.x, transform.position.z), coverPos2);
 
@@ -252,7 +247,7 @@ public class EnemyMovementScript : MonoBehaviour
 
                     }
 
-                    if (distance < NearestCoverDistance)
+                    if (Math.Abs(distance - distanceFromPlayer) < NearestCoverDistance)
                     {
                         NearestCoverDistance = distance;
                         NearestCover = path;

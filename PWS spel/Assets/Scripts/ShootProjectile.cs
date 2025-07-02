@@ -27,6 +27,9 @@ public class ShootProjectile : MonoBehaviour
     private float lastShot;
     private float reloadStart;
 
+    public int cap;
+    public float zoom;
+
 
     void Update()
     {
@@ -71,10 +74,10 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetMouseButton(1) && reloadStart == -1)
         {   
-            if (GetComponent<Camera>().fieldOfView > 60 * 1 / 2f) 
+            if (GetComponent<Camera>().fieldOfView > 60 * 1 / zoom) 
             {
-                GetComponent<Camera>().fieldOfView -= 1;
-                Mouselook.mouseSensitivity -= 2;
+                GetComponent<Camera>().fieldOfView -= 2;
+                Mouselook.mouseSensitivity -= 4;
             }
                 
             sight.SetActive(true);
@@ -83,8 +86,8 @@ public class ShootProjectile : MonoBehaviour
         {
             if (GetComponent<Camera>().fieldOfView < 60)
             {
-                GetComponent<Camera>().fieldOfView += 1;
-                Mouselook.mouseSensitivity += 2;
+                GetComponent<Camera>().fieldOfView += 2;
+                Mouselook.mouseSensitivity += 4;
             }
 
             sight.SetActive(false);
@@ -115,7 +118,7 @@ public class ShootProjectile : MonoBehaviour
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
         {
-            ammo = 30;
+            ammo = cap;
             AmmoText.text = "Ammo: " + ammo.ToString();
             reloadStart = -1;
         }
