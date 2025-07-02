@@ -6,11 +6,9 @@ public class ProjectileScript : MonoBehaviour
 {
     public LayerMask hitable;
     public Vector3 velocity;
-    public int damage = 1;
+    public float damage;
 
     public float dragFactor;
-
-
 
 
     void FixedUpdate()

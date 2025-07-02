@@ -12,9 +12,12 @@ public class ShootProjectile : MonoBehaviour
     public Transform grenadeParent;
 
     public GameObject player;
+    public WeaponScript weaponScript;
 
     public float speed;
     public int ammo;
+    public string ammoType;
+    public float damage;
     public TextMeshProUGUI AmmoText;
     public GameObject sight;
     public float shotCooldown;
@@ -39,6 +42,7 @@ public class ShootProjectile : MonoBehaviour
             GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
             projectile.GetComponent<ProjectileScript>().enabled = true;
             projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity;
+            projectile.GetComponent<ProjectileScript>().damage = damage;
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
@@ -51,7 +55,6 @@ public class ShootProjectile : MonoBehaviour
             if (recoilYSaved < 200)
             {
                 recoilY = Random.Range(-0f, 50f);
-      
             }                     
             
             recoilYSaved += recoilY;
@@ -61,7 +64,7 @@ public class ShootProjectile : MonoBehaviour
 
             reloadStart = -1;
 
-            AmmoText.text = "Ammo: " + ammo.ToString();
+            AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
         }
         else
         {
@@ -103,7 +106,7 @@ public class ShootProjectile : MonoBehaviour
             else 
             { 
                 reloadStart = -1;
-                AmmoText.text = "Ammo: " + ammo.ToString();
+                AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
             }
         }
 
@@ -118,9 +121,29 @@ public class ShootProjectile : MonoBehaviour
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
         {
-            ammo = cap;
-            AmmoText.text = "Ammo: " + ammo.ToString();
+            if (weaponScript.ammoAmounts[ammoType] >= cap)
+            {
+                weaponScript.ammoAmounts[ammoType] -= cap - ammo;
+                ammo = cap;
+            }
+            else
+            {
+                ammo = weaponScript.ammoAmounts[ammoType];
+                weaponScript.ammoAmounts[ammoType] = 0;
+            }
+            AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
             reloadStart = -1;
         }
+    }
+
+    // roep deze functie aan als attachment word veranderd
+    public void ChangeAttachment()
+    {
+        shotCooldown = weaponScript.currentMagazine.shotCooldown;
+        ammoType = weaponScript.currentMagazine.ammoType.name;
+        cap = weaponScript.currentMagazine.capacity;
+        reloadTime = weaponScript.currentMagazine.reloadTime;
+        damage = weaponScript.currentMagazine.ammoType.damage;
+        // andere modifiers nog toevoegen
     }
 }

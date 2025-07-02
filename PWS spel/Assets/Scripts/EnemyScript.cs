@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class EnemyScript : MonoBehaviour
 {
-    public int health = 1000;
+    public float health = 1000;
 
     public GameObject player;
     public GameObject gun;
 
-    public void Hit(int damage)
+    public void Hit(float damage)
     {
         health -= damage;
 
