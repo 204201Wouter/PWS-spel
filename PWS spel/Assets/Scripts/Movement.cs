@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
 
     public LayerMask groundMask;
     public Transform groundCheck;
-    bool isGrounded;
+    public bool isGrounded;
 
 
 
@@ -64,6 +64,7 @@ public class Movement : MonoBehaviour
                 }
                
             }
+
         }
 
         ySpeed += gravity * Time.deltaTime;
@@ -81,7 +82,7 @@ public class Movement : MonoBehaviour
             transform.position = new Vector3(0, 5, 0);
         }
 
-        velocity = (transform.position - lastPos) * Time.deltaTime;
+        velocity = (transform.position - lastPos) / Time.deltaTime;
         lastPos = transform.position;
     }
 }

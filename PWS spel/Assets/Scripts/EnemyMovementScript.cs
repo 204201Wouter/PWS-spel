@@ -10,6 +10,9 @@ using static UnityEditor.PlayerSettings;
 using Unity.Properties;
 using NUnit;
 
+using UnityEngine.InputSystem.EnhancedTouch;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+
 public class EnemyMovementScript : MonoBehaviour
 {
     CharacterController controller;
@@ -35,31 +38,93 @@ public class EnemyMovementScript : MonoBehaviour
     public GameObject cover;
 
     public string mode;
+
     
 
 
     public int ammo;
     float lastShot;
     public float reloadStart;
+    private bool lastisGrounded;
 
 
 
-    List<Vector2> path = new();
+    List <Vector2> path = new();
 
     void Start()
     {
+
+        
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
 
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
+        targetPos = transform.position;
+
+        //player.GetComponent<Movement>().velocity.magnitude;
+
 
 
     }
 
     void Update()
     {
+
+        Movement playerMovement = player.GetComponent<Movement>();
+
+        
+
+        float soundRadius = 0;
+
+        if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
+        {
+            soundRadius = 50;
+        }
+        else if (!lastisGrounded && playerMovement.isGrounded)
+        {
+            soundRadius = 40;
+        }
+        else if (playerMovement.velocity.magnitude >= 4 && playerMovement.isGrounded)
+        {
+            soundRadius = 20;
+        }
+        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed)
+        {
+            soundRadius = 0;
+        }
+
+        // shoot
+        // soundRadius = 100;
+
+        lastisGrounded = playerMovement.isGrounded;
+
+      //  soundRadius = 0;
+
+
+        if ((player.transform.position - transform.position).magnitude < soundRadius)
+        {
+            path = AStar(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                Debug.DrawLine(start, end, Color.green, 100f);
+            }
+
+
+            if (path.Count > 0)
+            {
+                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+            }
+            else
+            {
+                targetPos = transform.position;
+            }
+        }
+
 
 
 
@@ -82,6 +147,7 @@ public class EnemyMovementScript : MonoBehaviour
                 reloadStart = -1;
                 ammo = GetComponentInChildren<MagazineScript>().cap;
             }
+
         }
 
 
@@ -177,14 +243,43 @@ public class EnemyMovementScript : MonoBehaviour
 
     public bool HasLineOfSight()
     {
-        Vector3 dir = (player.transform.position - transform.position).normalized;
-        if (Vector3.Angle(dir, transform.forward) < 40f)
+        Vector3 dir = player.transform.position - transform.position;
+        if (Vector3.Angle(dir.normalized, transform.forward) < 40f)
         {
             //Debug.DrawRay(transform.position, dir * 100, Color.red, 2f);
 
-            return !Physics.Raycast(transform.position, dir, (player.transform.position - transform.position).magnitude, groundMask);
+            return Person2PersonCast(transform.position+Vector3.up*0.5f, player.transform.position);
         }
         else return false;
+    }
+
+    public bool Person2PersonCast(Vector3 pos, Vector3 pos2, float height = 1f)
+    {
+        Vector3 rpos;
+        Vector3 dir;
+        Vector3 left = -Vector3.Cross(pos2 - pos, Vector3.up).normalized * 0.4f;
+        Vector3 right = Vector3.Cross(pos2 - pos, Vector3.up).normalized * 0.4f;
+
+        rpos = pos2 + Vector3.up* height + left;
+        dir = rpos - pos;
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        Debug.DrawRay(pos, dir, Color.blue);
+        rpos = pos2 + Vector3.down * height + left;
+        dir = rpos - pos;
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        Debug.DrawRay(pos, dir, Color.blue);
+        rpos = pos2 + Vector3.up * height + right;
+        dir = rpos - pos;
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        Debug.DrawRay(pos, dir, Color.blue);
+        rpos = pos2 + Vector3.down * height + right;
+        dir = rpos - pos;
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) {return true; }
+        Debug.DrawRay(pos, dir, Color.blue);
+
+        return false;
+        // return !Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask);
+
     }
 
 
@@ -215,9 +310,9 @@ public class EnemyMovementScript : MonoBehaviour
     }
 
 
-    List<Vector2> NearestCover(float distanceFromPlayer)
+    List<Vector2> NearestCover(float distanceFromPlayer = 0f)
     {
-        Transform[] children = cover.GetComponentsInChildren<Transform>();
+        Transform[] children = nodes.GetComponentsInChildren<Transform>();
 
         List<Vector2> NearestCover = new();
         float NearestCoverDistance = float.PositiveInfinity;
@@ -226,26 +321,54 @@ public class EnemyMovementScript : MonoBehaviour
         {
             Transform child = children[e];
 
-    
-            if (Physics.Raycast(player.transform.position, (child.position-player.transform.position).normalized, (child.position - player.transform.position).magnitude, groundMask))
+            List<Vector2> childPosList = new();
+            childPosList.Add(new Vector2(child.position.x-2f, child.position.z));
+            childPosList.Add(new Vector2(child.position.x + 2f, child.position.z));
+            childPosList.Add(new Vector2(child.position.x, child.position.z - 2f));
+            childPosList.Add(new Vector2(child.position.x, child.position.z + 2f));
+
+
+            foreach (Vector2 childPos in childPosList)
             {
-
-                Vector2 coverPos2 = new Vector2(child.position.x, child.position.z);
-
-                List<Vector2> path = AStar(new Vector2(transform.position.x, transform.position.z), coverPos2);
-
-
-                if (path.Count > 0)
+                Debug.DrawLine(player.transform.position + Vector3.up * 0.5f, new Vector3(childPos.x, 1f, childPos.y), Color.red,100f);
+                Debug.DrawRay(new Vector3(childPos.x, 1f, childPos.y), Vector3.up*100f, Color.green, 100f);
+                if (!Physics.CheckSphere(new Vector3(childPos.x, 1f, childPos.y), 0.4f, groundMask) &&
+                    !Person2PersonCast(player.transform.position+Vector3.up*0.5f, new Vector3(childPos.x, 1f, childPos.y), 0.5f) &&
+                   // Physics.Raycast(player.transform.position, (new Vector3(childPos.x, 0.5f, childPos.y) - player.transform.position).normalized, (new Vector3(childPos.x, 0.5f, childPos.y) - player.transform.position).magnitude, groundMask) &&
+                    !Cast(transform.position, childPos))
                 {
-                    float distance = 0;
+
+                    /*
+                    
+
+                   // Vector2 coverPos = new Vector2(child.position.x, child.position.z);
+
+                    List<Vector2> path = AStar(new Vector2(transform.position.x, transform.position.z), childPos);
 
 
-                    for (int i = 0; i < path.Count - 1; i++)
+                    if (path.Count > 0)
                     {
+                        float distance = 0;
 
-                        distance += HCost(path[i], path[i + 1]);
 
-                    }
+                        for (int i = 0; i < path.Count - 1; i++)
+                        {
+
+                            distance += HCost(path[i], path[i + 1]);
+
+                        }
+
+                        if (Math.Abs(distance - distanceFromPlayer) < NearestCoverDistance)
+                        {
+                            NearestCoverDistance = distance;
+                            NearestCover = path;
+
+
+                        }
+                    */
+                    List<Vector2> path = new();
+                    path = AStar(new Vector2(transform.position.x, transform.position.z), childPos);
+                    float distance = (childPos - new Vector2(transform.position.x, transform.position.z)).magnitude;
 
                     if (Math.Abs(distance - distanceFromPlayer) < NearestCoverDistance)
                     {
@@ -254,11 +377,15 @@ public class EnemyMovementScript : MonoBehaviour
 
 
                     }
+                
                 }
             }
             
 
         }
+
+      //  foreach (Vector2 pos in NearestCover)
+      //  Debug.Log(pos);
 
         return NearestCover;
 
