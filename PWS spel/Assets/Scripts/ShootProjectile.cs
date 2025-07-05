@@ -19,7 +19,7 @@ public class ShootProjectile : MonoBehaviour
     public string ammoType;
     public float damage;
     public TextMeshProUGUI AmmoText;
-    public GameObject sight;
+    public Animator animator;
     public float shotCooldown;
     public float reloadTime;
 
@@ -82,8 +82,8 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView -= 2;
                 Mouselook.mouseSensitivity -= 4;
             }
-                
-            sight.SetActive(true);
+
+            animator.SetTrigger("Aim");
         }
         else
         {
@@ -93,7 +93,7 @@ public class ShootProjectile : MonoBehaviour
                 Mouselook.mouseSensitivity += 4;
             }
 
-            sight.SetActive(false);
+           // animator.SetTrigger("Fire");
         }
             
         if (Input.GetKeyDown(KeyCode.R))
