@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class ShootProjectile : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ShootProjectile : MonoBehaviour
     public Transform grenadeParent;
 
     public GameObject player;
+    public GameObject weapon;
     public WeaponScript weaponScript;
 
     public float speed;
@@ -34,11 +36,14 @@ public class ShootProjectile : MonoBehaviour
     public float zoom;
 
 
+
+
     void Update()
     {
+
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
         {
-      
+        
             GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
             projectile.GetComponent<ProjectileScript>().enabled = true;
             projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity;
@@ -65,6 +70,14 @@ public class ShootProjectile : MonoBehaviour
             reloadStart = -1;
 
             AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+
+            weapon.transform.Rotate(Mathf.Rad2Deg * -0.05f, 0f, 0f);
+
+
+
+
+            //   animator.SetTrigger("recoil");
+
         }
         else
         {
@@ -72,6 +85,12 @@ public class ShootProjectile : MonoBehaviour
             Mouselook.recoilY = -recoilYSaved * 0.1f;
             recoilXSaved *= 0.9f;
             recoilYSaved *= 0.9f;
+           // Debug.Log(weapon.transform.localEulerAngles.x);
+             if (weapon.transform.localEulerAngles.x > 270) 
+            //   weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
+            weapon.transform.Rotate(Mathf.Rad2Deg * 0.005f, 0f, 0f);
+          //  Debug.Log(weapon.transform.localEulerAngles.x);
+           // weapon.transform.Rotate(Mathf.Rad2Deg * -0.01f, 0f, 0f);
         }
 
 
@@ -83,7 +102,7 @@ public class ShootProjectile : MonoBehaviour
                 Mouselook.mouseSensitivity -= 4;
             }
 
-            animator.SetTrigger("Aim");
+            animator.SetBool("IsAiming", true);
         }
         else
         {
@@ -92,8 +111,9 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView += 2;
                 Mouselook.mouseSensitivity += 4;
             }
+            animator.SetBool("IsAiming", false);
 
-           // animator.SetTrigger("Fire");
+            // animator.SetTrigger("Fire");
         }
             
         if (Input.GetKeyDown(KeyCode.R))

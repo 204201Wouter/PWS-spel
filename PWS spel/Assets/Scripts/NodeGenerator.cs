@@ -1,57 +1,61 @@
-using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.HID;
-using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
-public class NodeGenerator : MonoBehaviour
+[ExecuteInEditMode]
+public class PersistentObjectCreator : MonoBehaviour
 {
 
     public LayerMask groundMask;
 
+  //  public GameObject cover;
     void Start()
     {
-        List<Vector3> nodes = new List<Vector3>();
-        Transform[] children = GetComponentsInChildren<Transform>();
-        Debug.Log(children.Length);
-        foreach (Transform child in children)
+        if (!Application.isPlaying)
         {
-            Debug.Log(child.position);
-            List<Vector3> item = new List<Vector3>();
-            foreach (Transform child2 in children)
+
+            GameObject obj1 = new GameObject("test");
+            obj1.transform.position = Vector3.zero;
+            Transform[] children = GetComponentsInChildren<Transform>();
+
+            for (int e = 1; e < children.Length; e++)
             {
+                Transform child = children[e];
 
-                Vector3 dir = child2.position - child.position;
-                if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude))
+                List<Vector2> childPosList = new();
+                childPosList.Add(new Vector2( - 2f, 0f));
+                childPosList.Add(new Vector2(2f, 0));
+                childPosList.Add(new Vector2(0,  - 2f));
+                childPosList.Add(new Vector2(0, 2f));
+
+
+                foreach (Vector2 childPos in childPosList)
                 {
-                    item.Add(child2.position);
+                    Vector2 pos = childPos + new Vector2(child.position.x, child.position.z);
 
+                    bool valid = false;
+          
+                    if (!Physics.CheckSphere(new Vector3(pos.x, 1f, pos.y), 0.4f, groundMask))
+                      
+                    {
 
+                        foreach (Vector2 childPos2 in childPosList)
+                        {
+                            Vector2 pos2 = childPos2 + pos;
+                            if (Physics.CheckSphere(new Vector3(pos2.x, 1f, pos2.y), 0.4f, groundMask)) valid = true;
+                        }
+                        if (valid)
+                        {
+                            GameObject obj = new GameObject("coverNode");
+                            obj.transform.position = new Vector3(pos.x, child.position.y, pos.y);
+                        }
+                    }
                 }
 
-
-                Vector3 pos;
-                pos = child.position;
-
-                // if (!Physics.CheckSphere(pos, 0.4f, groundMask))
-                // { //Debug.Log(pos);
-                nodes.Add(pos);
-                // }
-
-
             }
+
+
+
         }
-        // Debug.Log(nodes);
-        foreach (Vector3 node in nodes)
-        {
-            Debug.DrawRay(node,new Vector3(0,100,0), Color.green, 100f);
-            
-        }
-
-
-
-
-
-        //   Debug.DrawRay
     }
 }

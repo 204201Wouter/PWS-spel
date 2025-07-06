@@ -100,19 +100,20 @@ public class EnemyMovementScript : MonoBehaviour
 
         lastisGrounded = playerMovement.isGrounded;
 
-      //  soundRadius = 0;
+        soundRadius = 0;
 
 
         if ((player.transform.position - transform.position).magnitude < soundRadius)
         {
-            path = AStar(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
-
+            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+            /*
             for (int i = 0; i < path.Count - 1; i++)
             {
                 Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
                 Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
                 Debug.DrawLine(start, end, Color.green, 100f);
             }
+            */
 
 
             if (path.Count > 0)
@@ -189,7 +190,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            path = AStar(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
 
             for (int i = 0; i < path.Count - 1; i++)
             {
@@ -263,19 +264,19 @@ public class EnemyMovementScript : MonoBehaviour
         rpos = pos2 + Vector3.up* height + left;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
-        Debug.DrawRay(pos, dir, Color.blue);
+       // Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + left;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
-        Debug.DrawRay(pos, dir, Color.blue);
+      //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.up * height + right;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
-        Debug.DrawRay(pos, dir, Color.blue);
+      //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + right;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) {return true; }
-        Debug.DrawRay(pos, dir, Color.blue);
+      //  Debug.DrawRay(pos, dir, Color.blue);
 
         return false;
         // return !Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask);
@@ -295,99 +296,68 @@ public class EnemyMovementScript : MonoBehaviour
 
         for (int i = 1; i < children.Length; i++)
         {
+            
             Transform child = children[i];
-            Vector3 dir = new Vector3(pos.x, child.position.y,pos.y) - child.position;
+            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
 
 
-            if (!Physics.SphereCast(child.position, 0.4f, dir.normalized, out _, dir.magnitude, groundMask))
+            if (!Cast(ChildPos, pos))
           //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
-                ReachableNodes.Add(new Vector2(child.position.x, child.position.z));
+                ReachableNodes.Add(ChildPos);
             }
         }
 
         return ReachableNodes;
     }
 
+    List<Vector2> NodesReachableCover(Vector2 pos)
+    {
+
+        Transform[] children = nodes.GetComponentsInChildren<Transform>();
+        List<Vector2> ReachableNodes = new();
+
+
+        for (int i = 1; i < children.Length; i++)
+        {
+
+            Transform child = children[i];
+            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
+
+
+            if (!Cast(ChildPos, pos))
+            //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
+            {
+                ReachableNodes.Add(ChildPos);
+            }
+        }
+
+        children = cover.GetComponentsInChildren<Transform>();
+
+
+        for (int i = 1; i < children.Length; i++)
+        {
+
+            Transform child = children[i];
+            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
+
+
+            if (!Cast(ChildPos, pos))
+            //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
+            {
+                ReachableNodes.Add(ChildPos);
+            }
+        }
+
+        return ReachableNodes;
+    }
 
     List<Vector2> NearestCover(float distanceFromPlayer = 0f)
     {
-        Transform[] children = nodes.GetComponentsInChildren<Transform>();
 
-        List<Vector2> NearestCover = new();
-        float NearestCoverDistance = float.PositiveInfinity;
-
-        for (int e = 1; e < children.Length; e++)
-        {
-            Transform child = children[e];
-
-            List<Vector2> childPosList = new();
-            childPosList.Add(new Vector2(child.position.x-2f, child.position.z));
-            childPosList.Add(new Vector2(child.position.x + 2f, child.position.z));
-            childPosList.Add(new Vector2(child.position.x, child.position.z - 2f));
-            childPosList.Add(new Vector2(child.position.x, child.position.z + 2f));
-
-
-            foreach (Vector2 childPos in childPosList)
-            {
-                Debug.DrawLine(player.transform.position + Vector3.up * 0.5f, new Vector3(childPos.x, 1f, childPos.y), Color.red,100f);
-                Debug.DrawRay(new Vector3(childPos.x, 1f, childPos.y), Vector3.up*100f, Color.green, 100f);
-                if (!Physics.CheckSphere(new Vector3(childPos.x, 1f, childPos.y), 0.4f, groundMask) &&
-                    !Person2PersonCast(player.transform.position+Vector3.up*0.5f, new Vector3(childPos.x, 1f, childPos.y), 0.5f) &&
-                   // Physics.Raycast(player.transform.position, (new Vector3(childPos.x, 0.5f, childPos.y) - player.transform.position).normalized, (new Vector3(childPos.x, 0.5f, childPos.y) - player.transform.position).magnitude, groundMask) &&
-                    !Cast(transform.position, childPos))
-                {
-
-                    /*
-                    
-
-                   // Vector2 coverPos = new Vector2(child.position.x, child.position.z);
-
-                    List<Vector2> path = AStar(new Vector2(transform.position.x, transform.position.z), childPos);
-
-
-                    if (path.Count > 0)
-                    {
-                        float distance = 0;
-
-
-                        for (int i = 0; i < path.Count - 1; i++)
-                        {
-
-                            distance += HCost(path[i], path[i + 1]);
-
-                        }
-
-                        if (Math.Abs(distance - distanceFromPlayer) < NearestCoverDistance)
-                        {
-                            NearestCoverDistance = distance;
-                            NearestCover = path;
-
-
-                        }
-                    */
-                    List<Vector2> path = new();
-                    path = AStar(new Vector2(transform.position.x, transform.position.z), childPos);
-                    float distance = (childPos - new Vector2(transform.position.x, transform.position.z)).magnitude;
-
-                    if (Math.Abs(distance - distanceFromPlayer) < NearestCoverDistance)
-                    {
-                        NearestCoverDistance = distance;
-                        NearestCover = path;
-
-
-                    }
-                
-                }
-            }
-            
-
-        }
-
-      //  foreach (Vector2 pos in NearestCover)
-      //  Debug.Log(pos);
-
-        return NearestCover;
+        return AStarHide(new Vector2 (transform.position.x, transform.position.z));
+     
+ 
 
 
     }
@@ -398,16 +368,81 @@ public class EnemyMovementScript : MonoBehaviour
 
     bool Cast(Vector2 start, Vector2 end)
     {
-        Vector3 start3 = new Vector3(start.x, 0.5f, start.y);
-        Vector3 end3 = new Vector3(end.x, 0.5f, end.y);
-
+        Vector3 start3 = new Vector3(start.x, 1f, start.y);
+        Vector3 end3 = new Vector3(end.x, 1f, end.y);
+      //  Debug.DrawLine(start3, end3, Color.blue, 100f);
         return Physics.SphereCast(start3, 0.4f, (end3 - start3).normalized, out _, (end3 - start3).magnitude, groundMask);
 
     }
 
 
 
-    List<Vector2> AStar(Vector2 pos, Vector2 target)
+    List<Vector2> AStarHide(Vector2 pos)
+    {
+        List<Vector2> openSet = new();
+        List<Vector2> closedSet = new();
+        openSet.Add(pos);
+
+        Dictionary<Vector2, float> fScores = new();
+        Dictionary<Vector2, float> gScores = new();
+        gScores.Add(pos, 0);
+        fScores.Add(pos, HCost(pos, pos));
+
+        Dictionary<Vector2, Vector2> cameFrom = new();
+
+        while (openSet.Count > 0)
+        {
+            Vector2 bestNode = Vector2.zero;
+            float bestScore = float.MaxValue;
+            foreach (Vector2 node in openSet)
+            {
+                if (fScores[node] < bestScore)
+                {
+                    bestNode = node;
+                    bestScore = fScores[node];
+                }
+            }
+
+            if (!Person2PersonCast(player.transform.position, new Vector3(bestNode.x, 1f,bestNode.y)))
+            {
+                List<Vector2> path = new();
+
+                Vector2 current = bestNode;
+                path.Add(current);
+                while (cameFrom.ContainsKey(current))
+                {
+                    current = cameFrom[current];
+                    path.Add(current);
+                }
+
+
+                return path;
+            }
+
+            openSet.Remove(bestNode);
+            closedSet.Add(bestNode);
+            List<Vector2> neighbors = NodesReachableCover(bestNode);
+            foreach (Vector2 neighbor in neighbors)
+            {
+                if (!openSet.Contains(neighbor) && !closedSet.Contains(neighbor) && HCost(neighbor, pos) < 10f)
+                {
+                    openSet.Add(neighbor);
+                    float distance = HCost(bestNode, neighbor);
+                    gScores.Add(neighbor, gScores[bestNode] + distance);
+                    fScores.Add(neighbor, gScores[bestNode] + distance + HCost(neighbor, pos));
+                    cameFrom.Add(neighbor, bestNode);
+                }
+            }
+        }
+
+        // print("no path found");
+        // print(target);
+        return new();
+    }
+
+
+
+    List<Vector2> AStarTarget(Vector2 pos, Vector2 target)
     {
         List<Vector2> openSet = new();
         List<Vector2> closedSet = new();
@@ -477,6 +512,8 @@ public class EnemyMovementScript : MonoBehaviour
 
 
     }
+
+
 
 
 }
