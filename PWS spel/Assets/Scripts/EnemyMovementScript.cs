@@ -13,6 +13,7 @@ using NUnit;
 using UnityEngine.InputSystem.EnhancedTouch;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using System.ComponentModel;
+using System.IO;
 
 public class EnemyMovementScript : MonoBehaviour
 {
@@ -80,27 +81,10 @@ public class EnemyMovementScript : MonoBehaviour
     {
 
 
-
-        if (HearPlayer())
-        {
-            if (mode == "guard") mode = "scout";
-
-            lastHearPlayer = Time.time;
-
-        }
-
-        if (mode == "cover" && Time.time > lastHearPlayer + 5f) mode = "scout";
-
-
-        if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
-        {
-            mode = "guard";
-        }
-
-
         if (HasLineOfSight())
         {
-            mode = "cover";
+            lastHearPlayer = Time.time;
+
             if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
             {
                 lastShot = Time.time;
@@ -118,9 +102,62 @@ public class EnemyMovementScript : MonoBehaviour
                 reloadStart = -1;
                 ammo = GetComponentInChildren<MagazineScript>().cap;
             }
- 
+
 
         }
+        if (HasLineOfSight() && mode == "scout")     
+        {
+            mode = "cover";
+            lastPlayerPos = player.transform.position + Vector3.up * 2;
+        }
+
+
+        else if (HearPlayer())
+        {
+            if (mode == "guard")
+            { 
+                mode = "scout";
+                lastPlayerPos = player.transform.position + Vector3.up * 2;
+            }
+
+
+            lastHearPlayer = Time.time;
+
+        }
+
+        else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
+        {
+            mode = "scout";
+            Vector3 scale = transform.localScale;
+            scale.y = 1f;
+            transform.localScale = scale;
+            lastPlayerPos = player.transform.position + Vector3.up * 2;
+        }
+
+
+        else if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
+        {
+            mode = "guard";
+ 
+        }
+
+
+        else if (mode == "cover" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
+        {
+            if (Person2PersonCast(player.transform.position, transform.position))
+            {
+
+                Vector3 scale = transform.localScale;
+                scale.y = 0.5f;
+                transform.localScale = scale;
+
+
+            }
+            Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
+        }
+
 
 
 
@@ -137,104 +174,25 @@ public class EnemyMovementScript : MonoBehaviour
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            path = NearestCover((player.transform.position - transform.position).magnitude);
-
-            for (int i = 0; i < path.Count - 1; i++)
-            {
-                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
-                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
-                Debug.DrawLine(start, end, Color.green, 100f);
-            }
-
-
-            if (path.Count > 0)
-            {
-                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-            }
-            else
-            {
-                targetPos = transform.position;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
-
-            for (int i = 0; i < path.Count - 1; i++)
-            {
-                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
-                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
-                Debug.DrawLine(start, end, Color.green, 100f);
-            }
-
-
-            if (path.Count > 0)
-            {
-                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-            }
-            else
-            {
-                targetPos = transform.position;
-            }
-        }
+      
 
         if (mode == "cover")
         {
-          //  if ((player.transform.position - lastPlayerPos).magnitude > 1f)
-           // {
-                path = NearestCover((player.transform.position - transform.position).magnitude);
+            MoveEnemy(mode);
 
-                for (int i = 0; i < path.Count - 1; i++)
-                {
-                    Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
-                    Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
-                    Debug.DrawLine(start, end, Color.green, 100f);
-                }
-
-                lastPlayerPos = player.transform.position;
-
-
-                if (path.Count > 0)
-                {
-                    targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-                }
-                else
-                {
-                    targetPos = transform.position;
-                }
-         //   }
         }
 
         if (mode == "scout")
         {
-          //  if ((player.transform.position - lastPlayerPos).magnitude > 1f)
-         //   {
-                path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
-                /*
-                for (int i = 0; i < path.Count - 1; i++)
-                {
-                    Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
-                    Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
-                    Debug.DrawLine(start, end, Color.green, 100f);
-                }
-                */
-
-                lastPlayerPos = player.transform.position;
-
-
-                if (path.Count > 0)
-                {
-                    targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-                }
-                else
-                {
-                    targetPos = transform.position;
-                }
-           // }
+            MoveEnemy(mode);
+            
     
+        }
+
+        if (mode == "guard")
+        {
+            path = new();
+            targetPos = transform.position;
         }
 
 
@@ -244,9 +202,23 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(diffTargetPos);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRotation,360f * Time.deltaTime);
+            Quaternion targetRotation;
+
+            if (mode == "cover")
+            {
+                targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
+
+            }
+
+            else
+            {
+                 targetRotation = Quaternion.LookRotation(diffTargetPos);
+
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
+            }
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
             
         }
@@ -270,6 +242,37 @@ public class EnemyMovementScript : MonoBehaviour
         }
 
     }
+
+    void MoveEnemy(string mode)
+    {
+        if ((player.transform.position - lastPlayerPos).magnitude > 1f)
+        {
+            if (mode == "cover")
+            path = NearestCover((player.transform.position - transform.position).magnitude);
+            if (mode == "scout")
+            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                Debug.DrawLine(start, end, Color.green, 100f);
+            }
+
+            lastPlayerPos = player.transform.position;
+
+
+            if (path.Count > 0)
+            {
+                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+            }
+            else
+            {
+                targetPos = transform.position;
+            }
+        }
+    }
+
 
     bool HearPlayer()
     {
