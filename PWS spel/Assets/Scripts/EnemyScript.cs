@@ -8,14 +8,16 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public GameObject gun;
 
+    bool dead = false;
     public void Hit(float damage)
     {
         health -= damage;
 
-        if (health <= 0)
+        if (health <= 0 && !dead)
         {
-            Destroy(gameObject);
+            dead = true;
             Instantiate(gun, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 }

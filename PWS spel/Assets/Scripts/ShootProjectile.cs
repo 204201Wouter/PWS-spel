@@ -20,6 +20,9 @@ public class ShootProjectile : MonoBehaviour
     public int ammo;
     public string ammoType;
     public float damage;
+    public int amount;
+    public float spread;
+    public float size;
     public TextMeshProUGUI AmmoText;
     public Animator animator;
     public float shotCooldown;
@@ -43,11 +46,14 @@ public class ShootProjectile : MonoBehaviour
 
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
         {
-        
-            GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
-            projectile.GetComponent<ProjectileScript>().enabled = true;
-            projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity;
-            projectile.GetComponent<ProjectileScript>().damage = damage;
+            for (int i = 0; i < amount; i++)
+            {
+                GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
+                projectile.GetComponent<ProjectileScript>().enabled = true;
+                projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity + Random.onUnitSphere * spread;
+                projectile.GetComponent<ProjectileScript>().damage = damage;
+                projectile.transform.localScale *= size;
+            }
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
@@ -164,6 +170,9 @@ public class ShootProjectile : MonoBehaviour
         cap = weaponScript.currentMagazine.capacity;
         reloadTime = weaponScript.currentMagazine.reloadTime;
         damage = weaponScript.currentMagazine.ammoType.damage;
+        amount = weaponScript.currentMagazine.ammoType.amount;
+        spread = weaponScript.currentMagazine.ammoType.spread;
+        size = weaponScript.currentMagazine.ammoType.size;
         // andere modifiers nog toevoegen
     }
 }

@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
 
 
-    public void Hit(int damage)
+    public void Hit(float damage)
     {
         health -= damage;
 

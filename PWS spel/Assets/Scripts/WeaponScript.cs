@@ -26,14 +26,14 @@ public class WeaponScript : MonoBehaviour
 
     void Start()
     {
-        ammoTypes.Add("normal", new(2, 0, 0.5f, 1, 0, 15, "normal"));
-        ammoTypes.Add("small", new(1, 0, 0.2f, 1, 0, 10, "small"));
-        ammoTypes.Add("big", new(3, 0, 1, 1, 0, 25, "big"));
-        ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, "normalAP"));
-        ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, "smallAP"));
-        ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, "bigAP"));
-        ammoTypes.Add("buckshot", new(0.5f, 0, 1, 6, 0.3f, 8f, "buckshot"));
-        ammoTypes.Add("birdshot", new(0.2f, 0, 1, 20, 0.5f, 5f, "birdshot"));
+        ammoTypes.Add("normal", new(2, 0, 0.5f, 1, 0, 15, 1f, "normal"));
+        ammoTypes.Add("small", new(1, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
+        ammoTypes.Add("big", new(3, 0, 1, 1, 0, 25, 1.5f, "big"));
+        ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
+        ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, 0.6f, "smallAP"));
+        ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));
+        ammoTypes.Add("buckshot", new(0.5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot"));
+        ammoTypes.Add("birdshot", new(0.2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot"));
         // waarden voor ammo zijn waarschijnlijk niet goed, moeten we ooit nog veranderen
 
         foreach (string ammoType in ammoTypes.Keys)
@@ -44,7 +44,7 @@ public class WeaponScript : MonoBehaviour
         scopes.Add("scopeding", new(2, normalScopeImage));
         // hier alle scopes
 
-        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["normal"]));
+        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"]));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1));
@@ -125,9 +125,10 @@ public struct AmmoType
     public int amount;
     public float spread;
     public float range;
+    public float size;
     public string name;
 
-    public AmmoType(float damage, float armorPiercing, float recoil, int amount, float spread, float range, string name)
+    public AmmoType(float damage, float armorPiercing, float recoil, int amount, float spread, float range, float size, string name)
     {
         this.damage = damage;
         this.armorPiercing = armorPiercing;
@@ -135,6 +136,7 @@ public struct AmmoType
         this.amount = amount;
         this.spread = spread;
         this.range = range;
+        this.size = size;
         this.name = name;
     }
 }
