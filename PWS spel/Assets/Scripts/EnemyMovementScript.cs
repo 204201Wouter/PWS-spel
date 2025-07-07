@@ -12,6 +12,7 @@ using NUnit;
 
 using UnityEngine.InputSystem.EnhancedTouch;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using System.ComponentModel;
 
 public class EnemyMovementScript : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class EnemyMovementScript : MonoBehaviour
     public GameObject nodes;
     public GameObject cover;
 
-    public string mode;
+    public string mode = "guard";
 
     
 
@@ -46,6 +47,9 @@ public class EnemyMovementScript : MonoBehaviour
     float lastShot;
     public float reloadStart;
     private bool lastisGrounded;
+    private Vector3 lastPlayerPos;
+    private float lastHearPlayer;
+
 
 
 
@@ -63,74 +67,40 @@ public class EnemyMovementScript : MonoBehaviour
         controller = GetComponent<CharacterController>();
         targetPos = transform.position;
 
-        //player.GetComponent<Movement>().velocity.magnitude;
+        lastPlayerPos = player.transform.position;
+
+
+    //player.GetComponent<Movement>().velocity.magnitude;
 
 
 
-    }
+}
 
     void Update()
     {
 
-        Movement playerMovement = player.GetComponent<Movement>();
 
-        
 
-        float soundRadius = 0;
+        if (HearPlayer())
+        {
+            if (mode == "guard") mode = "scout";
 
-        if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
-        {
-            soundRadius = 50;
-        }
-        else if (!lastisGrounded && playerMovement.isGrounded)
-        {
-            soundRadius = 40;
-        }
-        else if (playerMovement.velocity.magnitude >= 4 && playerMovement.isGrounded)
-        {
-            soundRadius = 20;
-        }
-        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed)
-        {
-            soundRadius = 0;
+            lastHearPlayer = Time.time;
+
         }
 
-        // shoot
-        // soundRadius = 100;
-
-        lastisGrounded = playerMovement.isGrounded;
-
-        soundRadius = 0;
+        if (mode == "cover" && Time.time > lastHearPlayer + 5f) mode = "scout";
 
 
-        if ((player.transform.position - transform.position).magnitude < soundRadius)
+        if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
         {
-            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
-            /*
-            for (int i = 0; i < path.Count - 1; i++)
-            {
-                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
-                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
-                Debug.DrawLine(start, end, Color.green, 100f);
-            }
-            */
-
-
-            if (path.Count > 0)
-            {
-                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-            }
-            else
-            {
-                targetPos = transform.position;
-            }
+            mode = "guard";
         }
-
-
 
 
         if (HasLineOfSight())
         {
+            mode = "cover";
             if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
             {
                 lastShot = Time.time;
@@ -148,11 +118,12 @@ public class EnemyMovementScript : MonoBehaviour
                 reloadStart = -1;
                 ammo = GetComponentInChildren<MagazineScript>().cap;
             }
+ 
 
         }
 
 
-        
+
 
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
 
@@ -168,7 +139,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            path = NearestCover((player.transform.position-transform.position).magnitude);
+            path = NearestCover((player.transform.position - transform.position).magnitude);
 
             for (int i = 0; i < path.Count - 1; i++)
             {
@@ -210,6 +181,64 @@ public class EnemyMovementScript : MonoBehaviour
             }
         }
 
+        if (mode == "cover")
+        {
+          //  if ((player.transform.position - lastPlayerPos).magnitude > 1f)
+           // {
+                path = NearestCover((player.transform.position - transform.position).magnitude);
+
+                for (int i = 0; i < path.Count - 1; i++)
+                {
+                    Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                    Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                    Debug.DrawLine(start, end, Color.green, 100f);
+                }
+
+                lastPlayerPos = player.transform.position;
+
+
+                if (path.Count > 0)
+                {
+                    targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+                }
+                else
+                {
+                    targetPos = transform.position;
+                }
+         //   }
+        }
+
+        if (mode == "scout")
+        {
+          //  if ((player.transform.position - lastPlayerPos).magnitude > 1f)
+         //   {
+                path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+                /*
+                for (int i = 0; i < path.Count - 1; i++)
+                {
+                    Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                    Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                    Debug.DrawLine(start, end, Color.green, 100f);
+                }
+                */
+
+                lastPlayerPos = player.transform.position;
+
+
+                if (path.Count > 0)
+                {
+                    targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
+                }
+                else
+                {
+                    targetPos = transform.position;
+                }
+           // }
+    
+        }
+
+
+
 
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
@@ -240,7 +269,47 @@ public class EnemyMovementScript : MonoBehaviour
             }*/
         }
 
-    }  
+    }
+
+    bool HearPlayer()
+    {
+
+        Movement playerMovement = player.GetComponent<Movement>();
+
+
+
+        float soundRadius = 0;
+
+        if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
+        {
+            soundRadius = 50;
+        }
+        else if (!lastisGrounded && playerMovement.isGrounded)
+        {
+            soundRadius = 40;
+        }
+        else if (playerMovement.velocity.magnitude >= 4 && playerMovement.isGrounded)
+        {
+            soundRadius = 20;
+        }
+        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed)
+        {
+            soundRadius = 0;
+        }
+
+        // shoot
+        // soundRadius = 100;
+
+        lastisGrounded = playerMovement.isGrounded;
+
+        //  soundRadius = 0;
+
+
+     
+
+
+        return ((player.transform.position - transform.position).magnitude < soundRadius);
+    }
 
     public bool HasLineOfSight()
     {
