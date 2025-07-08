@@ -20,9 +20,9 @@ public class Movement : MonoBehaviour
     public LayerMask groundMask;
     public Transform groundCheck;
     public bool isGrounded;
-
-
-
+    bool lastisGrounded = true;
+    public float soundRadius;
+    public bool firedGun;
 
 
     void Update()
@@ -47,8 +47,6 @@ public class Movement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
   
-
-
                 Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
                 Ray rayTop = new Ray(transform.position+new Vector3(0, 1.5f, 0), transform.forward);
 
@@ -84,5 +82,31 @@ public class Movement : MonoBehaviour
 
         velocity = (transform.position - lastPos) / Time.deltaTime;
         lastPos = transform.position;
+
+        if (velocity.magnitude >= 8 && isGrounded)
+        {
+            soundRadius = 50;
+        }
+        else if (!lastisGrounded && isGrounded)
+        {
+            soundRadius = 40;
+        }
+        else if (velocity.magnitude >= 4 && isGrounded)
+        {
+            soundRadius = 20;
+        }
+        else if (velocity.magnitude >= 10 && isGrounded) //crouchspeed
+        {
+            soundRadius = 0;
+        }
+        else soundRadius = 0;
+
+        if (firedGun)
+        {
+            soundRadius = 100;
+        }
+
+        lastisGrounded = isGrounded;
+        firedGun = false;
     }
 }

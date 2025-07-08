@@ -15,6 +15,7 @@ public class ShootProjectile : MonoBehaviour
     public GameObject player;
     public GameObject weapon;
     public WeaponScript weaponScript;
+    public Movement movement;
 
     public float speed;
     public int ammo;
@@ -79,7 +80,7 @@ public class ShootProjectile : MonoBehaviour
 
             weapon.transform.Rotate(Mathf.Rad2Deg * -0.05f, 0f, 0f);
 
-
+            movement.firedGun = true;
 
 
             //   animator.SetTrigger("recoil");
@@ -91,8 +92,11 @@ public class ShootProjectile : MonoBehaviour
             Mouselook.recoilY = -recoilYSaved * 0.1f;
             recoilXSaved *= 0.9f;
             recoilYSaved *= 0.9f;
+            if (Mathf.Abs(recoilXSaved) < 0.01f) recoilXSaved = 0;
+            if (Mathf.Abs(recoilYSaved) < 0.01f) recoilYSaved = 0;
+
            // Debug.Log(weapon.transform.localEulerAngles.x);
-             if (weapon.transform.localEulerAngles.x > 270) 
+            if (weapon.transform.localEulerAngles.x > 270) 
             //   weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
             weapon.transform.Rotate(Mathf.Rad2Deg * 0.005f, 0f, 0f);
           //  Debug.Log(weapon.transform.localEulerAngles.x);
@@ -147,14 +151,14 @@ public class ShootProjectile : MonoBehaviour
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
         {
-            if (weaponScript.ammoAmounts[ammoType] >= cap)
+            if (weaponScript.ammoAmounts[ammoType] + ammo >= cap)
             {
                 weaponScript.ammoAmounts[ammoType] -= cap - ammo;
                 ammo = cap;
             }
             else
             {
-                ammo = weaponScript.ammoAmounts[ammoType];
+                ammo += weaponScript.ammoAmounts[ammoType];
                 weaponScript.ammoAmounts[ammoType] = 0;
             }
             AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();

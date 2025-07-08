@@ -30,10 +30,12 @@ public class ProjectileScript : MonoBehaviour
 
 
                 EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
+                if (enemyScript == null) enemyScript = hit.collider.GetComponentInParent<EnemyScript>();
                 if (enemyScript != null)
                 {
                     enemyScript.Hit(damage);
                     print("hit");
+                    Destroy(gameObject);
                 }
 
                 stopped = true;

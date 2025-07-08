@@ -105,12 +105,12 @@ public class EnemyMovementScript : MonoBehaviour
 
 
         }
+
         if (HasLineOfSight() && mode == "scout")     
         {
             mode = "cover";
             lastPlayerPos = player.transform.position + Vector3.up * 2;
         }
-
 
         else if (HearPlayer())
         {
@@ -120,9 +120,8 @@ public class EnemyMovementScript : MonoBehaviour
                 lastPlayerPos = player.transform.position + Vector3.up * 2;
             }
 
-
             lastHearPlayer = Time.time;
-
+            print(gameObject.name + " heard player");
         }
 
         else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
@@ -134,32 +133,23 @@ public class EnemyMovementScript : MonoBehaviour
             lastPlayerPos = player.transform.position + Vector3.up * 2;
         }
 
-
         else if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
         {
             mode = "guard";
- 
         }
-
 
         else if (mode == "cover" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
         {
             if (Person2PersonCast(player.transform.position, transform.position))
             {
-
                 Vector3 scale = transform.localScale;
                 scale.y = 0.5f;
                 transform.localScale = scale;
-
-
             }
             Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
         }
-
-
-
 
 
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
@@ -173,29 +163,17 @@ public class EnemyMovementScript : MonoBehaviour
         ySpeed += gravity * Time.deltaTime;
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
-
       
 
-        if (mode == "cover")
+        if (mode == "cover" || mode == "scout")
         {
             MoveEnemy(mode);
-
         }
-
-        if (mode == "scout")
-        {
-            MoveEnemy(mode);
-            
-    
-        }
-
-        if (mode == "guard")
+        else if (mode == "guard")
         {
             path = new();
             targetPos = transform.position;
         }
-
-
 
 
         targetPos.y = transform.position.y;
@@ -279,9 +257,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         Movement playerMovement = player.GetComponent<Movement>();
 
-
-
-        float soundRadius = 0;
+        /*float soundRadius = 0;
 
         if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
         {
@@ -295,23 +271,14 @@ public class EnemyMovementScript : MonoBehaviour
         {
             soundRadius = 20;
         }
-        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed)
+        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed
         {
             soundRadius = 0;
         }
 
-        // shoot
-        // soundRadius = 100;
+        lastisGrounded = playerMovement.isGrounded;*/
 
-        lastisGrounded = playerMovement.isGrounded;
-
-        //  soundRadius = 0;
-
-
-     
-
-
-        return ((player.transform.position - transform.position).magnitude < soundRadius);
+        return (player.transform.position - transform.position).magnitude < playerMovement.soundRadius;
     }
 
     public bool HasLineOfSight()
