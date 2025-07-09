@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
+
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem.HID;
@@ -79,7 +79,7 @@ public class EnemyMovementScript : MonoBehaviour
 
     void Update()
     {
-
+        /*
 
         if (HasLineOfSight())
         {
@@ -105,6 +105,7 @@ public class EnemyMovementScript : MonoBehaviour
 
 
         }
+        
 
         if (HasLineOfSight() && mode == "scout")     
         {
@@ -150,7 +151,7 @@ public class EnemyMovementScript : MonoBehaviour
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
         }
-
+        */
 
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
 
@@ -159,11 +160,12 @@ public class EnemyMovementScript : MonoBehaviour
         {
             ySpeed = -2;
         }
+        
 
         ySpeed += gravity * Time.deltaTime;
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
-      
+        /*
 
         if (mode == "cover" || mode == "scout")
         {
@@ -174,6 +176,7 @@ public class EnemyMovementScript : MonoBehaviour
             path = new();
             targetPos = transform.position;
         }
+        */
 
 
         targetPos.y = transform.position.y;
@@ -207,16 +210,26 @@ public class EnemyMovementScript : MonoBehaviour
         }
         else
         {
-            /*path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
+            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(transform.position.x, transform.position.z)+ Random.insideUnitCircle.normalized*5);
+
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Vector3 start = new Vector3(path[i].x, transform.position.y, path[i].y);
+                Vector3 end = new Vector3(path[i + 1].x, transform.position.y, path[i + 1].y);
+                Debug.DrawLine(start, end, Color.green, 100f);
+            }
+
+            lastPlayerPos = player.transform.position;
+
+
             if (path.Count > 0)
             {
                 targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
             }
             else
             {
-                Vector2 playerPos = ConvertPos(player.transform.position);
-                targetPos = new Vector3(playerPos.x, transform.position.y, playerPos.y);
-            }*/
+                targetPos = transform.position;
+            }
         }
 
     }

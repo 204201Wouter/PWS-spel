@@ -24,7 +24,7 @@ public class EnemyScript : MonoBehaviour
         {
             dead = true;
             Instantiate(gun, transform.position, transform.rotation);
-            Destroy(gameObject);
+            
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Time,Angle");
@@ -39,6 +39,8 @@ public class EnemyScript : MonoBehaviour
             string path = Path.Combine(Application.dataPath, "table.csv");
             File.WriteAllText(path, sb.ToString());
 
+
+            Destroy(gameObject);
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

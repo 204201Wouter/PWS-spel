@@ -602,6 +602,7 @@ MonoBehaviour:
   recoilX: 0
   recoilY: 0
   playerBody: {fileID: 1389374221}
+  enemyBody: {fileID: 1268509606}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2991,7 +2992,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268509600}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c71701209c564ab488b05ea5d12ef57f, type: 3}
   m_Name: 
@@ -3004,7 +3005,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   gravity: -10
-  speed: 2
+  speed: 8
   map: {fileID: 1676672229}
   nodes: {fileID: 0}
   cover: {fileID: 0}
@@ -3269,7 +3270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389374215}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4dacd3ed15cf6a4c825b9c77c8e8df4, type: 3}
   m_Name: 
@@ -3397,7 +3398,7 @@ Transform:
   m_GameObject: {fileID: 1389374215}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.8, y: 1, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -12,6 +12,7 @@ public class MouseLook : MonoBehaviour
     public float recoilY;
 
     public Transform playerBody;
+    public Transform enemyBody;
 
 
     float xRotation = 0f;
@@ -47,7 +48,7 @@ public class MouseLook : MonoBehaviour
 
         if (Time.time > lastRecord + 0.1)
         {
-            table[Mathf.RoundToInt(Time.time*100)] = Mathf.RoundToInt(Vector3.Angle(Camera.main.transform.forward, Vector3.forward)*100);
+            table[Mathf.RoundToInt(Time.time*100)] = Mathf.RoundToInt(Vector3.Angle(Camera.main.transform.forward, enemyBody.position- playerBody.position)*100);
 
             lastRecord = Time.time;
         }
