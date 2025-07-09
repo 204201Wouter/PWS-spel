@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class EnemyScript : MonoBehaviour
             dead = true;
             Instantiate(gun, transform.position, transform.rotation);
             Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
