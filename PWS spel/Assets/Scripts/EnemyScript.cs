@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Text;
+using static UnityEngine.Rendering.DebugUI;
+using System;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -8,6 +12,8 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject player;
     public GameObject gun;
+
+    public MouseLook MouseLook;
 
     bool dead = false;
     public void Hit(float damage)
@@ -19,6 +25,21 @@ public class EnemyScript : MonoBehaviour
             dead = true;
             Instantiate(gun, transform.position, transform.rotation);
             Destroy(gameObject);
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Time,Angle");
+
+
+            foreach (int time in MouseLook.table.Keys)
+            {
+                sb.AppendLine($"{time},{MouseLook.table[time]}");
+            }
+ 
+
+            string path = Path.Combine(Application.dataPath, "table.csv");
+            File.WriteAllText(path, sb.ToString());
+
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

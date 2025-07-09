@@ -2864,6 +2864,7 @@ MonoBehaviour:
   health: 10
   player: {fileID: 1389374215}
   gun: {fileID: 896483227}
+  MouseLook: {fileID: 330585548}
 --- !u!143 &1268509602
 CharacterController:
   m_ObjectHideFlags: 0

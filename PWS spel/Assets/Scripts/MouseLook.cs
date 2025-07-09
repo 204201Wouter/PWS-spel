@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class MouseLook : MonoBehaviour
 {
@@ -12,6 +15,10 @@ public class MouseLook : MonoBehaviour
 
 
     float xRotation = 0f;
+
+    public Dictionary<int, int> table = new();
+
+    float lastRecord;
 
     void Start()
     {
@@ -37,6 +44,13 @@ public class MouseLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+
+        if (Time.time > lastRecord + 0.1)
+        {
+            table[Mathf.RoundToInt(Time.time*100)] = Mathf.RoundToInt(Vector3.Angle(Camera.main.transform.forward, Vector3.forward)*100);
+
+            lastRecord = Time.time;
+        }
 
 
     }
