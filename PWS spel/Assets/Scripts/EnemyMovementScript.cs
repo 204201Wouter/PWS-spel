@@ -50,6 +50,7 @@ public class EnemyMovementScript : MonoBehaviour
     private bool lastisGrounded;
     private Vector3 lastPlayerPos;
     private float lastHearPlayer;
+    public List<float> turns = new();
 
 
 
@@ -66,9 +67,13 @@ public class EnemyMovementScript : MonoBehaviour
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
+        transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
         targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
+
+        
+       // transform.position.z = 10;
 
 
     //player.GetComponent<Movement>().velocity.magnitude;
@@ -210,6 +215,8 @@ public class EnemyMovementScript : MonoBehaviour
         }
         else
         {
+            /*
+            turns.Add(Mathf.RoundToInt(Time.time * 100));
             path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(transform.position.x, transform.position.z)+ Random.insideUnitCircle.normalized*5);
 
             for (int i = 0; i < path.Count - 1; i++)
@@ -230,6 +237,7 @@ public class EnemyMovementScript : MonoBehaviour
             {
                 targetPos = transform.position;
             }
+            */
         }
 
     }

@@ -13,9 +13,14 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public GameObject gun;
 
+
     public MouseLook MouseLook;
 
     bool dead = false;
+
+    
+
+    public EnemyMovementScript EnemyMovementScript;
     public void Hit(float damage)
     {
         health -= damage;
@@ -27,17 +32,25 @@ public class EnemyScript : MonoBehaviour
             
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Time,Angle");
 
-
+            sb.AppendLine($"{Mathf.RoundToInt((transform.position-player.transform.position).magnitude * 100)},{Mathf.RoundToInt((Time.time- MouseLook.StartTime) * 100)}");
+            /*
+            int i = 0;
             foreach (int time in MouseLook.table.Keys)
             {
-                sb.AppendLine($"{time},{MouseLook.table[time]}");
+                if (i < EnemyMovementScript.turns.Count)
+                {
+                    sb.AppendLine($"{time},{MouseLook.table[time]},{EnemyMovementScript.turns[i]}");
+
+                }
+                else { sb.AppendLine($"{time},{MouseLook.table[time]}"); }
+                i += 1;
             }
+            */
  
 
             string path = Path.Combine(Application.dataPath, "table.csv");
-            File.WriteAllText(path, sb.ToString());
+            File.AppendAllText(path, sb.ToString());
 
 
             Destroy(gameObject);
