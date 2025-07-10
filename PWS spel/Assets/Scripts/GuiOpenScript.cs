@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,6 +18,7 @@ public class GuiOpenScript : MonoBehaviour
     public GameObject sightInventory;
     public GameObject magazineInventory;
     public GameObject attachmentButton;
+    public TextMeshProUGUI inventoryText;
     GameObject activeInventory;
 
     public ShootProjectile shootscript;
@@ -77,6 +77,7 @@ public class GuiOpenScript : MonoBehaviour
         activeInventory.SetActive(false);
         panel.SetActive(true);
         activeInventory = panel;
+        inventoryText.text = panel.name;
     }
 
     void EquipMagazine(MagazineAttachment magazine, GameObject button)
@@ -148,6 +149,7 @@ public class GuiOpenScript : MonoBehaviour
         GameObject button = Instantiate(attachmentButton);
         button.transform.SetParent(magazineInventory.transform);
         button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
+        button.GetComponent<Image>().color = Random.ColorHSV();
     }
 
     public void NewScope(ScopeAttachment scope)
@@ -155,5 +157,6 @@ public class GuiOpenScript : MonoBehaviour
         GameObject button = Instantiate(attachmentButton);
         button.transform.SetParent(sightInventory.transform);
         button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
+        button.GetComponent<Image>().color = Random.ColorHSV();
     }
 }

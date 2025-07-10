@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class EnemyScript : MonoBehaviour
 {
-    public float health = 1000;
+    public float health = 200;
 
     public GameObject player;
     public GameObject gun;
