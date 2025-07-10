@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-	public float mouseSensitivity;
+	public float mouseSensitivity = 8;
 
     public float recoilX;
     public float recoilY;
+    float mouseX;
+    float mouseY;
+
+    public bool canLook = true;
 
     public Transform playerBody;
-
 
     float xRotation = 0f;
 
@@ -19,17 +22,24 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        float mouseX = (Input.GetAxis("Mouse X") * mouseSensitivity + recoilX) * 0.02f;
-        float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity + recoilY) * 0.02f;
-        recoilX = 0;
-        recoilY = 0;
+        if (canLook)
+        {
+            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        }
+        else
+        {
+            mouseX = 0;
+            mouseY = 0;
+        }
 
-        xRotation -= mouseY;
+        xRotation -= mouseY + recoilY * 0.02f;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
+        playerBody.Rotate(Vector3.up * (mouseX + recoilX * 0.02f));
 
-
+        recoilX = 0;
+        recoilY = 0;
     }
 }

@@ -10,8 +10,6 @@ public class WeaponScript : MonoBehaviour
     public Dictionary<string, SilencerAttachment> silencers = new();
     public Dictionary<string, LaserAttachment> lasers = new();
 
-    public Texture2D normalScopeImage;
-
     public List<string> availableScopes = new();
     public List<string> availableMagazines = new();
     public List<string> availableSilencers = new();
@@ -23,6 +21,8 @@ public class WeaponScript : MonoBehaviour
     public LaserAttachment currentLaser;
 
     public Dictionary<string, int> ammoAmounts = new();
+
+    public GuiOpenScript guiScript;
 
     void Start()
     {
@@ -41,41 +41,46 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 100); // nu beginnen met 100 van elke kogel
         }
 
-        scopes.Add("scopeding", new(2, normalScopeImage));
+        scopes.Add("scopeding", new(4, "scopeding"));
+        scopes.Add("no scope", new(2, "no scope"));
         // hier alle scopes
 
-        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"]));
+        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"], "magazineding"));
+        magazines.Add("default magazine", new(30, 1.5f, 0.2f, ammoTypes["normal"], "default magazine"));
         // hier alle magazines
 
-        silencers.Add("silencerding", new(1));
+        silencers.Add("silencerding", new(1, "silencerding"));
+        silencers.Add("no silencer", new(0, "no silencer"));
         // hier alle silencers
 
-        lasers.Add("laserding", new(Color.red, 0.1f));
+        lasers.Add("laserding", new(Color.red, 0.1f, "laserding"));
+        lasers.Add("no laser", new(Color.red, 0, "no laser"));
         // hier alle lasers
 
         // tijdelijk
-        availableScopes.Add("scopeding");
-        availableMagazines.Add("magazineding");
-        availableSilencers.Add("silencerding");
-        availableLasers.Add("laserding");
-        currentScope = scopes["scopeding"];
-        currentMagazine = magazines["magazineding"];
-        currentSilencer = silencers["silencerding"];
-        currentLaser = lasers["laserding"];
+        currentScope = scopes["no scope"];
+        currentMagazine = magazines["default magazine"];
+        currentSilencer = silencers["no silencer"];
+        currentLaser = lasers["no laser"];
 
         GetComponent<ShootProjectile>().ChangeAttachment();
+        Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(0).GetComponent<Button>();
+        defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
+
+        guiScript.NewMagazine(magazines["magazineding"]);
+        guiScript.NewScope(scopes["scopeding"]);
     }
 }
 
 public struct ScopeAttachment
 {
     public float zoomFactor;
-    public Texture2D scopeImage;
+    public string name;
 
-    public ScopeAttachment(float zoomFactor, Texture2D scopeImage)
+    public ScopeAttachment(float zoomFactor, string name)
     {
         this.zoomFactor = zoomFactor;
-        this.scopeImage = scopeImage;
+        this.name = name;
     }
 }
 
@@ -85,23 +90,27 @@ public struct MagazineAttachment
     public float reloadTime;
     public float shotCooldown;
     public AmmoType ammoType;
+    public string name;
 
-    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType)
+    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name)
     {
         this.capacity = capacity;
         this.reloadTime = reloadTime;
         this.shotCooldown = shotCooldown;
         this.ammoType = ammoType;
+        this.name = name;
     }
 }
 
 public struct SilencerAttachment 
 {
-    public float soundVolume; 
+    public float soundVolume;
+    public string name;
 
-    public SilencerAttachment(float soundVolume)
+    public SilencerAttachment(float soundVolume, string name)
     {
         this.soundVolume = soundVolume;
+        this.name = name;
     }
 }
 
@@ -109,11 +118,13 @@ public struct LaserAttachment
 {
     public Color color;
     public float radius;
+    public string name;
 
-    public LaserAttachment(Color color, float radius)
+    public LaserAttachment(Color color, float radius, string name)
     {
         this.color = color;
         this.radius = radius;
+        this.name = name;
     }
 }
 

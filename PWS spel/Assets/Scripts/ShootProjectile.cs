@@ -29,7 +29,7 @@ public class ShootProjectile : MonoBehaviour
     public float shotCooldown;
     public float reloadTime;
 
-    public MouseLook Mouselook;
+    public MouseLook mouseLook;
     public bool automatic;
     private float recoilXSaved;
     private float recoilYSaved;
@@ -39,13 +39,13 @@ public class ShootProjectile : MonoBehaviour
     public int cap;
     public float zoom;
 
-
+    public bool canShoot = true;
 
 
     void Update()
     {
 
-        if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
+        if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot)
         {
             for (int i = 0; i < amount; i++)
             {
@@ -61,7 +61,7 @@ public class ShootProjectile : MonoBehaviour
                 
             recoilXSaved += recoilX;
                
-            Mouselook.recoilX = recoilX;
+            mouseLook.recoilX = recoilX;
 
             float recoilY = Random.Range(-50f, 50f); 
             if (recoilYSaved < 200)
@@ -70,7 +70,7 @@ public class ShootProjectile : MonoBehaviour
             }                     
             
             recoilYSaved += recoilY;
-            Mouselook.recoilY = recoilY;
+            mouseLook.recoilY = recoilY;
 
             lastShot = Time.time;
 
@@ -88,8 +88,8 @@ public class ShootProjectile : MonoBehaviour
         }
         else
         {
-            Mouselook.recoilX = -recoilXSaved * 0.1f;
-            Mouselook.recoilY = -recoilYSaved * 0.1f;
+            mouseLook.recoilX = -recoilXSaved * 0.1f;
+            mouseLook.recoilY = -recoilYSaved * 0.1f;
             recoilXSaved *= 0.9f;
             recoilYSaved *= 0.9f;
             if (Mathf.Abs(recoilXSaved) < 0.01f) recoilXSaved = 0;
@@ -106,12 +106,11 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetMouseButton(1) && reloadStart == -1)
         {   
-            if (GetComponent<Camera>().fieldOfView > 60 * 1 / zoom) 
+            if (GetComponent<Camera>().fieldOfView > 60 / zoom) 
             {
                 GetComponent<Camera>().fieldOfView -= 2;
-                Mouselook.mouseSensitivity -= 4;
             }
-
+            mouseLook.mouseSensitivity = 8 / zoom;
             animator.SetBool("IsAiming", true);
         }
         else
@@ -119,8 +118,8 @@ public class ShootProjectile : MonoBehaviour
             if (GetComponent<Camera>().fieldOfView < 60)
             {
                 GetComponent<Camera>().fieldOfView += 2;
-                Mouselook.mouseSensitivity += 4;
             }
+            mouseLook.mouseSensitivity = 8;
             animator.SetBool("IsAiming", false);
 
             // animator.SetTrigger("Fire");
@@ -166,7 +165,6 @@ public class ShootProjectile : MonoBehaviour
         }
     }
 
-    // roep deze functie aan als attachment word veranderd
     public void ChangeAttachment()
     {
         shotCooldown = weaponScript.currentMagazine.shotCooldown;
@@ -177,6 +175,7 @@ public class ShootProjectile : MonoBehaviour
         amount = weaponScript.currentMagazine.ammoType.amount;
         spread = weaponScript.currentMagazine.ammoType.spread;
         size = weaponScript.currentMagazine.ammoType.size;
+        zoom = weaponScript.currentScope.zoomFactor;
         // andere modifiers nog toevoegen
     }
 }
