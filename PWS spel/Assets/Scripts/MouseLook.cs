@@ -32,8 +32,9 @@ public class MouseLook : MonoBehaviour
 
         float random = Mathf.Deg2Rad * Random.Range(0f, 360f);
 
-        
-        float range = Mathf.Pow(Random.value, 2f)* 30;
+
+        // float range = Mathf.Pow(Random.value, 2f)* 30;
+        float range = 0;
         xRotation -= Mathf.Cos(random)* range;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 

@@ -44,7 +44,7 @@ public class WeaponScript : MonoBehaviour
         scopes.Add("scopeding", new(2, normalScopeImage));
         // hier alle scopes
 
-        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["normal"]));
+        magazines.Add("magazineding", new(100, 1.5f, 0.2f, ammoTypes["normal"]));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1));

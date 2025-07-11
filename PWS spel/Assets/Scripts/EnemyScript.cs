@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using static UnityEngine.Rendering.DebugUI;
 using System;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class EnemyScript : MonoBehaviour
 
 
     public MouseLook MouseLook;
+    public ShootProjectile ShootProjectile;
 
     bool dead = false;
 
@@ -34,9 +36,11 @@ public class EnemyScript : MonoBehaviour
             StringBuilder sb = new StringBuilder();
 
             // sb.AppendLine($"{Mathf.RoundToInt((transform.position-player.transform.position).magnitude * 100)},{Mathf.RoundToInt((Time.time- MouseLook.StartTime) * 100)}");
-            sb.AppendLine($"{Mathf.RoundToInt(MouseLook.StartAngle * 100)},{Mathf.RoundToInt((Time.time - MouseLook.StartTime) * 100)}");
+            //  sb.AppendLine($"{Mathf.RoundToInt(MouseLook.StartAngle * 100)},{Mathf.RoundToInt((Time.time - MouseLook.StartTime) * 100)}");
+            sb.AppendLine($"{Mathf.RoundToInt((transform.position - player.transform.position).magnitude * 100)},{Mathf.RoundToInt((5f / (100 - ShootProjectile.ammo)) * 100)}");
 
-            Debug.Log(MouseLook.StartAngle);
+
+       
             /*
             int i = 0;
             foreach (int time in MouseLook.table.Keys)

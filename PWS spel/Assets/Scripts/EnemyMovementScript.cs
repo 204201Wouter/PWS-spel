@@ -67,7 +67,7 @@ public class EnemyMovementScript : MonoBehaviour
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
-      //  transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
+        transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
         targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
@@ -183,7 +183,7 @@ public class EnemyMovementScript : MonoBehaviour
         }
         */
 
-
+        
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
@@ -215,7 +215,8 @@ public class EnemyMovementScript : MonoBehaviour
         }
         else
         {
-            /*
+        
+            
             turns.Add(Mathf.RoundToInt(Time.time * 100));
             path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(transform.position.x, transform.position.z)+ Random.insideUnitCircle.normalized*5);
 
@@ -237,7 +238,7 @@ public class EnemyMovementScript : MonoBehaviour
             {
                 targetPos = transform.position;
             }
-            */
+            
         }
 
     }

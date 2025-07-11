@@ -605,7 +605,6 @@ MonoBehaviour:
   enemyBody: {fileID: 1268509606}
   StartAngle: 0
   StartTime: 0
-  StartDistance: 0
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2865,10 +2864,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bc2beb021cbad4ea2b2ec75b838f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 10
   player: {fileID: 1389374215}
   gun: {fileID: 896483227}
   MouseLook: {fileID: 330585548}
+  ShootProjectile: {fileID: 330585549}
   EnemyMovementScript: {fileID: 1268509607}
 --- !u!143 &1268509602
 CharacterController:
@@ -3014,7 +3014,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   mode: guard
-  ammo: 30
+  ammo: 100
   reloadStart: 0
   turns: []
 --- !u!1 &1304992636
