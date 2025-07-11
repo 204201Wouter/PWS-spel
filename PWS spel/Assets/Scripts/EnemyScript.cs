@@ -33,7 +33,10 @@ public class EnemyScript : MonoBehaviour
 
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"{Mathf.RoundToInt((transform.position-player.transform.position).magnitude * 100)},{Mathf.RoundToInt((Time.time- MouseLook.StartTime) * 100)}");
+            // sb.AppendLine($"{Mathf.RoundToInt((transform.position-player.transform.position).magnitude * 100)},{Mathf.RoundToInt((Time.time- MouseLook.StartTime) * 100)}");
+            sb.AppendLine($"{Mathf.RoundToInt(MouseLook.StartAngle * 100)},{Mathf.RoundToInt((Time.time - MouseLook.StartTime) * 100)}");
+
+            Debug.Log(MouseLook.StartAngle);
             /*
             int i = 0;
             foreach (int time in MouseLook.table.Keys)
@@ -47,7 +50,7 @@ public class EnemyScript : MonoBehaviour
                 i += 1;
             }
             */
- 
+
 
             string path = Path.Combine(Application.dataPath, "table.csv");
             File.AppendAllText(path, sb.ToString());

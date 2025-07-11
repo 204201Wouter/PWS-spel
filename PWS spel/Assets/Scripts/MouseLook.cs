@@ -22,6 +22,7 @@ public class MouseLook : MonoBehaviour
 
     public float StartAngle;
     public float StartTime;
+
  
 
 
@@ -31,13 +32,14 @@ public class MouseLook : MonoBehaviour
 
         float random = Mathf.Deg2Rad * Random.Range(0f, 360f);
 
-
-        xRotation -= Mathf.Cos(random)*30;
+        
+        float range = Mathf.Pow(Random.value, 2f)* 30;
+        xRotation -= Mathf.Cos(random)* range;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * Mathf.Sin(random)*30);//Random.Range(-30f, 30f));
-        StartAngle = Vector3.Angle(Camera.main.transform.forward, (enemyBody.transform.position - playerBody.transform.position).normalized );
+        playerBody.Rotate(Vector3.up * Mathf.Sin(random)* range);//Random.Range(-30f, 30f));
+        StartAngle = Vector3.Angle(Camera.main.transform.forward, new Vector3(0,0,1) );
         StartTime = Time.time;
         
      //   Debug.Log(StartAngle);

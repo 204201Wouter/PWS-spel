@@ -67,7 +67,7 @@ public class EnemyMovementScript : MonoBehaviour
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
-        transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
+      //  transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
         targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
