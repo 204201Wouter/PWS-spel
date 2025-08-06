@@ -2,6 +2,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using System.IO;
+using System.Text;
 
 public class ProjectileScript : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class ProjectileScript : MonoBehaviour
 
     public float dragFactor;
 
+    public MouseLook MouseLook;
+    public EnemyMovementScript EnemyMovementScript;
+
 
     void FixedUpdate()
     {
@@ -21,7 +26,12 @@ public class ProjectileScript : MonoBehaviour
             velocity = (velocity + gravity * Time.fixedDeltaTime) / (1 + dragFactor * velocity.magnitude * Time.fixedDeltaTime);
             Vector3 nextPos = transform.position + velocity * Time.fixedDeltaTime;
 
+
+
+
+
             Ray ray = new Ray(transform.position, velocity.normalized);
+
 
             if (Physics.Raycast(ray, out RaycastHit hit, velocity.magnitude * Time.fixedDeltaTime, hitable))
             {
@@ -43,14 +53,38 @@ public class ProjectileScript : MonoBehaviour
             }
             else
             {
+
+
+                if (MouseLook.testmode == "accuracycombined" && (nextPos - MouseLook.playerBody.transform.position).magnitude > (MouseLook.enemyBody.transform.position - MouseLook.playerBody.transform.position).magnitude && stopped == false)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine($"{Mathf.RoundToInt((MouseLook.enemyBody.transform.position - MouseLook.playerBody.transform.position).magnitude * 100)},{Mathf.RoundToInt(EnemyMovementScript.LateralAcc.magnitude * 100)}, {Mathf.RoundToInt((EnemyMovementScript.lateralVelocity).magnitude * 100)}, {0}");
+                    string path = Path.Combine(Application.dataPath, "table.csv");
+                    File.AppendAllText(path, sb.ToString());
+
+                    Destroy(gameObject);
+
+
+
+                }
+
                 dragFactor = 0.000823f;
                 transform.position = nextPos;
             }
+
+
+
+
+
 
             if (transform.position.y < 0 || transform.position.y > 15)
             {
                 Destroy(gameObject);
             }
+
+
+
+
         }
     }
 

@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
+using System.IO;
+using System.Text;
 
 public class ShootProjectile : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class ShootProjectile : MonoBehaviour
     public GameObject weapon;
     public WeaponScript weaponScript;
     public Movement movement;
+
+
 
     public float speed;
     public int ammo;
@@ -45,17 +49,25 @@ public class ShootProjectile : MonoBehaviour
     void Update()
     {
 
+
+
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown)
         {
             for (int i = 0; i < amount; i++)
             {
+
+
+    
+
+
                 GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
                 projectile.GetComponent<ProjectileScript>().enabled = true;
                 projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity + Random.onUnitSphere * spread;
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
-            ammo--;
+            if (Mouselook.testmode != "accuracycombined")
+                ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
                 

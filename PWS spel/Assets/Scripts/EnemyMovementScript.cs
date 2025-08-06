@@ -14,6 +14,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 
 public class EnemyMovementScript : MonoBehaviour
 {
@@ -27,10 +28,16 @@ public class EnemyMovementScript : MonoBehaviour
 
     float ySpeed;
     public float gravity = -10f;
-    public float speed = 2f;
+    public float speed = 0f;
     bool isGrounded = false;
 
     Vector3 targetPos = Vector3.zero;
+    public Vector3 lateralVelocity;
+    public Vector3 LateralAcc;
+    Vector3 lastLateralVel;
+    Vector3 lastPos;
+
+
 
 
 
@@ -41,6 +48,7 @@ public class EnemyMovementScript : MonoBehaviour
 
     public string mode = "guard";
 
+    public MouseLook MouseLook;
     
 
 
@@ -60,23 +68,28 @@ public class EnemyMovementScript : MonoBehaviour
     void Start()
     {
 
-        
+
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
 
         groundCheck = transform.GetChild(0);
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
-        transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
+        if (MouseLook.testmode == "aimtimedistance" || MouseLook.testmode == "aimtimecombined") transform.position = new Vector3(transform.position.x, transform.position.y, Random.Range(1f, 50f));
         targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
 
-        
+        if (MouseLook.testmode == "aimtimedistance" || MouseLook.testmode == "aimtimeangle" || MouseLook.testmode == "aimtimecombined")
+        {
+            speed = 0f;
+        }
+
+
        // transform.position.z = 10;
 
 
-    //player.GetComponent<Movement>().velocity.magnitude;
+            //player.GetComponent<Movement>().velocity.magnitude;
 
 
 
@@ -170,6 +183,22 @@ public class EnemyMovementScript : MonoBehaviour
         ySpeed += gravity * Time.deltaTime;
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
+
+
+
+
+        Vector3 relvelocity = (transform.position - lastPos) / Time.deltaTime- player.GetComponent<Movement>().velocity;
+        Vector3 dir = (transform.position - player.transform.position).normalized;
+
+        lateralVelocity = relvelocity - Vector3.Dot(relvelocity, dir) * dir;
+
+        LateralAcc = (lateralVelocity - lastLateralVel) / Time.deltaTime;
+        lastLateralVel = lateralVelocity;
+        lastPos = transform.position;
+
+       // if ((LateralAcc / (transform.position - player.transform.position).magnitude).magnitude > 1f) Debug.Log((LateralAcc / (transform.position - player.transform.position).magnitude).magnitude);
+
+
         /*
 
         if (mode == "cover" || mode == "scout")
@@ -183,7 +212,7 @@ public class EnemyMovementScript : MonoBehaviour
         }
         */
 
-        
+
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
@@ -218,7 +247,7 @@ public class EnemyMovementScript : MonoBehaviour
         
             
             turns.Add(Mathf.RoundToInt(Time.time * 100));
-            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(transform.position.x, transform.position.z)+ Random.insideUnitCircle.normalized*5);
+            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(transform.position.x, transform.position.z)+ Random.insideUnitCircle.normalized*10);
 
             for (int i = 0; i < path.Count - 1; i++)
             {

@@ -15,7 +15,9 @@ public class Movement : MonoBehaviour
 
     float ySpeed;
     public Vector3 velocity;
+    public Vector3 acceleration;
     Vector3 lastPos;
+    Vector3 lastVel;
 
     public LayerMask groundMask;
     public Transform groundCheck;
@@ -81,6 +83,8 @@ public class Movement : MonoBehaviour
         }
 
         velocity = (transform.position - lastPos) / Time.deltaTime;
+        acceleration = (velocity - lastVel) / Time.deltaTime;
+        lastVel = velocity;
         lastPos = transform.position;
 
         if (velocity.magnitude >= 8 && isGrounded)
@@ -108,5 +112,7 @@ public class Movement : MonoBehaviour
 
         lastisGrounded = isGrounded;
         firedGun = false;
+
+
     }
 }

@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14c5051624a10f4c9351493e31b7d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testmode: accuracycombined
   mouseSensitivity: 400
   recoilX: 0
   recoilY: 0
@@ -2162,6 +2163,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   damage: 1
   dragFactor: 0.000823
+  MouseLook: {fileID: 330585548}
+  EnemyMovementScript: {fileID: 1268509607}
 --- !u!135 &937350872
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3010,10 +3013,13 @@ MonoBehaviour:
     m_Bits: 64
   gravity: -10
   speed: 8
+  lateralVelocity: {x: 0, y: 0, z: 0}
+  LateralAcc: {x: 0, y: 0, z: 0}
   map: {fileID: 1676672229}
   nodes: {fileID: 0}
   cover: {fileID: 0}
   mode: guard
+  MouseLook: {fileID: 330585548}
   ammo: 100
   reloadStart: 0
   turns: []
@@ -3286,6 +3292,7 @@ MonoBehaviour:
   jumpHeight: 1
   canMove: 1
   velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 264
