@@ -24,7 +24,7 @@ public class WeaponScript : MonoBehaviour
 
     public GuiOpenScript guiScript;
 
-    void Start()
+    void Awake()
     {
         ammoTypes.Add("normal", new(2, 0, 0.5f, 1, 0, 15, 1f, "normal"));
         ammoTypes.Add("small", new(1, 0, 0.2f, 1, 0, 10, 0.6f, "small"));

@@ -34,7 +34,7 @@ public class ShootProjectile : MonoBehaviour
     private float recoilXSaved;
     private float recoilYSaved;
     private float lastShot;
-    private float reloadStart;
+    private float reloadStart = -1;
 
     public int cap;
     public float zoom;
@@ -76,7 +76,7 @@ public class ShootProjectile : MonoBehaviour
 
             reloadStart = -1;
 
-            AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+            UpdateAmmoText();
 
             weapon.transform.Rotate(Mathf.Rad2Deg * -0.05f, 0f, 0f);
 
@@ -135,7 +135,7 @@ public class ShootProjectile : MonoBehaviour
             else 
             { 
                 reloadStart = -1;
-                AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+                UpdateAmmoText();
             }
         }
 
@@ -144,7 +144,7 @@ public class ShootProjectile : MonoBehaviour
             GameObject Grenade = Instantiate(originalGrenade, transform.position, transform.rotation, grenadeParent);
 
             Grenade.GetComponent<BounceProjectileScript>().enabled = true;
-            Grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f+ GetComponentInParent<Movement>().velocity;
+            Grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f + GetComponentInParent<Movement>().velocity;
             Grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
         }
 
@@ -160,9 +160,14 @@ public class ShootProjectile : MonoBehaviour
                 ammo += weaponScript.ammoAmounts[ammoType];
                 weaponScript.ammoAmounts[ammoType] = 0;
             }
-            AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+            UpdateAmmoText();
             reloadStart = -1;
         }
+    }
+
+    public void UpdateAmmoText()
+    {
+        AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
     }
 
     public void ChangeAttachment()

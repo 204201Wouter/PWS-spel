@@ -7,6 +7,7 @@ using static UnityEngine.UI.Image;
 public class Movement : MonoBehaviour
 {
     public CharacterController controller;
+    public WeaponScript weaponScript;
 
     public float speed = 4f;
     public float gravity = -10f;
@@ -107,5 +108,21 @@ public class Movement : MonoBehaviour
 
         lastisGrounded = isGrounded;
         firedGun = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        EnemyWeaponScript enemyWeaponScript = other.GetComponent<EnemyWeaponScript>();
+        if (other.name == "gun" && enemyWeaponScript.isDropped)
+        {
+            if (!weaponScript.availableScopes.Contains(enemyWeaponScript.scopeAttachment.name)) weaponScript.availableScopes.Add(enemyWeaponScript.scopeAttachment.name);
+            if (!weaponScript.availableMagazines.Contains(enemyWeaponScript.magazineAttachment.name)) weaponScript.availableMagazines.Add(enemyWeaponScript.magazineAttachment.name);
+            if (!weaponScript.availableSilencers.Contains(enemyWeaponScript.silencerAttachment.name)) weaponScript.availableSilencers.Add(enemyWeaponScript.silencerAttachment.name);
+            if (!weaponScript.availableLasers.Contains(enemyWeaponScript.laserAttachment.name)) weaponScript.availableLasers.Add(enemyWeaponScript.laserAttachment.name);
+
+            weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
+
+            Destroy(other.gameObject);
+        }
     }
 }

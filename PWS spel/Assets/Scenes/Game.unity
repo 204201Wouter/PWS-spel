@@ -4288,7 +4288,7 @@ MonoBehaviour:
   weaponScript: {fileID: 330585550}
   movement: {fileID: 1389374216}
   speed: 1000
-  ammo: 30
+  ammo: 0
   ammoType: 
   damage: 0
   amount: 0
@@ -9933,6 +9933,7 @@ GameObject:
   - component: {fileID: 702912310}
   - component: {fileID: 702912309}
   - component: {fileID: 702912308}
+  - component: {fileID: 702912311}
   m_Layer: 8
   m_Name: gun
   m_TagString: Untagged
@@ -9972,9 +9973,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -10031,6 +10032,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702912306}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &702912311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702912306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f0e9948b6124a42a13cdb801b04958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponScript: {fileID: 330585550}
+  isDropped: 0
+  ammo: 0
 --- !u!1 &708036061
 GameObject:
   m_ObjectHideFlags: 0
@@ -10921,7 +10937,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo: 30/100'
+  m_text: 'Ammo: 0/100'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13175,6 +13191,7 @@ GameObject:
   - component: {fileID: 896483231}
   - component: {fileID: 896483230}
   - component: {fileID: 896483229}
+  - component: {fileID: 896483232}
   m_Layer: 8
   m_Name: gun
   m_TagString: Untagged
@@ -13214,9 +13231,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -13273,6 +13290,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896483227}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &896483232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896483227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f0e9948b6124a42a13cdb801b04958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponScript: {fileID: 330585550}
+  isDropped: 0
+  ammo: 0
 --- !u!1 &900832594
 GameObject:
   m_ObjectHideFlags: 0
@@ -19241,7 +19273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 200
   player: {fileID: 1389374215}
-  gun: {fileID: 896483227}
+  droppedWeaponsParent: {fileID: 1534532202}
 --- !u!143 &1268509602
 CharacterController:
   m_ObjectHideFlags: 0
@@ -20969,6 +21001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1389374217}
+  weaponScript: {fileID: 330585550}
   speed: 4
   gravity: -10
   jumpHeight: 1
@@ -21023,7 +21056,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.4000001
   m_Height: 2
@@ -21945,7 +21978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419429540}
   m_Layer: 0
-  m_Name: Enemy parent
+  m_Name: Enemy Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21966,6 +21999,7 @@ Transform:
   m_Children:
   - {fileID: 1268509606}
   - {fileID: 1802507521}
+  - {fileID: 1534532202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419947954
@@ -24297,6 +24331,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2024325245}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1534532201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534532202}
+  m_Layer: 0
+  m_Name: Dropped Weapons Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534532202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534532201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1419429540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1536281677
 GameObject:
@@ -28912,9 +28977,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bc2beb021cbad4ea2b2ec75b838f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 10
   player: {fileID: 1389374215}
-  gun: {fileID: 702912306}
+  droppedWeaponsParent: {fileID: 1534532202}
 --- !u!143 &1802507524
 CharacterController:
   m_ObjectHideFlags: 0

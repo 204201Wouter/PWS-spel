@@ -28,7 +28,6 @@ public class GuiOpenScript : MonoBehaviour
 
     void Start()
     {
-
         gui.SetActive(false);
         sightInventory.SetActive(false);
         magazineInventory.SetActive(true);
@@ -38,9 +37,6 @@ public class GuiOpenScript : MonoBehaviour
         magazineSlot.onClick.AddListener(() => OpenInventory(magazineInventory));
 
         activeInventory = magazineInventory;
-
-        
-
     }
 
     void Update()
@@ -89,7 +85,10 @@ public class GuiOpenScript : MonoBehaviour
         shootscript.amount = magazine.ammoType.amount;
         shootscript.spread = magazine.ammoType.spread;
         shootscript.size = magazine.ammoType.size;
+        weaponScript.ammoAmounts[shootscript.ammoType] += shootscript.ammo;
         shootscript.ammoType = magazine.ammoType.name;
+        shootscript.ammo = 0;
+        shootscript.UpdateAmmoText();
 
         weaponScript.availableMagazines.Add(weaponScript.currentMagazine.name);
         weaponScript.currentMagazine = magazine;
