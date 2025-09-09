@@ -111,7 +111,7 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView -= 2;
             }
             mouseLook.mouseSensitivity = 8 / zoom;
-            animator.SetBool("IsAiming", true);
+          //  animator.SetBool("IsAiming", true);
         }
         else
         {
@@ -120,7 +120,7 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView += 2;
             }
             mouseLook.mouseSensitivity = 8;
-            animator.SetBool("IsAiming", false);
+          //  animator.SetBool("IsAiming", false);
 
             // animator.SetTrigger("Fire");
         }
