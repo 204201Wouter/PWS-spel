@@ -41,20 +41,20 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 100); // nu beginnen met 100 van elke kogel
         }
 
-        scopes.Add("scopeding", new(4, "scopeding"));
-        scopes.Add("no scope", new(2, "no scope"));
+        scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope")));
+        scopes.Add("no scope", new(2, "no scope", null));
         // hier alle scopes
 
-        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"], "magazineding"));
-        magazines.Add("default magazine", new(30, 1.5f, 0.2f, ammoTypes["normal"], "default magazine"));
+        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"], "magazineding", GameObject.Find("sniper mag")));
+        magazines.Add("default magazine", new(30, 1.5f, 0.2f, ammoTypes["normal"], "default magazine", GameObject.Find("ar mag")));
         // hier alle magazines
 
-        silencers.Add("silencerding", new(1, "silencerding"));
-        silencers.Add("no silencer", new(0, "no silencer"));
+        silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
+        silencers.Add("no silencer", new(0, "no silencer", null));
         // hier alle silencers
 
-        lasers.Add("laserding", new(Color.red, 0.1f, "laserding"));
-        lasers.Add("no laser", new(Color.red, 0, "no laser"));
+        lasers.Add("laserding", new(Color.red, 0.1f, "laserding", GameObject.Find("nog niet toegevoegd")));
+        lasers.Add("no laser", new(Color.red, 0, "no laser", null));
         // hier alle lasers
 
         // tijdelijk
@@ -69,6 +69,31 @@ public class WeaponScript : MonoBehaviour
 
         guiScript.NewMagazine(magazines["magazineding"]);
         guiScript.NewScope(scopes["scopeding"]);
+
+        foreach (ScopeAttachment scope in scopes.Values)
+        {
+            guiScript.SetActiveIfExists(scope.model, false);
+        }
+
+        foreach (MagazineAttachment magazine in magazines.Values)
+        {
+            guiScript.SetActiveIfExists(magazine.model, false);
+        }
+
+        foreach (SilencerAttachment silencer in silencers.Values)
+        {
+            guiScript.SetActiveIfExists(silencer.model, false);
+        }
+
+        foreach (LaserAttachment laser in lasers.Values)
+        {
+            guiScript.SetActiveIfExists(laser.model, false);
+        }
+
+        guiScript.SetActiveIfExists(currentScope.model, true);
+        guiScript.SetActiveIfExists(currentMagazine.model, true);
+        guiScript.SetActiveIfExists(currentSilencer.model, true);
+        guiScript.SetActiveIfExists(currentLaser.model, true);
     }
 }
 
@@ -76,11 +101,13 @@ public struct ScopeAttachment
 {
     public float zoomFactor;
     public string name;
+    public GameObject model;
 
-    public ScopeAttachment(float zoomFactor, string name)
+    public ScopeAttachment(float zoomFactor, string name, GameObject model)
     {
         this.zoomFactor = zoomFactor;
         this.name = name;
+        this.model = model;
     }
 }
 
@@ -91,14 +118,16 @@ public struct MagazineAttachment
     public float shotCooldown;
     public AmmoType ammoType;
     public string name;
+    public GameObject model;
 
-    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name)
+    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model)
     {
         this.capacity = capacity;
         this.reloadTime = reloadTime;
         this.shotCooldown = shotCooldown;
         this.ammoType = ammoType;
         this.name = name;
+        this.model = model;
     }
 }
 
@@ -106,11 +135,13 @@ public struct SilencerAttachment
 {
     public float soundVolume;
     public string name;
+    public GameObject model;
 
-    public SilencerAttachment(float soundVolume, string name)
+    public SilencerAttachment(float soundVolume, string name, GameObject model)
     {
         this.soundVolume = soundVolume;
         this.name = name;
+        this.model = model;
     }
 }
 
@@ -119,12 +150,14 @@ public struct LaserAttachment
     public Color color;
     public float radius;
     public string name;
+    public GameObject model;
 
-    public LaserAttachment(Color color, float radius, string name)
+    public LaserAttachment(Color color, float radius, string name, GameObject model)
     {
         this.color = color;
         this.radius = radius;
         this.name = name;
+        this.model = model;
     }
 }
 

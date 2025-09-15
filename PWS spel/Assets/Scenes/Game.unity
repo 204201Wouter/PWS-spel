@@ -312,7 +312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc27b120c7c2500498b8da0343543410, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4904087
+      value: -10.799591
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc27b120c7c2500498b8da0343543410, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19676,7 +19676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d04136f62638d1c4f822ca3905c8826d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: -11.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d04136f62638d1c4f822ca3905c8826d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -27333,7 +27333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd961ea6f7a2f1640907431424ee5457, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: -11.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd961ea6f7a2f1640907431424ee5457, type: 3}
       propertyPath: m_LocalPosition.z
@@ -27650,7 +27650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1702100845
 Transform:
   m_ObjectHideFlags: 0
@@ -33806,7 +33806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2390264230880013875
 Transform:
   m_ObjectHideFlags: 0
@@ -33839,7 +33839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &3546186308020297602
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34072,7 +34072,7 @@ Transform:
   m_GameObject: {fileID: 2195015353192745599}
   serializedVersion: 2
   m_LocalRotation: {x: -0.50000006, y: -0.50000006, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.6159997, y: 0.621, z: 0.215}
+  m_LocalPosition: {x: 0.6159997, y: 0.5067, z: 0.2147}
   m_LocalScale: {x: 8.522134, y: 8.522129, z: 2.59685}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34144,7 +34144,7 @@ GameObject:
   - component: {fileID: 4097640619281075985}
   - component: {fileID: 5610275145205257166}
   m_Layer: 9
-  m_Name: Cube
+  m_Name: 'Weapon '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

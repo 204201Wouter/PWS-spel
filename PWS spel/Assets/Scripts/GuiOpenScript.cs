@@ -90,9 +90,12 @@ public class GuiOpenScript : MonoBehaviour
         shootscript.ammo = 0;
         shootscript.UpdateAmmoText();
 
+        SetActiveIfExists(weaponScript.currentMagazine.model, false);
         weaponScript.availableMagazines.Add(weaponScript.currentMagazine.name);
         weaponScript.currentMagazine = magazine;
         weaponScript.availableMagazines.Remove(magazine.name);
+        SetActiveIfExists(magazine.model, true);
+
 
         magazineSlot.transform.GetChild(0).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
@@ -116,9 +119,11 @@ public class GuiOpenScript : MonoBehaviour
         {
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
             sightSlot.transform.GetChild(0).SetParent(sightInventory.transform);
+            SetActiveIfExists(weaponScript.currentScope.model, false);
         }
         weaponScript.currentScope = scope;
         weaponScript.availableScopes.Remove(scope.name);
+        SetActiveIfExists(scope.model, true);
 
         button.transform.SetParent(sightSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
@@ -129,6 +134,7 @@ public class GuiOpenScript : MonoBehaviour
         weaponScript.availableScopes.Add(weaponScript.currentScope.name);
         weaponScript.currentScope = weaponScript.scopes["no scope"];
         shootscript.zoom = 2;
+        SetActiveIfExists(weaponScript.currentScope.model, false);
 
         button.transform.SetParent(sightInventory.transform);
     }
@@ -157,5 +163,10 @@ public class GuiOpenScript : MonoBehaviour
         button.transform.SetParent(sightInventory.transform);
         button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
         button.GetComponent<Image>().color = Random.ColorHSV();
+    }
+
+    public void SetActiveIfExists(GameObject obj, bool active)
+    {
+        if (obj != null) obj.SetActive(active);
     }
 }
