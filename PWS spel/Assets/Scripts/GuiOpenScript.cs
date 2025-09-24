@@ -87,6 +87,7 @@ public class GuiOpenScript : MonoBehaviour
         shootscript.size = magazine.ammoType.size;
         weaponScript.ammoAmounts[shootscript.ammoType] += shootscript.ammo;
         shootscript.ammoType = magazine.ammoType.name;
+        shootscript.recoil = magazine.ammoType.recoil;
         shootscript.ammo = 0;
         shootscript.UpdateAmmoText();
 

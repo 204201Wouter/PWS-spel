@@ -4353,6 +4353,7 @@ MonoBehaviour:
   amount: 0
   spread: 0
   size: 0
+  recoil: 0
   AmmoText: {fileID: 790313115}
   animator: {fileID: 0}
   shotCooldown: 0.1
@@ -34066,7 +34067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &5485019038100318267
 MeshFilter:
   m_ObjectHideFlags: 0

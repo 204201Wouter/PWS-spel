@@ -24,6 +24,7 @@ public class ShootProjectile : MonoBehaviour
     public int amount;
     public float spread;
     public float size;
+    public float recoil;
     public TextMeshProUGUI AmmoText;
     public Animator animator;
     public float shotCooldown;
@@ -78,7 +79,7 @@ public class ShootProjectile : MonoBehaviour
 
             UpdateAmmoText();
 
-            weapon.transform.Rotate(Mathf.Rad2Deg * -0.05f, 0f, 0f);
+            weapon.transform.Rotate(recoil * -10, 0f, 0f);
 
             movement.firedGun = true;
 
@@ -96,11 +97,11 @@ public class ShootProjectile : MonoBehaviour
             if (Mathf.Abs(recoilYSaved) < 0.01f) recoilYSaved = 0;
 
            // Debug.Log(weapon.transform.localEulerAngles.x);
-            if (weapon.transform.localEulerAngles.x > 270) 
+            if (weapon.transform.localEulerAngles.x > 270) weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
             //   weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
-            weapon.transform.Rotate(Mathf.Rad2Deg * 0.005f, 0f, 0f);
-          //  Debug.Log(weapon.transform.localEulerAngles.x);
-           // weapon.transform.Rotate(Mathf.Rad2Deg * -0.01f, 0f, 0f);
+
+            //  Debug.Log(weapon.transform.localEulerAngles.x);
+            // weapon.transform.Rotate(Mathf.Rad2Deg * -0.01f, 0f, 0f);
         }
 
 
@@ -181,6 +182,7 @@ public class ShootProjectile : MonoBehaviour
         spread = weaponScript.currentMagazine.ammoType.spread;
         size = weaponScript.currentMagazine.ammoType.size;
         zoom = weaponScript.currentScope.zoomFactor;
+        recoil = weaponScript.currentMagazine.ammoType.recoil;
         // andere modifiers nog toevoegen
     }
 }

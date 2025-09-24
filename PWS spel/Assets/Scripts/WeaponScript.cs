@@ -29,9 +29,9 @@ public class WeaponScript : MonoBehaviour
         ammoTypes.Add("normal", new(2, 0, 0.5f, 1, 0, 15, 1f, "normal"));
         ammoTypes.Add("small", new(1, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
         ammoTypes.Add("big", new(3, 0, 1, 1, 0, 25, 1.5f, "big"));
-        ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
+        /*ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
         ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, 0.6f, "smallAP"));
-        ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));
+        ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));*/
         ammoTypes.Add("buckshot", new(0.5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot"));
         ammoTypes.Add("birdshot", new(0.2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot"));
         // waarden voor ammo zijn waarschijnlijk niet goed, moeten we ooit nog veranderen
@@ -45,8 +45,20 @@ public class WeaponScript : MonoBehaviour
         scopes.Add("no scope", new(2, "no scope", null));
         // hier alle scopes
 
-        magazines.Add("magazineding", new(30, 1.5f, 0.2f, ammoTypes["birdshot"], "magazineding", GameObject.Find("sniper mag")));
-        magazines.Add("default magazine", new(30, 1.5f, 0.2f, ammoTypes["normal"], "default magazine", GameObject.Find("ar mag")));
+        // mag models
+        GameObject ARmag = GameObject.Find("ar mag");
+        GameObject drumMag = GameObject.Find("drum mag");
+        GameObject sniperMag = GameObject.Find("sniper mag");
+
+        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARmag));
+        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag));
+        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARmag));
+        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag));
+        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag));
+        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag));
+        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag));
+        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag));
+        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
@@ -67,7 +79,7 @@ public class WeaponScript : MonoBehaviour
         Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(0).GetComponent<Button>();
         defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
 
-        guiScript.NewMagazine(magazines["magazineding"]);
+        guiScript.NewMagazine(magazines["small drum"]);
         guiScript.NewScope(scopes["scopeding"]);
 
         foreach (ScopeAttachment scope in scopes.Values)
@@ -184,5 +196,4 @@ public struct AmmoType
         this.name = name;
     }
 }
-// ik weet niet of deze modifiers goed zijn, ik heb ze maar een beetje voor het idee neergezet
 
