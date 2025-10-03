@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14c5051624a10f4c9351493e31b7d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testmode: accuracycombined
+  testmode: aimtimecombined
   mouseSensitivity: 400
   recoilX: 0
   recoilY: 0

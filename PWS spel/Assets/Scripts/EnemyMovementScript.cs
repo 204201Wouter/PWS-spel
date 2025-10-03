@@ -67,7 +67,7 @@ public class EnemyMovementScript : MonoBehaviour
 
     void Start()
     {
-
+        Random.InitState(System.DateTime.Now.Millisecond);
 
         ammo = GetComponentInChildren<MagazineScript>().cap;
 

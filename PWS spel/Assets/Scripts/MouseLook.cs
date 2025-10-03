@@ -41,7 +41,7 @@ public class MouseLook : MonoBehaviour
         }
         if (testmode == "aimtimeangle" || testmode == "aimtimecombined")
         {
-            range = Random.value * 30;
+            range = Random.Range(0f, 30f);
         }
   
 
@@ -51,7 +51,7 @@ public class MouseLook : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * Mathf.Sin(random)* range);//Random.Range(-30f, 30f));
+        playerBody.Rotate(Mathf.Sin(random) * range * Vector3.up);//Random.Range(-30f, 30f));
         StartAngle = Vector3.Angle(Camera.main.transform.forward, new Vector3(0,0,1) );
         StartTime = Time.time;
         
