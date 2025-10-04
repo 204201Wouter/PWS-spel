@@ -17,9 +17,8 @@ using System.IO;
 
 public class EnemyMovementScript : MonoBehaviour
 {
-    CharacterController controller;
+    public CharacterController controller;
     public LayerMask groundMask;
-    Transform groundCheck;
     EnemyHandler enemyHandler;
 
     public GameObject player;
@@ -63,7 +62,7 @@ public class EnemyMovementScript : MonoBehaviour
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
 
-        groundCheck = transform.GetChild(0);
+
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
         targetPos = transform.position;
@@ -127,9 +126,9 @@ public class EnemyMovementScript : MonoBehaviour
         else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
         {
             mode = "scout";
-            Vector3 scale = transform.localScale;
-            scale.y = 1f;
-            transform.localScale = scale;
+          //  Vector3 scale = transform.localScale;
+          //  scale.y = 1f;
+        //    transform.localScale = scale;
             lastPlayerPos = player.transform.position + Vector3.up * 2;
         }
 
@@ -142,9 +141,9 @@ public class EnemyMovementScript : MonoBehaviour
         {
             if (Person2PersonCast(player.transform.position, transform.position))
             {
-                Vector3 scale = transform.localScale;
-                scale.y = 0.5f;
-                transform.localScale = scale;
+            //    Vector3 scale = transform.localScale;
+              //  scale.y = 0.5f;
+                //transform.localScale = scale;
             }
             Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
 
@@ -152,8 +151,9 @@ public class EnemyMovementScript : MonoBehaviour
         }
 
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
+        isGrounded = Physics.CheckSphere(transform.position-Vector3.up*0.7f, 0.4f, groundMask);
 
+      //  Debug.Log(isGrounded);
 
         if (isGrounded && ySpeed < 0)
         {

@@ -24,6 +24,10 @@ public class Movement : MonoBehaviour
     bool lastisGrounded = true;
     public float soundRadius;
     public bool firedGun;
+    public bool reloading;
+
+    public Animator animator;
+    public Animator animatorshadow;
 
 
     void Update()
@@ -53,6 +57,9 @@ public class Movement : MonoBehaviour
                 if (isGrounded)
                 {
                     ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    animator.SetTrigger("jump");
+                    animatorshadow.SetTrigger("jump");
+
                 }
 
                 if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
@@ -69,8 +76,8 @@ public class Movement : MonoBehaviour
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing) speed = 8f;
-        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing) speed = 4f;
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing && !reloading) speed = 8f;
+        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing || reloading) speed = 4f;
 
         //if (Input.GetKey(KeyCode.LeftControl); crouch
         //if (!Input.GetKey(KeyCode.X); crawl
@@ -86,6 +93,7 @@ public class Movement : MonoBehaviour
         if (velocity.magnitude >= 8 && isGrounded)
         {
             soundRadius = 50;
+
         }
         else if (!lastisGrounded && isGrounded)
         {
@@ -99,8 +107,17 @@ public class Movement : MonoBehaviour
         {
             soundRadius = 0;
         }
-        else soundRadius = 0;
+        else {
+            soundRadius = 0;
 
+
+        }
+
+
+        Vector2 vel2d = new Vector2(velocity.x, velocity.z);
+        animator.SetFloat("speed", vel2d.magnitude);
+        animatorshadow.SetFloat("speed", vel2d.magnitude);
+        
         if (firedGun)
         {
             soundRadius = 100;
