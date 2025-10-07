@@ -31,6 +31,8 @@ public class EnemyMovementScript : MonoBehaviour
 
     Vector3 targetPos = Vector3.zero;
 
+    public Animator animator;
+
 
 
 
@@ -79,7 +81,7 @@ public class EnemyMovementScript : MonoBehaviour
     void Update()
     {
 
-
+        // schieten
         if (HasLineOfSight())
         {
             lastHearPlayer = Time.time;
@@ -90,11 +92,13 @@ public class EnemyMovementScript : MonoBehaviour
                 // Debug.Log(HasLineOfSight());
                 player.GetComponent<PlayerHealth>().Hit(1);
                 ammo -= 1;
+                animator.SetTrigger("recoil");
             }
 
             if (ammo == 0 && reloadStart == -1)
             {
                 reloadStart = Time.time;
+                animator.SetTrigger("reload");
             }
             if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
             {
@@ -102,15 +106,21 @@ public class EnemyMovementScript : MonoBehaviour
                 ammo = GetComponentInChildren<MagazineScript>().cap;
             }
 
+            animator.SetBool("IsAiming", true);
+
 
         }
+        else 
+            animator.SetBool("IsAiming", false);
 
-        if (HasLineOfSight() && mode == "scout")     
+        // cover
+        if (HasLineOfSight() && mode == "scout" && false)     
         {
             mode = "cover";
             lastPlayerPos = player.transform.position + Vector3.up * 2;
         }
 
+        // zoek player
         else if (HearPlayer())
         {
             if (mode == "guard")
@@ -123,6 +133,7 @@ public class EnemyMovementScript : MonoBehaviour
             print(gameObject.name + " heard player");
         }
 
+        // 
         else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
         {
             mode = "scout";
@@ -137,6 +148,8 @@ public class EnemyMovementScript : MonoBehaviour
             mode = "guard";
         }
 
+
+        /*
         else if (mode == "cover" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
         {
             if (Person2PersonCast(player.transform.position, transform.position))
@@ -145,10 +158,11 @@ public class EnemyMovementScript : MonoBehaviour
               //  scale.y = 0.5f;
                 //transform.localScale = scale;
             }
+            Debug.Log(transform.position - targetPos);
             Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
-        }
+        }*/
 
 
         isGrounded = Physics.CheckSphere(transform.position-Vector3.up*0.7f, 0.4f, groundMask);
@@ -176,6 +190,7 @@ public class EnemyMovementScript : MonoBehaviour
         }
 
 
+
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
         if (diffTargetPos.magnitude > 0.05f)
@@ -197,6 +212,7 @@ public class EnemyMovementScript : MonoBehaviour
 
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             }
+            animator.SetFloat("speed", speed);
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
             
         }
@@ -207,6 +223,7 @@ public class EnemyMovementScript : MonoBehaviour
         }
         else
         {
+            animator.SetFloat("speed", 0f);
             /*path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
             if (path.Count > 0)
             {
@@ -218,6 +235,9 @@ public class EnemyMovementScript : MonoBehaviour
                 targetPos = new Vector3(playerPos.x, transform.position.y, playerPos.y);
             }*/
         }
+
+
+
 
     }
 

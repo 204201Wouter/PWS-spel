@@ -84,8 +84,70 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 0
+      - path: Armature/Bone
+        weight: 0
+      - path: Armature/Bone/Bone.001
+        weight: 0
+      - path: Armature/Bone/Bone.001/Bone.001_end
+        weight: 0
+      - path: Armature/Bone/Bone.002
+        weight: 0
+      - path: Armature/Bone/Bone.002/Bone.003
+        weight: 0
+      - path: Armature/Bone/Bone.002/Bone.003/Bone.012
+        weight: 0
+      - path: Armature/Bone/Bone.002/Bone.003/Bone.012/Bone.012_end
+        weight: 0
+      - path: Armature/Bone/Bone.007
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.013
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.013/Bone.013_end
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.015
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.015/Bone.015_end
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.015/Cube.001
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.016
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.016/ar mag.002
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.016/Bone.016_end
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.017
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.017/Bone.017_end
+        weight: 0
+      - path: Armature/Bone/Bone.007/Bone.008/Bone.017/scope houder.002
+        weight: 0
+      - path: Armature/Bone.004
+        weight: 1
+      - path: Armature/Bone.004/Bone.005
+        weight: 1
+      - path: Armature/Bone.004/Bone.005/Bone.006
+        weight: 1
+      - path: Armature/Bone.004/Bone.005/Bone.006/Bone.006_end
+        weight: 1
+      - path: Armature/Bone.009
+        weight: 1
+      - path: Armature/Bone.009/Bone.010
+        weight: 1
+      - path: Armature/Bone.009/Bone.010/Bone.011
+        weight: 1
+      - path: Armature/Bone.009/Bone.010/Bone.011/Bone.011_end
+        weight: 1
+      - path: Cube
+        weight: 0
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
