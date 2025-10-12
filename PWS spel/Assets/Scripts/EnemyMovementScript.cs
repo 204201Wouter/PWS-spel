@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem.HID;
@@ -33,17 +32,11 @@ public class EnemyMovementScript : MonoBehaviour
 
     public Animator animator;
 
-
-
-
     public GameObject map;
     public GameObject nodes;
     public GameObject cover;
 
     public string mode = "guard";
-
-    
-
 
     public int ammo;
     float lastShot;
@@ -51,48 +44,49 @@ public class EnemyMovementScript : MonoBehaviour
     private bool lastisGrounded;
     private Vector3 lastPlayerPos;
     private float lastHearPlayer;
+    float aimtimedone;
+    bool aiming = false;
 
-
+    Vector3 lateralVelocity;
+    Vector3 lateralAcceleration;
+    Vector3 lastPos;
+    Vector3 lastLateralVelocity;
 
 
     List <Vector2> path = new();
 
     void Start()
     {
-
-        
         ammo = GetComponentInChildren<MagazineScript>().cap;
-
-
 
         enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
         targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
-
-
-    //player.GetComponent<Movement>().velocity.magnitude;
-
-
-
-}
+    }
 
     void Update()
     {
-
         // schieten
         if (HasLineOfSight())
         {
             lastHearPlayer = Time.time;
+            if (!aiming)
+            {
+                aimtimedone = Time.time + AimTimeFormula();
+                aiming = true;
+            }
 
-            if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
+            if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
             {
                 lastShot = Time.time;
-                // Debug.Log(HasLineOfSight());
-                player.GetComponent<PlayerHealth>().Hit(1);
                 ammo -= 1;
                 animator.SetTrigger("recoil");
+                if (Random.value < AccuracyFormula())
+                {
+                    player.GetComponent<PlayerHealth>().Hit(1);
+                }
             }
 
             if (ammo == 0 && reloadStart == -1)
@@ -100,18 +94,16 @@ public class EnemyMovementScript : MonoBehaviour
                 reloadStart = Time.time;
                 animator.SetTrigger("reload");
             }
-            if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
+            if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
             {
                 reloadStart = -1;
                 ammo = GetComponentInChildren<MagazineScript>().cap;
             }
-
             animator.SetBool("IsAiming", true);
-
-
         }
-        else 
-            animator.SetBool("IsAiming", false);
+        else animator.SetBool("IsAiming", false);
+
+        if (aiming && Time.time > aimtimedone) aiming = false;
 
         // cover
         if (HasLineOfSight() && mode == "scout" && false)     
@@ -167,7 +159,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         isGrounded = Physics.CheckSphere(transform.position-Vector3.up*0.7f, 0.4f, groundMask);
 
-      //  Debug.Log(isGrounded);
+        //Debug.Log(isGrounded);
 
         if (isGrounded && ySpeed < 0)
         {
@@ -177,7 +169,6 @@ public class EnemyMovementScript : MonoBehaviour
         ySpeed += gravity * Time.deltaTime;
 
         controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
-      
 
         if (mode == "cover" || mode == "scout")
         {
@@ -188,8 +179,6 @@ public class EnemyMovementScript : MonoBehaviour
             path = new();
             targetPos = transform.position;
         }
-
-
 
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
@@ -208,19 +197,21 @@ public class EnemyMovementScript : MonoBehaviour
 
             else
             {
-                 targetRotation = Quaternion.LookRotation(diffTargetPos);
-
+                targetRotation = Quaternion.LookRotation(diffTargetPos);
+                
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             }
+
             animator.SetFloat("speed", speed);
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
-            
         }
+
         else if (path.Count > 1)
         {
             path.RemoveAt(path.Count - 1);
             targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
         }
+
         else
         {
             animator.SetFloat("speed", 0f);
@@ -236,9 +227,14 @@ public class EnemyMovementScript : MonoBehaviour
             }*/
         }
 
+        Vector3 relativeVelocity = (transform.position - lastPos) / Time.deltaTime - player.GetComponent<Movement>().velocity;
+        Vector3 directionToPlayer = (transform.position - player.transform.position).normalized;
 
+        lateralVelocity = relativeVelocity - Vector3.Dot(relativeVelocity, directionToPlayer) * directionToPlayer;
+        lateralAcceleration = (lateralVelocity - lastLateralVelocity) / Time.deltaTime;
 
-
+        lastLateralVelocity = lateralVelocity;
+        lastPos = transform.position;
     }
 
     void MoveEnemy(string mode)
@@ -313,6 +309,23 @@ public class EnemyMovementScript : MonoBehaviour
         else return false;
     }
 
+    float AccuracyFormula()
+    {
+        float distance = (player.transform.position - transform.position).magnitude;
+
+        return Mathf.Clamp(distance + lateralVelocity.magnitude + lateralAcceleration.magnitude, 0, 1); // echte formule moet er nog in
+    }
+
+    float AimTimeFormula()
+    {
+        float distance = (player.transform.position - transform.position).magnitude;
+        Quaternion angleToPlayer = Quaternion.LookRotation(player.transform.position - transform.position);
+
+        float angle = Quaternion.Angle(transform.rotation, angleToPlayer);
+
+        return Mathf.Max(distance - angle, 0.1f);
+    }
+
     public bool Person2PersonCast(Vector3 pos, Vector3 pos2, float height = 1f)
     {
         Vector3 rpos;
@@ -322,19 +335,19 @@ public class EnemyMovementScript : MonoBehaviour
 
         rpos = pos2 + Vector3.up* height + left;
         dir = rpos - pos;
-        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
        // Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + left;
         dir = rpos - pos;
-        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
       //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.up * height + right;
         dir = rpos - pos;
-        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) { return true; }
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
       //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + right;
         dir = rpos - pos;
-        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) {return true; }
+        if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
       //  Debug.DrawRay(pos, dir, Color.blue);
 
         return false;
@@ -342,88 +355,72 @@ public class EnemyMovementScript : MonoBehaviour
 
     }
 
-
-
-
-
     List<Vector2> NodesReachable(Vector2 pos)
     {
 
         Transform[] children = nodes.GetComponentsInChildren<Transform>();
-        List<Vector2> ReachableNodes = new();
+        List<Vector2> reachableNodes = new();
 
 
         for (int i = 1; i < children.Length; i++)
         {
             
             Transform child = children[i];
-            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
+            Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
 
-            if (!Cast(ChildPos, pos))
+            if (!Cast(childPos, pos))
           //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
-                ReachableNodes.Add(ChildPos);
+                reachableNodes.Add(childPos);
             }
         }
 
-        return ReachableNodes;
+        return reachableNodes;
     }
 
     List<Vector2> NodesReachableCover(Vector2 pos)
     {
-
         Transform[] children = nodes.GetComponentsInChildren<Transform>();
-        List<Vector2> ReachableNodes = new();
-
+        List<Vector2> reachableNodes = new();
 
         for (int i = 1; i < children.Length; i++)
         {
 
             Transform child = children[i];
-            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
+            Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
 
-            if (!Cast(ChildPos, pos))
+            if (!Cast(childPos, pos))
             //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
-                ReachableNodes.Add(ChildPos);
+                reachableNodes.Add(childPos);
             }
         }
 
         children = cover.GetComponentsInChildren<Transform>();
 
-
         for (int i = 1; i < children.Length; i++)
         {
 
             Transform child = children[i];
-            Vector2 ChildPos = new Vector2(child.position.x, child.position.z);
+            Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
 
-            if (!Cast(ChildPos, pos))
+            if (!Cast(childPos, pos))
             //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
-                ReachableNodes.Add(ChildPos);
+                reachableNodes.Add(childPos);
             }
         }
 
-        return ReachableNodes;
+        return reachableNodes;
     }
 
-    List<Vector2> NearestCover(float distanceFromPlayer = 0f)
+    List<Vector2> NearestCover(float distanceFromPlayer)
     {
-
         return AStarHide(new Vector2 (transform.position.x, transform.position.z));
-     
- 
-
-
     }
-
-
-
-
 
     bool Cast(Vector2 start, Vector2 end)
     {
@@ -433,8 +430,6 @@ public class EnemyMovementScript : MonoBehaviour
         return Physics.SphereCast(start3, 0.4f, (end3 - start3).normalized, out _, (end3 - start3).magnitude, groundMask);
 
     }
-
-
 
     List<Vector2> AStarHide(Vector2 pos)
     {
