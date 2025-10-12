@@ -68,7 +68,7 @@ public class enemymovementcopy : MonoBehaviour
 
 
 
-        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
+        if (HasLineOfSight() && ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown)
         {
             lastShot = Time.time;
            // Debug.Log(HasLineOfSight());
@@ -80,7 +80,7 @@ public class enemymovementcopy : MonoBehaviour
         {
             reloadStart = Time.time; 
         }
-        if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().ReloadTime && reloadStart != -1)
+        if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
         {
             reloadStart = -1;
             ammo = GetComponentInChildren<MagazineScript>().cap;
