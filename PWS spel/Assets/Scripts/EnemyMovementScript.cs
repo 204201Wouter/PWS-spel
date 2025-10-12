@@ -84,6 +84,9 @@ public class EnemyMovementScript : MonoBehaviour
         // schieten
         if (HasLineOfSight())
         {
+            Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             lastHearPlayer = Time.time;
 
             if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().ShotCooldown)
@@ -114,7 +117,7 @@ public class EnemyMovementScript : MonoBehaviour
             animator.SetBool("IsAiming", false);
 
         // cover
-        if (HasLineOfSight() && mode == "scout" && false)     
+        if (HasLineOfSight() && mode == "scout")     
         {
             mode = "cover";
             lastPlayerPos = player.transform.position + Vector3.up * 2;
@@ -130,7 +133,7 @@ public class EnemyMovementScript : MonoBehaviour
             }
 
             lastHearPlayer = Time.time;
-            print(gameObject.name + " heard player");
+          //  print(gameObject.name + " heard player");
         }
 
         // 
@@ -162,7 +165,8 @@ public class EnemyMovementScript : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
-        }*/
+        }
+        */
 
 
         isGrounded = Physics.CheckSphere(transform.position-Vector3.up*0.7f, 0.4f, groundMask);

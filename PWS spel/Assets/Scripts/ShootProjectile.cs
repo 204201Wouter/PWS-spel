@@ -54,6 +54,7 @@ public class ShootProjectile : MonoBehaviour
 
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
         {
+
             for (int i = 0; i < amount; i++)
             {
                 GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
@@ -88,7 +89,7 @@ public class ShootProjectile : MonoBehaviour
             // weapon.transform.Rotate(recoil * -10, 0f, 0f);
          //   weapon.transform.position += weapon.transform.up*recoil*0.2f;
 
-            movement.firedGun = true;
+         //   movement.firedGun = true;
 
 
 
@@ -193,7 +194,7 @@ public class ShootProjectile : MonoBehaviour
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);
 
-        if (Input.GetKeyDown(KeyCode.R) && reloadStart == -1)
+        if (Input.GetKeyDown(KeyCode.R) && reloadStart == -1 && ammo != cap)
         {
 
                 movement.reloading = true;

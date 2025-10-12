@@ -25,10 +25,10 @@ public class WeaponScript : MonoBehaviour
     public GuiOpenScript guiScript;
 
     void Awake()
-    {
-        ammoTypes.Add("normal", new(2, 0, 0.5f, 1, 0, 15, 1f, "normal"));
-        ammoTypes.Add("small", new(1, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
-        ammoTypes.Add("big", new(3, 0, 1, 1, 0, 25, 1.5f, "big"));
+    {                              //dmg
+        ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal"));
+        ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
+        ammoTypes.Add("big", new(30, 0, 1, 1, 0, 25, 1.5f, "big"));
         /*ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
         ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, 0.6f, "smallAP"));
         ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));*/
@@ -38,7 +38,7 @@ public class WeaponScript : MonoBehaviour
 
         foreach (string ammoType in ammoTypes.Keys)
         {
-            ammoAmounts.Add(ammoType, 100); // nu beginnen met 100 van elke kogel
+            ammoAmounts.Add(ammoType, 1000); // nu beginnen met 100 van elke kogel
         }
 
         scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope")));

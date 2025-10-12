@@ -6,14 +6,14 @@ public class EnemyScript : MonoBehaviour
     public float health = 200;
 
     public GameObject player;
-    GameObject weapon;
+    public GameObject weapon;
     EnemyWeaponScript weaponScript;
 
     public Transform droppedWeaponsParent;
 
     void Start()
     {
-        weapon = transform.GetChild(2).gameObject;
+     //   weapon = transform.GetChild(2).gameObject;
         weaponScript = weapon.GetComponent<EnemyWeaponScript>();
     }
 
