@@ -24,7 +24,11 @@ public class WeaponScript : MonoBehaviour
 
     public GuiOpenScript guiScript;
 
-    void Awake()
+    public Sprite ARMagSprite;
+    public Sprite sniperMagSprite;
+    public Sprite drumMagSprite;
+
+    void Awake() // awake runt eerder dan start en dat moet voor dit
     {                              //dmg
         ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal"));
         ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
@@ -46,19 +50,19 @@ public class WeaponScript : MonoBehaviour
         // hier alle scopes
 
         // mag models
-        GameObject ARmag = GameObject.Find("ar mag");
+        GameObject ARMag = GameObject.Find("ar mag");
         GameObject drumMag = GameObject.Find("drum mag");
         GameObject sniperMag = GameObject.Find("sniper mag");
 
-        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARmag));
-        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag));
-        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARmag));
-        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag));
-        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag));
-        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag));
-        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag));
-        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag));
-        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag));
+        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite));
+        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite));
+        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite));
+        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite));
+        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite));
+        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite));
+        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite));
+        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite));
+        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
@@ -131,8 +135,9 @@ public struct MagazineAttachment
     public AmmoType ammoType;
     public string name;
     public GameObject model;
+    public Sprite sprite;
 
-    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model)
+    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model, Sprite sprite)
     {
         this.capacity = capacity;
         this.reloadTime = reloadTime;
@@ -140,6 +145,7 @@ public struct MagazineAttachment
         this.ammoType = ammoType;
         this.name = name;
         this.model = model;
+        this.sprite = sprite;
     }
 }
 

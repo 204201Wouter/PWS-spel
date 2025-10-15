@@ -68,12 +68,12 @@ public class GuiOpenScript : MonoBehaviour
     {
         weapon.sprite = picture;
     }
-    void OpenInventory(GameObject panel)
+    void OpenInventory(GameObject newInventory)
     {
         activeInventory.SetActive(false);
-        panel.SetActive(true);
-        activeInventory = panel;
-        inventoryText.text = panel.name;
+        newInventory.SetActive(true);
+        activeInventory = newInventory;
+        inventoryText.text = newInventory.name;
     }
 
     void EquipMagazine(MagazineAttachment magazine, GameObject button)
@@ -155,7 +155,7 @@ public class GuiOpenScript : MonoBehaviour
         GameObject button = Instantiate(attachmentButton);
         button.transform.SetParent(magazineInventory.transform);
         button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
-        button.GetComponent<Image>().color = Random.ColorHSV();
+        button.GetComponent<Image>().sprite = magazine.sprite;
     }
 
     public void NewScope(ScopeAttachment scope)

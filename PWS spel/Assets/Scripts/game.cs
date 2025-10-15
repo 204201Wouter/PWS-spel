@@ -36,8 +36,8 @@ public class game : MonoBehaviour
         {
             progression += 0.1f;
             if (progression > 100f) objective = "";
-            AmmoText.text = "copying..." + Mathf.Round(progression);
+            //AmmoText.text = "copying..." + Mathf.Round(progression); nu betere popup
         }
-        else { AmmoText.text = "";}
+        else AmmoText.text = "";
     }
 }
