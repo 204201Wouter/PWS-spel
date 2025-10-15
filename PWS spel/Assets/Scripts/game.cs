@@ -8,6 +8,9 @@ public class game : MonoBehaviour
     public Transform computer;
     public TextMeshProUGUI AmmoText;
 
+    public Transform door1;
+    public Transform door2;
+
     float progression;
     string objective;
 
@@ -15,11 +18,16 @@ public class game : MonoBehaviour
     {
         progression = 0;
         objective = "computer";
+
+        spawnenemy();
     }
 
     void spawnenemy()
     {
-        
+        door1.transform.position += Vector3.forward;
+        door2.transform.position += Vector3.back;
+        door1.transform.position -= Vector3.forward;
+        door2.transform.position -= Vector3.back;
     }
 
     void Update()
