@@ -109,8 +109,6 @@ public class Movement : MonoBehaviour
         }
         else {
             soundRadius = 0;
-
-
         }
 
 

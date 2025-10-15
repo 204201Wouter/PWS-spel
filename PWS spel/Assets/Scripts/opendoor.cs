@@ -1,9 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class opendoor : MonoBehaviour
+public class OpenDoor : MonoBehaviour
 {
-
     public Transform player;
     public Transform enemyParent;
     Vector3 startpos;
@@ -16,24 +15,16 @@ public class opendoor : MonoBehaviour
     void Start()
     {
         startpos = transform.position;
-        endpos = transform.position+ 5f*transform.right;
+        endpos = transform.position - 5f * transform.right;
 
-        if (Mathf.Abs(transform.right.x) > 0) { x = 20f; }
+        if (Mathf.Abs(transform.right.x) > 0) x = 20f; 
         else z = 20f;
-
-
     }
 
     void Update()
     {
-
-
-
-        //  Vector3 pos = ;
-
         open = false;
-        if (Mathf.Abs(player.position.x - startpos.x) < x &&
-           Mathf.Abs(player.position.z - startpos.z) < z)
+        if (Mathf.Abs(player.position.x - startpos.x) < x && Mathf.Abs(player.position.z - startpos.z) < z)
         {
             open = true; 
         }
@@ -44,8 +35,7 @@ public class opendoor : MonoBehaviour
 
             if (controller != null)
             {
-                if (Mathf.Abs(child.position.x - startpos.x) < x &&
-                Mathf.Abs(child.position.z - startpos.z) < z)
+                if (Mathf.Abs(child.position.x - startpos.x) < x && Mathf.Abs(child.position.z - startpos.z) < z)
                 {
                     open = true;
                 }
@@ -56,7 +46,7 @@ public class opendoor : MonoBehaviour
         {
             if ((transform.position - startpos).magnitude < 5f)
             {
-                transform.position += transform.right;
+                transform.position -= transform.right;
 
             }
 
@@ -67,7 +57,7 @@ public class opendoor : MonoBehaviour
         {
             if ((transform.position - endpos).magnitude < 5f)
             {
-                transform.position -= transform.right;
+                transform.position += transform.right;
 
             }
             //   Debug.Log((transform.position - (startpos)).magnitude);
