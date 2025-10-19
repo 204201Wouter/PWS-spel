@@ -79,6 +79,7 @@ public class EnemyMovementScript : MonoBehaviour
             {
                 aimtimedone = Time.time + AimTimeFormula();
                 aiming = true;
+                print("aimtime enemy was: " + AimTimeFormula().ToString());
             }
 
             if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
@@ -89,7 +90,9 @@ public class EnemyMovementScript : MonoBehaviour
                 if (Random.value < AccuracyFormula())
                 {
                     player.GetComponent<PlayerHealth>().Hit(1);
+                    print("enemy hit");
                 }
+                else print("enemy missed");
             }
 
             if (ammo == 0 && reloadStart == -1)
@@ -104,9 +107,12 @@ public class EnemyMovementScript : MonoBehaviour
             }
             animator.SetBool("IsAiming", true);
         }
-        else animator.SetBool("IsAiming", false);
+        else
+        {
+            aiming = false;
+            animator.SetBool("IsAiming", false);
+        }
 
-        if (aiming && Time.time > aimtimedone) aiming = false;
 
         // cover
         if (HasLineOfSight() && mode == "scout")     
@@ -316,8 +322,11 @@ public class EnemyMovementScript : MonoBehaviour
     float AccuracyFormula()
     {
         float distance = (player.transform.position - transform.position).magnitude;
+        float weaponaccuracy = 1f; // deze is misschien handig om makkelijk elk wapen andere accuracy te laten hebben bij enemy
+        int acceleration = 0;
+        if (lateralAcceleration.magnitude > 10) acceleration = 1;
 
-        return Mathf.Clamp(distance + lateralVelocity.magnitude + lateralAcceleration.magnitude, 0, 1); // echte formule moet er nog in
+        return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration, 0.04f, 0.97f) * weaponaccuracy; // echte formule moet er nog in
     }
 
     float AimTimeFormula()
@@ -327,7 +336,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         float angle = Quaternion.Angle(transform.rotation, angleToPlayer);
 
-        return Mathf.Max(distance - angle, 0.1f);
+        return Mathf.Max(0.0218f*distance + 0.0134f*angle, 0.1f);
     }
 
     public bool Person2PersonCast(Vector3 pos, Vector3 pos2, float height = 1f)
