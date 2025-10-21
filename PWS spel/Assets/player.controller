@@ -971,7 +971,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: aim
-  m_Speed: -0.7
+  m_Speed: -5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4860348769827908029}
@@ -1098,7 +1098,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: aim 0
-  m_Speed: -0.7
+  m_Speed: -5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4683581861916903512}
@@ -1551,7 +1551,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: idle 0
-  m_Speed: 0.7
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6675284092446532799}

@@ -7,6 +7,7 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject player;
     public GameObject weapon;
+    public GameObject mag;
     EnemyWeaponScript weaponScript;
 
     public Transform droppedWeaponsParent;
@@ -27,7 +28,8 @@ public class EnemyScript : MonoBehaviour
             dead = true;
             weaponScript.isDropped = true;
             weapon.transform.parent = droppedWeaponsParent;
-            weapon.transform.position = transform.position;
+            mag.SetActive(true);
+        //    weapon.transform.position = transform.position;
             Destroy(gameObject);
         }
     }
