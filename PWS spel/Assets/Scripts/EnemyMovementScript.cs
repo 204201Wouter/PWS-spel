@@ -71,7 +71,7 @@ public class EnemyMovementScript : MonoBehaviour
         // schieten
         if (HasLineOfSight())
         {
-            Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             lastHearPlayer = Time.time;

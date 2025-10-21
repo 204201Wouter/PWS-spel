@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
+using UnityEngine.InputSystem.Controls;
 
 public class EnemyWeaponScript : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class EnemyWeaponScript : MonoBehaviour
     public SilencerAttachment silencerAttachment;
     public LaserAttachment laserAttachment;
     public int ammo;
+    public LayerMask ground; 
+    public float yspeed = 0;
 
     void Start()
     {
@@ -20,5 +24,19 @@ public class EnemyWeaponScript : MonoBehaviour
         laserAttachment = weaponScript.lasers.Values.ToArray()[Random.Range(0, weaponScript.lasers.Count)];
 
         ammo = Random.Range(20, 150);
+    }
+
+    void Update()
+    {
+        if (isDropped && !Physics.CheckSphere(transform.position, 0.09f, ground))
+        {
+
+            //90 10
+            transform.position -= Vector3.up* yspeed * Time.deltaTime;
+            yspeed += Time.deltaTime*10f;
+            if (yspeed > 2) yspeed = 2;
+
+            transform.rotation = Quaternion.Euler(3.806f, transform.eulerAngles.y, -81.497f);
+        }
     }
 }

@@ -32,6 +32,12 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            
+        }
+
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
 
         if (isGrounded && ySpeed < 0)

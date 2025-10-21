@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject weapon;
     public GameObject mag;
     EnemyWeaponScript weaponScript;
+
 
     public Transform droppedWeaponsParent;
 
@@ -29,7 +31,16 @@ public class EnemyScript : MonoBehaviour
             weaponScript.isDropped = true;
             weapon.transform.parent = droppedWeaponsParent;
             mag.SetActive(true);
-        //    weapon.transform.position = transform.position;
+            weaponScript.yspeed = 0;
+            int layer = LayerMask.NameToLayer("droppedweapon");
+            weapon.layer = layer;
+
+            foreach (Transform child in weapon.transform)
+            {
+                child.gameObject.layer = layer;
+            }
+      
+            //    weapon.transform.position = transform.position;
             Destroy(gameObject);
         }
     }

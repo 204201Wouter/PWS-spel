@@ -11,6 +11,7 @@ public class InteractScript : MonoBehaviour
     readonly float reach = 5f;
 
     public LayerMask layerMask;
+    public LayerMask droppedweaponlayer;
 
     public GameObject computerInteractPopup;
     public RectTransform computerLoadingBar;
@@ -36,6 +37,11 @@ public class InteractScript : MonoBehaviour
             else computerInteractPopup.SetActive(false);
         }
         else computerInteractPopup.SetActive(false);
+
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit2, reach, droppedweaponlayer) && Input.GetKey(KeyCode.E))
+        {
+            Destroy(hit2.collider.gameObject);
+        }
     }
 
     IEnumerator MapDownloadedPopup()

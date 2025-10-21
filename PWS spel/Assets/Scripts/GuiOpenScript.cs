@@ -41,7 +41,7 @@ public class GuiOpenScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (gui.activeSelf)
             {
