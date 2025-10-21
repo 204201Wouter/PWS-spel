@@ -199,7 +199,7 @@ public class ShootProjectile : MonoBehaviour
 
                 movement.reloading = true;
                 reloadStart = Time.time;
-                AmmoText.text = "Reloading...";
+                AmmoText.text = ".../" + weaponScript.ammoAmounts[ammoType].ToString(); 
                 animator.SetTrigger("reload");
                 animatorshadow.SetTrigger("reload");
             
@@ -235,7 +235,7 @@ public class ShootProjectile : MonoBehaviour
 
     public void UpdateAmmoText()
     {
-        AmmoText.text = "Ammo: " + ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+        AmmoText.text = ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
     }
 
     public void ChangeAttachment()
