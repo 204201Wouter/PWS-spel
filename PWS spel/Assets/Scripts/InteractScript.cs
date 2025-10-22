@@ -38,6 +38,8 @@ public class InteractScript : MonoBehaviour
         }
         else computerInteractPopup.SetActive(false);
 
+
+
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit2, reach, droppedweaponlayer) && Input.GetKey(KeyCode.E))
         {
             Destroy(hit2.collider.gameObject);

@@ -30,10 +30,23 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-   
+
+        health += Time.deltaTime;
+        
+        if (health > 100f)
+        {
+            health = 100f;
+        }
+
+        healthText.text = "+ " + health.ToString();
+
         Color c = damageimg.color;
         c.a = Mathf.MoveTowards(c.a, 1f-health/100f, 2f * Time.deltaTime);
         damageimg.color = c;
+
+
+
+
     }
 
 
