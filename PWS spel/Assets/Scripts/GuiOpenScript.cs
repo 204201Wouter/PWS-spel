@@ -152,18 +152,26 @@ public class GuiOpenScript : MonoBehaviour
 
     public void NewMagazine(MagazineAttachment magazine)
     {
-        GameObject button = Instantiate(attachmentButton);
-        button.transform.SetParent(magazineInventory.transform);
-        button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
-        button.GetComponent<Image>().sprite = magazine.sprite;
+        if (!weaponScript.availableMagazines.Contains(magazine.name) && weaponScript.currentMagazine.name != magazine.name)
+        {
+            weaponScript.availableMagazines.Add(magazine.name);
+            GameObject button = Instantiate(attachmentButton);
+            button.transform.SetParent(magazineInventory.transform);
+            button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
+            button.GetComponent<Image>().sprite = magazine.sprite;
+        }
     }
 
     public void NewScope(ScopeAttachment scope)
     {
-        GameObject button = Instantiate(attachmentButton);
-        button.transform.SetParent(sightInventory.transform);
-        button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
-        button.GetComponent<Image>().color = Random.ColorHSV();
+        if (!weaponScript.availableScopes.Contains(scope.name) && weaponScript.currentScope.name != scope.name)
+        {
+            weaponScript.availableScopes.Add(scope.name);
+            GameObject button = Instantiate(attachmentButton);
+            button.transform.SetParent(sightInventory.transform);
+            button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
+            button.GetComponent<Image>().color = Random.ColorHSV();
+        }
     }
 
     public void SetActiveIfExists(GameObject obj, bool active)
