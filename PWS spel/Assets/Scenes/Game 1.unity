@@ -7518,7 +7518,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0109, y: 0.02, z: 0.01}
+  m_Size: {x: 0.0109, y: -0.02, z: 0.01}
   m_Center: {x: -0.0054354607, y: 0, z: -0.005015221}
 --- !u!1 &69439318
 GameObject:
@@ -70466,7 +70466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000/100
+  m_text: 0/1000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -90231,7 +90231,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870938, y: 0.01999999, z: 0.009969539}
+  m_Size: {x: 0.010870938, y: -0.01999999, z: 0.009969539}
   m_Center: {x: -0.005435467, y: -0.0000000018626451, z: -0.005015232}
 --- !u!23 &903870823
 MeshRenderer:
@@ -93164,7 +93164,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870938, y: 0.01999999, z: 0.009969539}
+  m_Size: {x: 0.010870938, y: -0.01999999, z: 0.009969539}
   m_Center: {x: -0.005435467, y: -0.0000000018626451, z: -0.005015232}
 --- !u!23 &928959154
 MeshRenderer:
@@ -129829,7 +129829,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870937, y: 0.01999999, z: 0.009969538}
+  m_Size: {x: 0.010870937, y: -0.01999999, z: 0.009969538}
   m_Center: {x: -0.0054355273, y: -9.313226e-10, z: -0.005015241}
 --- !u!1 &1324027147
 GameObject:
@@ -136916,6 +136916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1389374217}
   weaponScript: {fileID: 330585550}
+  guiOpenScript: {fileID: 1389374223}
   speed: 4
   gravity: -10
   jumpHeight: 1
@@ -175296,7 +175297,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870941, y: 0.019999998, z: 0.019999996}
+  m_Size: {x: 0.010870941, y: -0.02, z: 0.019999996}
   m_Center: {x: -0.0054355003, y: -9.313226e-10, z: 0.0000000018626451}
 --- !u!1 &1776991099
 GameObject:
@@ -175557,15 +175558,15 @@ RectTransform:
   m_GameObject: {fileID: 1784304186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
-  m_LocalScale: {x: 0.19999999, y: 0.79999995, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1819871824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4300, y: 500}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1784304188
 MonoBehaviour:
@@ -178763,7 +178764,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0109, y: 0.02, z: 0.01}
+  m_Size: {x: 0.0109, y: -0.02, z: 0.01}
   m_Center: {x: -0.0054354607, y: 0, z: -0.005015221}
 --- !u!23 &1808943206
 MeshRenderer:
@@ -181574,7 +181575,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01087094, y: 0.019999992, z: 0.00996954}
+  m_Size: {x: 0.01087094, y: -0.01999999, z: 0.00996954}
   m_Center: {x: -0.0054355287, y: -9.313226e-10, z: -0.005015228}
 --- !u!1 &1831064178
 GameObject:
@@ -189766,7 +189767,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870941, y: 0.019999998, z: 0.019999996}
+  m_Size: {x: 0.01087094, y: -0.02, z: 0.019999996}
   m_Center: {x: -0.00543553, y: -9.313226e-10, z: 0.000000013038516}
 --- !u!1 &1903481958
 GameObject:
@@ -195656,7 +195657,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870938, y: 0.01999999, z: 0.009969539}
+  m_Size: {x: 0.010870938, y: -0.01999999, z: 0.009969539}
   m_Center: {x: -0.005435467, y: -0.0000000018626451, z: -0.005015232}
 --- !u!1 &1968330047
 GameObject:
@@ -195711,7 +195712,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0109, y: 0.02, z: 0.01}
+  m_Size: {x: 0.0109, y: -0.02, z: 0.01}
   m_Center: {x: -0.0054354607, y: 0, z: -0.005015221}
 --- !u!23 &1968330050
 MeshRenderer:
@@ -217294,6 +217295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4234374948888481644}
   weaponScript: {fileID: 330585550}
+  guiOpenScript: {fileID: 0}
   speed: 4
   gravity: -10
   jumpHeight: 1
@@ -217500,7 +217502,7 @@ GameObject:
   - component: {fileID: 4864312366008068351}
   - component: {fileID: 4864312366008068352}
   m_Layer: 8
-  m_Name: Cube.001
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

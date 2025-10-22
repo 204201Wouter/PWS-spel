@@ -32,8 +32,8 @@ public class EnemyWeaponScript : MonoBehaviour
         {
 
             //90 10
-            transform.position -= Vector3.up* yspeed * Time.deltaTime;
-            yspeed += Time.deltaTime*10f;
+            transform.position -= Time.deltaTime * yspeed * Vector3.up;
+            yspeed += Time.deltaTime * 10f;
             if (yspeed > 2) yspeed = 2;
 
             transform.rotation = Quaternion.Euler(3.806f, transform.eulerAngles.y, -81.497f);
