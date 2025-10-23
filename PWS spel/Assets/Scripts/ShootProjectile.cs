@@ -2,7 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
-using UnityEngine.UIElements;
+
+using UnityEngine.UI;
+
 
 public class ShootProjectile : MonoBehaviour
 {
@@ -32,6 +34,9 @@ public class ShootProjectile : MonoBehaviour
     public Animator animatorshadow;
     public float shotCooldown;
     public float reloadTime;
+
+    public Image ammoimg;
+    public Image magimg;
 
 
 
@@ -235,6 +240,8 @@ public class ShootProjectile : MonoBehaviour
 
     public void UpdateAmmoText()
     {
+        magimg.sprite = weaponScript.currentMagazine.sprite;
+        ammoimg.sprite = weaponScript.currentMagazine.sprite2;
         AmmoText.text = ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
     }
 

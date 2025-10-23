@@ -13,6 +13,9 @@ public class InteractScript : MonoBehaviour
     public LayerMask layerMask;
     public LayerMask droppedweaponlayer;
 
+    public GuiOpenScript guiOpenScript;
+    public WeaponScript weaponScript;
+
     public GameObject computerInteractPopup;
     public RectTransform computerLoadingBar;
     public GameObject mapDownloadedPopup;
@@ -39,11 +42,21 @@ public class InteractScript : MonoBehaviour
         else computerInteractPopup.SetActive(false);
 
 
-
+        
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit2, reach, droppedweaponlayer) && Input.GetKey(KeyCode.E))
         {
+            EnemyWeaponScript enemyWeaponScript = hit2.collider.GetComponent<EnemyWeaponScript>();
+            Debug.Log(enemyWeaponScript.scopeAttachment);
+            guiOpenScript.NewScope(enemyWeaponScript.scopeAttachment);
+            guiOpenScript.NewMagazine(enemyWeaponScript.magazineAttachment);
+            if (!weaponScript.availableSilencers.Contains(enemyWeaponScript.silencerAttachment.name)) weaponScript.availableSilencers.Add(enemyWeaponScript.silencerAttachment.name);
+            if (!weaponScript.availableLasers.Contains(enemyWeaponScript.laserAttachment.name)) weaponScript.availableLasers.Add(enemyWeaponScript.laserAttachment.name);
+
+            weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
+
             Destroy(hit2.collider.gameObject);
         }
+        
     }
 
     IEnumerator MapDownloadedPopup()

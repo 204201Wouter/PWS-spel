@@ -132,19 +132,5 @@ public class Movement : MonoBehaviour
         firedGun = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        EnemyWeaponScript enemyWeaponScript = other.GetComponent<EnemyWeaponScript>();
-        if (other.name == "Gun" && enemyWeaponScript.isDropped)
-        {
-            guiOpenScript.NewScope(enemyWeaponScript.scopeAttachment);
-            guiOpenScript.NewMagazine(enemyWeaponScript.magazineAttachment);
-            if (!weaponScript.availableSilencers.Contains(enemyWeaponScript.silencerAttachment.name)) weaponScript.availableSilencers.Add(enemyWeaponScript.silencerAttachment.name);
-            if (!weaponScript.availableLasers.Contains(enemyWeaponScript.laserAttachment.name)) weaponScript.availableLasers.Add(enemyWeaponScript.laserAttachment.name);
 
-            weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
-
-            Destroy(other.gameObject);
-        }
-    }
 }

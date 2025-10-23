@@ -37,6 +37,9 @@ public class GuiOpenScript : MonoBehaviour
         magazineSlot.onClick.AddListener(() => OpenInventory(magazineInventory));
 
         activeInventory = magazineInventory;
+
+        shootscript.UpdateAmmoText();
+
     }
 
     void Update()
