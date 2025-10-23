@@ -10853,7 +10853,7 @@ GameObject:
   - component: {fileID: 100676939}
   m_Layer: 8
   m_Name: sight
-  m_TagString: Untagged
+  m_TagString: enemy weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18361,7 +18361,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870937, y: 0.019999992, z: 0.00996954}
+  m_Size: {x: 0.010870937, y: -0.01999999, z: 0.00996954}
   m_Center: {x: -0.0054353485, y: 9.313226e-10, z: -0.005015229}
 --- !u!1 &185238951
 GameObject:
@@ -34157,7 +34157,8 @@ MonoBehaviour:
   spread: 0
   size: 0
   recoil: 0
-  AmmoText: {fileID: 691193151}
+  loadedAmmoText: {fileID: 691193151}
+  totalAmmoText: {fileID: 478941718}
   animator: {fileID: 1552372377}
   animatorshadow: {fileID: 1453265904}
   shotCooldown: 0.1
@@ -34189,9 +34190,9 @@ MonoBehaviour:
   ARMagSprite: {fileID: 21300000, guid: c8e8120cbbdccd444966dea3f1b8d92f, type: 3}
   sniperMagSprite: {fileID: 21300000, guid: 2f3c253b3ab7fd945bb375abf683e0a8, type: 3}
   drumMagSprite: {fileID: 21300000, guid: fc00c84746bfb8649937150ffc37b584, type: 3}
-  ammomedSprite: {fileID: 21300000, guid: 970eeb72db87a724aa669fedaa615a0a, type: 3}
-  ammosmallSprite: {fileID: 21300000, guid: fd11080c6e5f6e041a5f4ef4aaefcc3b, type: 3}
-  ammobigSprite: {fileID: 21300000, guid: c6873b14a2bcd0d4c84cfe6df66060df, type: 3}
+  ammoNormalSprite: {fileID: 21300000, guid: 970eeb72db87a724aa669fedaa615a0a, type: 3}
+  ammoSmallSprite: {fileID: 21300000, guid: fd11080c6e5f6e041a5f4ef4aaefcc3b, type: 3}
+  ammoBigSprite: {fileID: 21300000, guid: c6873b14a2bcd0d4c84cfe6df66060df, type: 3}
   buckshotSprite: {fileID: 21300000, guid: 265585a8a7a31474899f4c2c04795ae4, type: 3}
   birdshotSprite: {fileID: 21300000, guid: be93271d97b4a0b47aea682b8b7c78a6, type: 3}
 --- !u!114 &330585551
@@ -34209,14 +34210,12 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  droppedweaponlayer:
-    serializedVersion: 2
-    m_Bits: 4096
   guiOpenScript: {fileID: 1389374223}
   weaponScript: {fileID: 330585550}
   computerInteractPopup: {fileID: 1777427257}
   computerLoadingBar: {fileID: 1508452989}
   mapDownloadedPopup: {fileID: 269392627}
+  pickUpWeaponPopup: {fileID: 1938528292}
 --- !u!1 &331027293
 GameObject:
   m_ObjectHideFlags: 0
@@ -35268,7 +35267,7 @@ GameObject:
   - component: {fileID: 341793117}
   m_Layer: 8
   m_Name: ar mag.002
-  m_TagString: Untagged
+  m_TagString: enemy weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48462,6 +48461,142 @@ Transform:
   - {fileID: 615639546}
   m_Father: {fileID: 464076092}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &478941716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478941717}
+  - component: {fileID: 478941719}
+  - component: {fileID: 478941718}
+  m_Layer: 5
+  m_Name: TotalAmmoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &478941717
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478941716}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1819871824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -90, y: 10}
+  m_SizeDelta: {x: 100, y: 20}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &478941718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478941716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 1000
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &478941719
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478941716}
+  m_CullTransparentMesh: 1
 --- !u!1 &479070516
 GameObject:
   m_ObjectHideFlags: 0
@@ -71335,7 +71470,7 @@ GameObject:
   - component: {fileID: 691193152}
   - component: {fileID: 691193151}
   m_Layer: 5
-  m_Name: AmmoText
+  m_Name: LoadedAmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71357,8 +71492,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -80, y: 10}
-  m_SizeDelta: {x: 500, y: 50}
+  m_AnchoredPosition: {x: -88, y: 23}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &691193151
 MonoBehaviour:
@@ -71380,7 +71515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/1000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -71415,7 +71550,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 4
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -84847,7 +84982,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870937, y: 0.019999992, z: 0.00996954}
+  m_Size: {x: 0.010870937, y: -0.01999999, z: -0.00996954}
   m_Center: {x: -0.0054353485, y: 9.313226e-10, z: -0.005015228}
 --- !u!1 &823306824
 GameObject:
@@ -86493,7 +86628,7 @@ GameObject:
   - component: {fileID: 843779232}
   - component: {fileID: 843779231}
   m_Layer: 5
-  m_Name: MagazineImg
+  m_Name: MagazineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86515,7 +86650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -40, y: 40}
+  m_AnchoredPosition: {x: -40, y: 34}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &843779231
@@ -86538,7 +86673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc00c84746bfb8649937150ffc37b584, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8e8120cbbdccd444966dea3f1b8d92f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -98807,7 +98942,7 @@ GameObject:
   - component: {fileID: 965992242}
   - component: {fileID: 965992241}
   m_Layer: 5
-  m_Name: AmmoImg
+  m_Name: AmmoImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98829,7 +98964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -40, y: 40}
+  m_AnchoredPosition: {x: -45, y: 36}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &965992241
@@ -98852,7 +98987,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6873b14a2bcd0d4c84cfe6df66060df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 970eeb72db87a724aa669fedaa615a0a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -111591,7 +111726,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.094999254, y: 0.026760293, z: 0.019999996}
+  m_Size: {x: -0.09499925, y: 0.026760293, z: 0.019999996}
   m_Center: {x: -0.037499662, y: 0, z: -4.656614e-10}
 --- !u!1 &1110601646
 GameObject:
@@ -125827,7 +125962,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870983, y: 0.020000009, z: 0.020000001}
+  m_Size: {x: -0.01087098, y: 0.020000009, z: -0.02}
   m_Center: {x: -0.005435352, y: 0, z: 1.5259458e-10}
 --- !u!1 &1273865743
 GameObject:
@@ -129276,7 +129411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1309299010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -129485,7 +129620,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09499927, y: 0.026760297, z: 0.019999996}
+  m_Size: {x: -0.09499927, y: 0.026760297, z: 0.019999996}
   m_Center: {x: -0.037499666, y: -0.000000029802322, z: 4.656612e-10}
 --- !u!1 &1312847068
 GameObject:
@@ -138310,6 +138445,8 @@ MonoBehaviour:
   magazineInventory: {fileID: 1087074800}
   attachmentButton: {fileID: 1485909465}
   inventoryText: {fileID: 1073092358}
+  magazineImage: {fileID: 843779231}
+  ammoImage: {fileID: 965992241}
   shootscript: {fileID: 330585549}
   mouseLook: {fileID: 330585548}
   movement: {fileID: 1389374216}
@@ -138498,7 +138635,7 @@ GameObject:
   - component: {fileID: 1391564222}
   m_Layer: 8
   m_Name: magazine
-  m_TagString: Untagged
+  m_TagString: enemy weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141451,7 +141588,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09499927, y: 0.026760297, z: 0.019999996}
+  m_Size: {x: -0.09499927, y: 0.026760297, z: 0.019999996}
   m_Center: {x: -0.037499666, y: 0, z: 4.656612e-10}
 --- !u!1 &1423442251
 GameObject:
@@ -142258,7 +142395,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09499927, y: 0.026760297, z: 0.019999996}
+  m_Size: {x: -0.09499927, y: 0.026760297, z: 0.019999996}
   m_Center: {x: -0.037499666, y: 0.000000029802322, z: 4.656612e-10}
 --- !u!1 &1432187750
 GameObject:
@@ -147413,7 +147550,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.094999254, y: 0.026760293, z: 0.019999996}
+  m_Size: {x: -0.09499925, y: 0.026760293, z: 0.019999996}
   m_Center: {x: -0.037499662, y: 0.000000029802322, z: 4.656612e-10}
 --- !u!1 &1484828751
 GameObject:
@@ -155624,8 +155761,8 @@ GameObject:
   - component: {fileID: 1573326576}
   - component: {fileID: 1573326575}
   m_Layer: 8
-  m_Name: Cube.001
-  m_TagString: Untagged
+  m_Name: Gun
+  m_TagString: enemy weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182016,6 +182153,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 691193150}
+  - {fileID: 478941717}
   - {fileID: 843779229}
   - {fileID: 965992239}
   - {fileID: 1784304187}
@@ -182027,6 +182165,7 @@ RectTransform:
   - {fileID: 397183287}
   - {fileID: 1777427258}
   - {fileID: 269392628}
+  - {fileID: 1938528293}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -189075,7 +189214,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.09499927, y: 0.026760297, z: 0.019999996}
+  m_Size: {x: -0.09499927, y: 0.026760297, z: 0.019999996}
   m_Center: {x: -0.037499666, y: 0.000000029802322, z: 4.656612e-10}
 --- !u!1 &1875248017
 GameObject:
@@ -191993,7 +192132,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.010870983, y: 0.020000009, z: 0.020000001}
+  m_Size: {x: -0.01087098, y: 0.020000009, z: -0.02}
   m_Center: {x: -0.005435352, y: 0, z: 0.0000000038778847}
 --- !u!4 &1903924540 stripped
 Transform:
@@ -195016,6 +195155,144 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938432656}
   m_Mesh: {fileID: 4493585093827132993, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
+--- !u!1 &1938528292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938528293}
+  - component: {fileID: 1938528295}
+  - component: {fileID: 1938528294}
+  m_Layer: 5
+  m_Name: Pick Up Weapon Popup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1938528293
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938528292}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1819871824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1938528294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938528292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Press E to pick
+
+    up weapon'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1938528295
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938528292}
+  m_CullTransparentMesh: 1
 --- !u!1 &1939798582
 GameObject:
   m_ObjectHideFlags: 0
@@ -219439,6 +219716,8 @@ MonoBehaviour:
   magazineInventory: {fileID: 0}
   attachmentButton: {fileID: 0}
   inventoryText: {fileID: 0}
+  magazineImage: {fileID: 0}
+  ammoImage: {fileID: 0}
   shootscript: {fileID: 330585549}
   mouseLook: {fileID: 330585548}
   movement: {fileID: 1389374216}

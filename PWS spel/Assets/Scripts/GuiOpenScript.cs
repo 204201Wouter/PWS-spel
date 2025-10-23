@@ -20,6 +20,8 @@ public class GuiOpenScript : MonoBehaviour
     public GameObject attachmentButton;
     public TextMeshProUGUI inventoryText;
     GameObject activeInventory;
+    public Image magazineImage;
+    public Image ammoImage;
 
     public ShootProjectile shootscript;
     public MouseLook mouseLook;
@@ -104,6 +106,9 @@ public class GuiOpenScript : MonoBehaviour
         magazineSlot.transform.GetChild(0).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
+
+        magazineImage.sprite = magazine.sprite;
+        ammoImage.sprite = magazine.ammoType.sprite;
     }
 
     public void ClickMagazine(MagazineAttachment magazine, GameObject button)

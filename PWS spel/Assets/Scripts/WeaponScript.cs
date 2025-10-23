@@ -27,27 +27,27 @@ public class WeaponScript : MonoBehaviour
     public Sprite ARMagSprite;
     public Sprite sniperMagSprite;
     public Sprite drumMagSprite;
-    public Sprite ammomedSprite;
-    public Sprite ammosmallSprite;
-    public Sprite ammobigSprite;
+    public Sprite ammoNormalSprite;
+    public Sprite ammoSmallSprite;
+    public Sprite ammoBigSprite;
     public Sprite buckshotSprite;
     public Sprite birdshotSprite;
 
-    void Awake() // awake runt eerder dan start en dat moet voor dit
+    void Awake() // awake runt eerder dan start en dat moet hier
     {                              //dmg
-        ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal"));
-        ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small"));
-        ammoTypes.Add("big", new(30, 0, 1, 1, 0, 25, 1.5f, "big"));
+        ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal", ammoNormalSprite));
+        ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small", ammoSmallSprite));
+        ammoTypes.Add("big", new(30, 0, 1, 1, 0, 25, 1.5f, "big", ammoBigSprite));
         /*ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
         ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, 0.6f, "smallAP"));
         ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));*/
-        ammoTypes.Add("buckshot", new(0.5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot"));
-        ammoTypes.Add("birdshot", new(0.2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot"));
+        ammoTypes.Add("buckshot", new(5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot", buckshotSprite));
+        ammoTypes.Add("birdshot", new(2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot", birdshotSprite));
         // waarden voor ammo zijn waarschijnlijk niet goed, moeten we ooit nog veranderen
 
         foreach (string ammoType in ammoTypes.Keys)
         {
-            ammoAmounts.Add(ammoType, 1000); // nu beginnen met 100 van elke kogel
+            ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
         }
 
         scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope")));
@@ -59,15 +59,15 @@ public class WeaponScript : MonoBehaviour
         GameObject drumMag = GameObject.Find("drum mag");
         GameObject sniperMag = GameObject.Find("sniper mag");
 
-        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite, ammomedSprite));
-        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, ammomedSprite));
-        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite, ammosmallSprite));
-        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite, ammosmallSprite));
-        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite, ammobigSprite));
-        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite, buckshotSprite));
-        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite, buckshotSprite));
-        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite, birdshotSprite));
-        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite, birdshotSprite));
+        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite));
+        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite));
+        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite));
+        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite));
+        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite));
+        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite));
+        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite));
+        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite));
+        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
@@ -89,6 +89,7 @@ public class WeaponScript : MonoBehaviour
         defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
 
         guiScript.NewMagazine(magazines["small drum"]);
+        guiScript.NewMagazine(magazines["birdshot"]);
         guiScript.NewScope(scopes["scopeding"]);
 
         foreach (ScopeAttachment scope in scopes.Values)
@@ -141,9 +142,8 @@ public struct MagazineAttachment
     public string name;
     public GameObject model;
     public Sprite sprite;
-    public Sprite sprite2;
 
-    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model, Sprite sprite, Sprite sprite2)
+    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model, Sprite sprite)
     {
         this.capacity = capacity;
         this.reloadTime = reloadTime;
@@ -152,7 +152,6 @@ public struct MagazineAttachment
         this.name = name;
         this.model = model;
         this.sprite = sprite;
-        this.sprite2 = sprite2;
     }
 }
 
@@ -196,8 +195,9 @@ public struct AmmoType
     public float range;
     public float size;
     public string name;
+    public Sprite sprite;
 
-    public AmmoType(float damage, float armorPiercing, float recoil, int amount, float spread, float range, float size, string name)
+    public AmmoType(float damage, float armorPiercing, float recoil, int amount, float spread, float range, float size, string name, Sprite sprite)
     {
         this.damage = damage;
         this.armorPiercing = armorPiercing;
@@ -207,6 +207,7 @@ public struct AmmoType
         this.range = range;
         this.size = size;
         this.name = name;
+        this.sprite = sprite;
     }
 }
 

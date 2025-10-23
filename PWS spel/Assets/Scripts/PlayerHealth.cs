@@ -16,21 +16,20 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
 
-        healthText.text = "+ " + health.ToString();
+        healthText.text = "+ " + Mathf.Round(health).ToString();
         Color c = damageimg.color;
         c.a = 1f;
         damageimg.color = c;
 
 
-        //   if (health <= 0)
-        //  {
-        //    Destroy(gameObject);
-        //  }
+        /*if (health <= 0)
+        {
+            doodgaan code
+        }*/
     }
 
     void Update()
     {
-
         health += Time.deltaTime;
         
         if (health > 100f)
@@ -38,17 +37,10 @@ public class PlayerHealth : MonoBehaviour
             health = 100f;
         }
 
-        healthText.text = "+ " + health.ToString();
+        healthText.text = "+ " + Mathf.Round(health).ToString();
 
         Color c = damageimg.color;
         c.a = Mathf.MoveTowards(c.a, 1f-health/100f, 2f * Time.deltaTime);
         damageimg.color = c;
-
-
-
-
     }
-
-
-
 }

@@ -32,15 +32,10 @@ public class EnemyScript : MonoBehaviour
             weapon.transform.parent = droppedWeaponsParent;
             mag.SetActive(true);
             weaponScript.yspeed = 0;
-            int layer = LayerMask.NameToLayer("droppedweapon");
+            int layer = LayerMask.NameToLayer("Interactable");
             weapon.layer = layer;
-
-            foreach (Transform child in weapon.transform)
-            {
-                child.gameObject.layer = layer;
-            }
+            weapon.tag = "enemy weapon";
       
-            //    weapon.transform.position = transform.position;
             Destroy(gameObject);
         }
     }

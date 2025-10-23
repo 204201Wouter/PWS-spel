@@ -29,7 +29,8 @@ public class ShootProjectile : MonoBehaviour
     public float spread;
     public float size;
     public float recoil;
-    public TextMeshProUGUI AmmoText;
+    public TextMeshProUGUI loadedAmmoText;
+    public TextMeshProUGUI totalAmmoText;
     public Animator animator;
     public Animator animatorshadow;
     public float shotCooldown;
@@ -201,14 +202,11 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && reloadStart == -1 && ammo != cap)
         {
-
-                movement.reloading = true;
-                reloadStart = Time.time;
-                AmmoText.text = ".../" + weaponScript.ammoAmounts[ammoType].ToString(); 
-                animator.SetTrigger("reload");
-                animatorshadow.SetTrigger("reload");
-            
-  
+            movement.reloading = true;
+            reloadStart = Time.time;
+            loadedAmmoText.text = "...";
+            animator.SetTrigger("reload");
+            animatorshadow.SetTrigger("reload");
         }
 
         if (Input.GetKeyDown(KeyCode.G))
@@ -240,9 +238,8 @@ public class ShootProjectile : MonoBehaviour
 
     public void UpdateAmmoText()
     {
-        magimg.sprite = weaponScript.currentMagazine.sprite;
-        ammoimg.sprite = weaponScript.currentMagazine.sprite2;
-        AmmoText.text = ammo.ToString() + "/" + weaponScript.ammoAmounts[ammoType].ToString();
+        loadedAmmoText.text = ammo.ToString();
+        totalAmmoText.text = weaponScript.ammoAmounts[ammoType].ToString();
     }
 
     public void ChangeAttachment()

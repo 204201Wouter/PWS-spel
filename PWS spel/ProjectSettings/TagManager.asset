@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - computer
+  - enemy weapon
   layers:
   - Default
   - TransparentFX

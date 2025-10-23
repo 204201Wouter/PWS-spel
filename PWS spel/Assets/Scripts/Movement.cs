@@ -33,12 +33,6 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            
-        }
-
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
 
         if (isGrounded && ySpeed < 0)
@@ -100,7 +94,6 @@ public class Movement : MonoBehaviour
         if (velocity.magnitude >= 8 && isGrounded)
         {
             soundRadius = 50;
-
         }
         else if (!lastisGrounded && isGrounded)
         {
@@ -131,6 +124,4 @@ public class Movement : MonoBehaviour
         lastisGrounded = isGrounded;
         firedGun = false;
     }
-
-
 }

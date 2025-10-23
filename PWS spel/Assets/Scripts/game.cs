@@ -27,8 +27,8 @@ public class game : MonoBehaviour
 
     void Start()
     {
-        progression = 0;
-        objective = "computer";
+        //progression = 0;
+        //objective = "computer";
 
         startpos = door1.transform.position;
         endpos = door1.transform.position - 5f * door1.transform.up;
@@ -79,7 +79,7 @@ public class game : MonoBehaviour
             }
             if (spawnenemy >= 3 && spawnenemy < 1000)
             {
-                spawnenemy ++;
+                spawnenemy++;
             }
 
             if (spawnenemy >= 1000)
