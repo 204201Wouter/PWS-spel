@@ -22,6 +22,8 @@ public class GuiOpenScript : MonoBehaviour
     GameObject activeInventory;
     public Image magazineImage;
     public Image ammoImage;
+    public Transform equippedMagazineStats;
+    public Transform selectedMagazineStats;
 
     public ShootProjectile shootscript;
     public MouseLook mouseLook;
@@ -42,6 +44,7 @@ public class GuiOpenScript : MonoBehaviour
 
         shootscript.UpdateAmmoText();
 
+        magazineSlot.transform.GetChild(0).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
     }
 
     void Update()
@@ -95,6 +98,8 @@ public class GuiOpenScript : MonoBehaviour
         shootscript.recoil = magazine.ammoType.recoil;
         shootscript.ammo = 0;
         shootscript.UpdateAmmoText();
+
+        ChangeMagazineStats(magazine, true);
 
         SetActiveIfExists(weaponScript.currentMagazine.model, false);
         weaponScript.availableMagazines.Add(weaponScript.currentMagazine.name);
@@ -166,7 +171,9 @@ public class GuiOpenScript : MonoBehaviour
             GameObject button = Instantiate(attachmentButton);
             button.transform.SetParent(magazineInventory.transform);
             button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
-            button.GetComponent<Image>().sprite = magazine.sprite;
+            button.transform.GetChild(0).GetComponent<Image>().sprite = magazine.sprite;
+            button.transform.GetChild(1).GetComponent<Image>().sprite = magazine.ammoType.sprite;
+            button.GetComponent<AttachmentButtonScript>().magazineAttachment = magazine;
         }
     }
 
@@ -179,6 +186,28 @@ public class GuiOpenScript : MonoBehaviour
             button.transform.SetParent(sightInventory.transform);
             button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
             button.GetComponent<Image>().color = Random.ColorHSV();
+        }
+    }
+
+    public void ChangeMagazineStats(MagazineAttachment magazine, bool currentMagazine)
+    {
+        if (currentMagazine)
+        {
+            equippedMagazineStats.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.name[0].ToString().ToUpper() + magazine.ammoType.name[1..];
+            equippedMagazineStats.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.damage.ToString();
+            equippedMagazineStats.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = Mathf.Round(1 / magazine.shotCooldown).ToString();
+            equippedMagazineStats.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.capacity.ToString();
+            equippedMagazineStats.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.reloadTime.ToString();
+        }
+        else
+        {
+            print(magazine.name);
+            print(magazine.ammoType.name);
+            selectedMagazineStats.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.name[0].ToString().ToUpper() + magazine.ammoType.name[1..];
+            selectedMagazineStats.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.damage.ToString();
+            selectedMagazineStats.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = Mathf.Round(1 / magazine.shotCooldown).ToString();
+            selectedMagazineStats.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.capacity.ToString();
+            selectedMagazineStats.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.reloadTime.ToString();
         }
     }
 
