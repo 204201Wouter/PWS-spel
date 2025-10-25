@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
 
         if (isGrounded && ySpeed < 0)
         {

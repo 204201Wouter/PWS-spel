@@ -1,52 +1,54 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEngine.UIElements;
 
 public class OpenDoor : MonoBehaviour
 {
-    public Transform player;
-    public Transform enemyParent;
+
+    public Transform doora;
+    public Transform doorb;
     Vector3 startpos;
     Vector3 endpos;
-    float x = 5f;
-    float z = 5f;
 
-    bool open;
+
+    int inside;
 
     void Start()
     {
-        startpos = transform.position;
-        endpos = transform.position - 5f * transform.right;
+        startpos = doora.transform.position;
+        endpos = doora.transform.position - 5f * doora.transform.right;
 
-        if (Mathf.Abs(transform.right.x) > 0) x = 20f; 
-        else z = 20f;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<CharacterController>() != null)
+        {
+            inside++;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<CharacterController>() != null)
+        {
+            inside--;
+        }
     }
 
     void Update()
     {
-        open = false;
-        if (Mathf.Abs(player.position.x - startpos.x) < x && Mathf.Abs(player.position.z - startpos.z) < z)
-        {
-            open = true; 
-        }
 
-        foreach (Transform child in enemyParent)
-        {
-            CharacterController controller = child.GetComponent<CharacterController>();
 
-            if (controller != null)
+
+        if (inside > 0)
+        {
+            if ((doora.transform.position - startpos).magnitude < 5f)
             {
-                if (Mathf.Abs(child.position.x - startpos.x) < x && Mathf.Abs(child.position.z - startpos.z) < z)
-                {
-                    open = true;
-                }
-            }
-        }
-
-        if (open)
-        {
-            if ((transform.position - startpos).magnitude < 5f)
-            {
-                transform.position -= transform.right;
+                doora.transform.position -= doora.transform.right;
+                doorb.transform.position -= doorb.transform.right;
 
             }
 
@@ -55,9 +57,11 @@ public class OpenDoor : MonoBehaviour
 
         else
         {
-            if ((transform.position - endpos).magnitude < 5f)
+            if ((doora.transform.position - endpos).magnitude < 5f)
             {
-                transform.position += transform.right;
+     
+                doora.transform.position += doora.transform.right;
+                doorb.transform.position += doorb.transform.right;
 
             }
             //   Debug.Log((transform.position - (startpos)).magnitude);
