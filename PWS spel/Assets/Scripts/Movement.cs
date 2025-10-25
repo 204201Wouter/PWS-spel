@@ -62,12 +62,13 @@ public class Movement : MonoBehaviour
                     animatorshadow.SetTrigger("jump");
 
                 }
-
+                /*
                 if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
                 {
                     climbing = true;
                     ySpeed = 2f;
                 }
+                */
                
             }
 
