@@ -45,7 +45,7 @@ public class OpenDoor : MonoBehaviour
 
         if (inside > 0)
         {
-            if ((doora.transform.position - startpos).magnitude < 5f)
+            if ((doora.transform.position - startpos).magnitude < 4.9f)
             {
                 doora.transform.position -= doora.transform.right;
                 doorb.transform.position -= doorb.transform.right;
@@ -57,7 +57,7 @@ public class OpenDoor : MonoBehaviour
 
         else
         {
-            if ((doora.transform.position - endpos).magnitude < 5f)
+            if ((doora.transform.position - endpos).magnitude < 4.9f)
             {
      
                 doora.transform.position += doora.transform.right;
