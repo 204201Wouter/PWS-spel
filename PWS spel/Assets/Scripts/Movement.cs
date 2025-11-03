@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public CharacterController controller;
     public WeaponScript weaponScript;
     public GuiOpenScript guiOpenScript;
+    public InteractScript interactScript;
 
     public float speed = 4f;
     public float gravity = -10f;
@@ -33,64 +34,75 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
-
-        if (isGrounded && ySpeed < 0)
+        if (!interactScript.gravityDisabled)
         {
-            ySpeed = -2;
-        }
-        bool climbing = false;
-        if (canMove)
-        {
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
+            isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
 
-            Vector3 move = transform.right * x + transform.forward * z;
-
-            controller.Move(speed * Time.deltaTime * move);
-
-            if (Input.GetButton("Jump"))
+            if (isGrounded && ySpeed < 0)
             {
-  
-                Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
-                Ray rayTop = new Ray(transform.position+new Vector3(0, 1.5f, 0), transform.forward);
+                ySpeed = -2;
+            }
+            bool climbing = false;
+            if (canMove)
+            {
+                float x = Input.GetAxis("Horizontal");
+                float z = Input.GetAxis("Vertical");
 
-                if (isGrounded)
+                Vector3 move = transform.right * x + transform.forward * z;
+
+                controller.Move(speed * Time.deltaTime * move);
+
+                if (Input.GetButton("Jump"))
                 {
-                    ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                    animator.SetTrigger("jump");
-                    animatorshadow.SetTrigger("jump");
+
+                    Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
+                    Ray rayTop = new Ray(transform.position + new Vector3(0, 1.5f, 0), transform.forward);
+
+                    if (isGrounded)
+                    {
+                        ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                        animator.SetTrigger("jump");
+                        animatorshadow.SetTrigger("jump");
+
+                    }
+                    /*
+                    if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
+                    {
+                        climbing = true;
+                        ySpeed = 2f;
+                    }
+                    */
 
                 }
-                /*
-                if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
-                {
-                    climbing = true;
-                    ySpeed = 2f;
-                }
-                */
-               
+
             }
 
+            ySpeed += gravity * Time.deltaTime;
+
+            controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
+
+            if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing && !reloading) speed = 8f;
+            if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing || reloading) speed = 4f;
+
+            //if (Input.GetKey(KeyCode.LeftControl); crouch
+            //if (!Input.GetKey(KeyCode.X); crawl
+
+            if (transform.position.y < -20)
+            {
+                transform.position = new Vector3(0, 5, 0);
+            }
+
+            velocity = (transform.position - lastPos) / Time.deltaTime;
         }
-
-        ySpeed += gravity * Time.deltaTime;
-
-        controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing && !reloading) speed = 8f;
-        if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing || reloading) speed = 4f;
-
-        //if (Input.GetKey(KeyCode.LeftControl); crouch
-        //if (!Input.GetKey(KeyCode.X); crawl
-
-        if (transform.position.y < -20)
+        else
         {
-            transform.position = new Vector3(0, 5, 0);
-        }
+            controller.Move(velocity);
 
-        velocity = (transform.position - lastPos) / Time.deltaTime;
-        lastPos = transform.position;
+            velocity *= 0.99f;
+            if (Mathf.Abs(velocity.x) < 0.001f) velocity.x = 0;
+            if (Mathf.Abs(velocity.y) < 0.001f) velocity.y = 0;
+            if (Mathf.Abs(velocity.z) < 0.001f) velocity.z = 0;
+        }
 
         if (velocity.magnitude >= 8 && isGrounded)
         {
@@ -122,6 +134,7 @@ public class Movement : MonoBehaviour
             soundRadius = 100;
         }
 
+        lastPos = transform.position;
         lastisGrounded = isGrounded;
         firedGun = false;
     }

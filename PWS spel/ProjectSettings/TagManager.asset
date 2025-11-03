@@ -6,6 +6,8 @@ TagManager:
   tags:
   - computer
   - enemy weapon
+  - storage box
+  - gravity generator
   layers:
   - Default
   - TransparentFX

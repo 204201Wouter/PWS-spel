@@ -8,6 +8,9 @@ public class InteractScript : MonoBehaviour
     readonly float requiredComputerInteractLength = 5f;
     float computerInteractLength = 0f;
 
+    readonly float requiredGravityGeneratorInteractLength = 5f;
+    float gravityGeneratorInteractLength = 0f;
+
     readonly float reach = 5f;
 
     public LayerMask layerMask;
@@ -18,30 +21,43 @@ public class InteractScript : MonoBehaviour
     public GameObject computerInteractPopup;
     public RectTransform computerLoadingBar;
     public GameObject mapDownloadedPopup;
-    bool mapDownloaded = false;
+    public bool mapDownloaded = false;
+
+    public GameObject storageBoxInteractPopup;
+    public GameObject toolObtainedPopup;
+    public bool toolObtained = false;
+
+    public GameObject gravityGeneratorInteractPopup;
+    public RectTransform gravityGeneratorLoadingBar;
+    public GameObject gravityDisabledPopup;
+    public bool gravityDisabled = false;
 
     public GameObject pickUpWeaponPopup;
     void FixedUpdate()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, reach, layerMask))
         {
-            if (hit.collider.gameObject.CompareTag("computer") && Input.GetKey(KeyCode.F) && !mapDownloaded)
-            {
-                computerInteractLength += Time.fixedDeltaTime;
-                if (computerInteractLength >= requiredComputerInteractLength)
-                {
-                    mapDownloaded = true;
-                    StartCoroutine(MapDownloadedPopup());
-                }
-            }
-            else computerInteractLength = 0;
-
             if (hit.collider.gameObject.CompareTag("computer") && !mapDownloaded)
             {
+                if (Input.GetKey(KeyCode.F))
+                {
+                    computerInteractLength += Time.fixedDeltaTime;
+                    if (computerInteractLength >= requiredComputerInteractLength)
+                    {
+                        mapDownloaded = true;
+                        StartCoroutine(TextPopup(mapDownloadedPopup));
+                    }
+                }
+                else computerInteractLength = 0;
+
                 computerLoadingBar.sizeDelta = new(Mathf.Clamp(computerInteractLength / requiredComputerInteractLength * 95, 1, 95), 25);
                 computerInteractPopup.SetActive(true);
             }
-            else computerInteractPopup.SetActive(false);
+            else
+            {
+                computerInteractLength = 0;
+                computerInteractPopup.SetActive(false);
+            }
 
 
             if (hit.collider.gameObject.CompareTag("enemy weapon"))
@@ -63,23 +79,63 @@ public class InteractScript : MonoBehaviour
                 }
             }
             else pickUpWeaponPopup.SetActive(false);
+
+
+            if (hit.collider.gameObject.CompareTag("storage box") && !toolObtained && mapDownloaded)
+            {
+                storageBoxInteractPopup.SetActive(true);
+                if (Input.GetKey(KeyCode.E))
+                {
+                    toolObtained = true;
+                    StartCoroutine(TextPopup(toolObtainedPopup));
+                }
+            }
+            else storageBoxInteractPopup.SetActive(false);
+
+
+            if (hit.collider.gameObject.CompareTag("gravity generator") && !gravityDisabled && toolObtained)
+            {
+                if (Input.GetKey(KeyCode.F))
+                {
+                    gravityGeneratorInteractLength += Time.fixedDeltaTime;
+                    if (gravityGeneratorInteractLength >= requiredGravityGeneratorInteractLength)
+                    {
+                        gravityDisabled = true;
+                        GetComponentInParent<Movement>().velocity = Vector3.zero;
+                        StartCoroutine(TextPopup(gravityDisabledPopup));
+                    }
+                }
+                else gravityGeneratorInteractLength = 0;
+
+                gravityGeneratorLoadingBar.sizeDelta = new(Mathf.Clamp(gravityGeneratorInteractLength / requiredGravityGeneratorInteractLength * 95, 1, 95), 25);
+                gravityGeneratorInteractPopup.SetActive(true);
+            }
+            else
+            {
+                gravityGeneratorInteractLength = 0;
+                gravityGeneratorInteractPopup.SetActive(false);
+            }
         }
         else
         {
+            computerInteractLength = 0;
             computerInteractPopup.SetActive(false);
             pickUpWeaponPopup.SetActive(false);
+            storageBoxInteractPopup.SetActive(false);
+            gravityGeneratorInteractPopup.SetActive(false);
+            gravityGeneratorInteractLength = 0;
         }
     }
 
-    IEnumerator MapDownloadedPopup()
+    IEnumerator TextPopup(GameObject popup)
     {
-        mapDownloadedPopup.SetActive(true);
+        popup.SetActive(true);
         yield return new WaitForSeconds(2f);
         for (float a = 1; a >= 0; a -= 0.01f)
         {
-            mapDownloadedPopup.GetComponent<TextMeshProUGUI>().color = new(1, 1, 1, a);
+            popup.GetComponent<TextMeshProUGUI>().color = new(1, 1, 1, a);
             yield return null;
         }
-        mapDownloadedPopup.SetActive(false);
+        popup.SetActive(false);
     }
 }

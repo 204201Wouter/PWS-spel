@@ -21,6 +21,8 @@ public class ShootProjectile : MonoBehaviour
     public WeaponScript weaponScript;
     public Movement movement;
 
+    public InteractScript interactScript;
+
     public float speed;
     public int ammo;
     public string ammoType;
@@ -69,6 +71,7 @@ public class ShootProjectile : MonoBehaviour
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
+            if (interactScript.gravityDisabled) movement.velocity += amount * damage * 0.003f * -transform.forward;
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
