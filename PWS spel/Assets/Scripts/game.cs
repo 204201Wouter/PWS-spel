@@ -1,22 +1,19 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine.InputSystem;
-using System.Drawing;
+using System.Collections;
+using System.Collections.Generic;
 
-public class game : MonoBehaviour
+public class Game : MonoBehaviour
 {
-
     public Transform computer;
     public TextMeshProUGUI AmmoText;
 
     public Transform door1;
     public Transform door2;
-    public Transform spawn;
 
-    float progression;
-    string objective;
-    int spawnenemy = 1;
+    //float progression;
+    //string objective;
+    public int enemySpawnStage = 1;
 
     Vector3 startpos;
     Vector3 endpos;
@@ -24,82 +21,82 @@ public class game : MonoBehaviour
     public Transform enemyParent;
     public GameObject originalEnemy;
 
+    public Transform elevatorRoom1;
+    public Transform elevatorRoom2;
+
 
     void Start()
     {
         //progression = 0;
         //objective = "computer";
 
-        startpos = door1.transform.position;
-        endpos = door1.transform.position - 5f * door1.transform.up;
+        startpos = door1.position;
+        endpos = door1.position - 5f * door1.up;
 
-
-
-        //   spawnenemy();
+        StartCoroutine(SpawnEnemies(elevatorRoom1, 10));
     }
-    /*
-    void spawnenemy()
-    {
-        door1.transform.position += Vector3.forward*5f;
-        door2.transform.position += Vector3.back * 5f;
-        door1.transform.position -= Vector3.forward * 5f;
-        door2.transform.position -= Vector3.back * 5f;
-    }*/
 
     void Update()
     {
-        if (spawnenemy >= 1)
+        if (enemySpawnStage >= 1)
         {
-
-
-            if (spawnenemy == 1)
+            if (enemySpawnStage == 1)
             {
-                if ((door1.transform.position - startpos).magnitude < 5f)
+                if ((door1.position - startpos).magnitude < 5f)
                 {
-                    door1.transform.position -= door1.transform.up;
-                    door2.transform.position += door2.transform.up;
+                    door1.position -= door1.up;
+                    door2.position += door2.up;
 
                 }
-                else spawnenemy = 2;
+                else enemySpawnStage = 2;
 
                 //    Debug.Log((transform.position - (startpos + transform.right * 5)).magnitude);
             }
 
-            if (spawnenemy == 2)
+            if (enemySpawnStage == 2)
             {
-                foreach (Transform point in spawn)
+                foreach (Transform point in elevatorRoom1)
                 {
-                    GameObject enemy = Instantiate(originalEnemy, point.transform.position, point.transform.rotation, enemyParent);
+                    GameObject enemy = Instantiate(originalEnemy, point.position, point.rotation, enemyParent);
                     enemy.GetComponent<EnemyScript>().enabled = true;
                     enemy.GetComponent<EnemyMovementScript>().enabled = true;
                 }
 
 
-                spawnenemy = 3;
+                enemySpawnStage = 3;
             }
-            if (spawnenemy >= 3 && spawnenemy < 1000)
+            if (enemySpawnStage >= 3 && enemySpawnStage < 1000)
             {
-                spawnenemy++;
+                enemySpawnStage++;
             }
 
-            if (spawnenemy >= 1000)
+            if (enemySpawnStage >= 1000)
             {
-                if ((door1.transform.position - endpos).magnitude < 5f)
+                if ((door1.position - endpos).magnitude < 5f)
                 {
-                    door1.transform.position += door1.transform.up;
-                    door2.transform.position -= door2.transform.up;
+                    door1.position += door1.up;
+                    door2.position -= door2.up;
 
                 }
-                else spawnenemy = 0;
-                //   Debug.Log((transform.position - (startpos)).magnitude);
+                else enemySpawnStage = 0;
             }
-
-
         }
+    }
 
+    IEnumerator SpawnEnemies(Transform spawnPositions, int enemyAmount)
+    {
+        int posIndex = Random.Range(0, 7);
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            Transform point = spawnPositions.GetChild(posIndex);
+            GameObject enemy = Instantiate(originalEnemy, point.position, point.rotation, enemyParent);
+            enemy.GetComponent<EnemyScript>().enabled = true;
+            enemy.GetComponent<EnemyMovementScript>().enabled = true;
 
+            posIndex += 5;
+            posIndex %= 8;
 
-
-
+            yield return new WaitForSeconds(3);
+        }
     }
 }

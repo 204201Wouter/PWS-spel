@@ -8,6 +8,7 @@ TagManager:
   - enemy weapon
   - storage box
   - gravity generator
+  - enemy spawner
   layers:
   - Default
   - TransparentFX

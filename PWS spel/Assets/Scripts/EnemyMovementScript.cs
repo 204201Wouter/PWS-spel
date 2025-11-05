@@ -18,7 +18,6 @@ public class EnemyMovementScript : MonoBehaviour
 {
     public CharacterController controller;
     public LayerMask groundMask;
-    EnemyHandler enemyHandler;
 
     public GameObject player;
     public LayerMask playerMask;
@@ -59,7 +58,6 @@ public class EnemyMovementScript : MonoBehaviour
     {
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
-        enemyHandler = GetComponentInParent<EnemyHandler>();
         controller = GetComponent<CharacterController>();
         targetPos = transform.position;
 

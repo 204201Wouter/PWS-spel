@@ -11991,7 +11991,7 @@ GameObject:
   - component: {fileID: 94794382}
   m_Layer: 3
   m_Name: lift
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -63331,7 +63331,7 @@ GameObject:
   - component: {fileID: 506683921}
   m_Layer: 3
   m_Name: lift (4)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -123205,7 +123205,7 @@ GameObject:
   - component: {fileID: 970658388}
   m_Layer: 3
   m_Name: lift (1)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -138860,7 +138860,7 @@ GameObject:
   - component: {fileID: 1096785601}
   m_Layer: 3
   m_Name: lift (3)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -190349,7 +190349,7 @@ GameObject:
   - component: {fileID: 1522128321}
   m_Layer: 3
   m_Name: lift (7)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -194674,7 +194674,7 @@ GameObject:
   - component: {fileID: 1554949546}
   m_Layer: 3
   m_Name: lift (6)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -248714,7 +248714,7 @@ GameObject:
   - component: {fileID: 1985442887}
   m_Layer: 3
   m_Name: lift (2)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -248727,7 +248727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985442886}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.9, y: 0.3, z: -22.3}
   m_LocalScale: {x: 1.116146, y: 1.116146, z: 1.116146}
   m_ConstrainProportionsScale: 0
@@ -250984,7 +250984,7 @@ GameObject:
   - component: {fileID: 2003326133}
   m_Layer: 3
   m_Name: lift (5)
-  m_TagString: Untagged
+  m_TagString: enemy spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 65
@@ -272441,7 +272441,7 @@ Transform:
   m_GameObject: {fileID: 2746109580620250209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 380, y: 1.042, z: -83.7}
+  m_LocalPosition: {x: 1.2, y: 1.042, z: 163.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -274340,9 +274340,11 @@ MonoBehaviour:
   AmmoText: {fileID: 542263025}
   door1: {fileID: 1428365980}
   door2: {fileID: 1926280076}
-  spawn: {fileID: 409611966}
+  enemySpawnStage: 1
   enemyParent: {fileID: 1981224372}
   originalEnemy: {fileID: 1030635562}
+  elevatorRoom1: {fileID: 409611966}
+  elevatorRoom2: {fileID: 900855804}
 --- !u!1 &4479706559863308055
 GameObject:
   m_ObjectHideFlags: 0
