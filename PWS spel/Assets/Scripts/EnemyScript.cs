@@ -16,7 +16,6 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
-     //   weapon = transform.GetChild(2).gameObject;
         weaponScript = weapon.GetComponent<EnemyWeaponScript>();
     }
 

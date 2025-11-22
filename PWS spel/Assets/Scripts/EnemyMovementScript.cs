@@ -27,7 +27,7 @@ public class EnemyMovementScript : MonoBehaviour
     public float speed = 2f;
     bool isGrounded = false;
 
-    Vector3 targetPos = Vector3.zero;
+    public Vector3 targetPos = Vector3.zero;
 
     public Animator animator;
 
@@ -35,7 +35,7 @@ public class EnemyMovementScript : MonoBehaviour
     public GameObject nodes;
     public GameObject cover;
 
-    public string mode = "guard";
+    public string mode;
 
     public int ammo;
     float lastShot;
@@ -59,124 +59,102 @@ public class EnemyMovementScript : MonoBehaviour
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
         controller = GetComponent<CharacterController>();
-        targetPos = transform.position;
 
         lastPlayerPos = player.transform.position;
     }
 
     void Update()
     {
-        // schieten
-        if (HasLineOfSight())
+        if (mode != "move")
         {
-            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position);
-
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
-            lastHearPlayer = Time.time;
-            if (!aiming)
+            // schieten
+            if (HasLineOfSight())
             {
-                aimtimedone = Time.time + AimTimeFormula();
-                aiming = true;
-                print("aimtime enemy was: " + AimTimeFormula().ToString());
-            }
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position);
 
-            if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
-            {
-                lastShot = Time.time;
-                ammo -= 1;
-                animator.SetTrigger("recoil");
-                if (Random.value < AccuracyFormula())
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
+                lastHearPlayer = Time.time;
+                if (!aiming)
                 {
-                    player.GetComponent<PlayerHealth>().Hit(1);
-                    print("enemy hit");
+                    aimtimedone = Time.time + AimTimeFormula();
+                    aiming = true;
+                    print("aimtime enemy was: " + AimTimeFormula().ToString());
                 }
-                else print("enemy missed");
-            }
 
-            if (ammo == 0 && reloadStart == -1)
+                if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
+                {
+                    lastShot = Time.time;
+                    ammo -= 1;
+                    animator.SetTrigger("recoil");
+                    if (Random.value < AccuracyFormula())
+                    {
+                        player.GetComponent<PlayerHealth>().Hit(1);
+                        print("enemy hit");
+                    }
+                    else print("enemy missed");
+                }
+
+                if (ammo == 0 && reloadStart == -1)
+                {
+                    reloadStart = Time.time;
+                    animator.SetTrigger("reload");
+                }
+                if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
+                {
+                    reloadStart = -1;
+                    ammo = GetComponentInChildren<MagazineScript>().cap;
+                }
+                animator.SetBool("IsAiming", true);
+            }
+            else
             {
-                reloadStart = Time.time;
-                animator.SetTrigger("reload");
+                aiming = false;
+                animator.SetBool("IsAiming", false);
             }
-            if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
+
+
+            // cover
+            if (HasLineOfSight() && mode == "scout")
             {
-                reloadStart = -1;
-                ammo = GetComponentInChildren<MagazineScript>().cap;
+                mode = "cover";
+                lastPlayerPos = player.transform.position + Vector3.up * 2;
             }
-            animator.SetBool("IsAiming", true);
-        }
-        else
-        {
-            aiming = false;
-            animator.SetBool("IsAiming", false);
-        }
+            // zoek player
+            else if (HearPlayer())
+            {
+                if (mode == "guard")
+                {
+                    mode = "scout";
+                    lastPlayerPos = player.transform.position + Vector3.up * 2;
+                }
 
+                lastHearPlayer = Time.time;
+            }
 
-        // cover
-        if (HasLineOfSight() && mode == "scout")     
-        {
-            mode = "cover";
-            lastPlayerPos = player.transform.position + Vector3.up * 2;
-        }
-
-        // zoek player
-        else if (HearPlayer())
-        {
-            if (mode == "guard")
-            { 
+            else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
+            {
                 mode = "scout";
                 lastPlayerPos = player.transform.position + Vector3.up * 2;
             }
 
-            lastHearPlayer = Time.time;
-          //  print(gameObject.name + " heard player");
-        }
-
-        // 
-        else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
-        {
-            mode = "scout";
-          //  Vector3 scale = transform.localScale;
-          //  scale.y = 1f;
-        //    transform.localScale = scale;
-            lastPlayerPos = player.transform.position + Vector3.up * 2;
-        }
-
-        else if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
-        {
-            mode = "guard";
-        }
-
-
-        /*
-        else if (mode == "cover" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
-        {
-            if (Person2PersonCast(player.transform.position, transform.position))
+            else if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
             {
-            //    Vector3 scale = transform.localScale;
-              //  scale.y = 0.5f;
-                //transform.localScale = scale;
+                mode = "guard";
             }
-            Debug.Log(transform.position - targetPos);
-            Quaternion targetRotation = Quaternion.LookRotation(transform.position - targetPos);
-
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
-        }
-        */
 
 
-        isGrounded = Physics.CheckSphere(transform.position-Vector3.up*0.7f, 0.4f, groundMask);
+            isGrounded = Physics.CheckSphere(transform.position - Vector3.up * 0.7f, 0.4f, groundMask);
 
-        //Debug.Log(isGrounded);
+            if (isGrounded && ySpeed < 0)
+            {
+                ySpeed = -2;
+            }
 
-        if (isGrounded && ySpeed < 0)
-        {
-            ySpeed = -2;
+            ySpeed += gravity * Time.deltaTime;
+
+            controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
         }
 
-        ySpeed += gravity * Time.deltaTime;
-
-        controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
 
         if (mode == "cover" || mode == "scout")
         {
@@ -200,7 +178,6 @@ public class EnemyMovementScript : MonoBehaviour
                 targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
-
             }
 
             else
@@ -213,13 +190,15 @@ public class EnemyMovementScript : MonoBehaviour
             animator.SetFloat("speed", speed);
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
         }
-
+        else if (mode == "move")
+        {
+            mode = "guard";
+        }
         else if (path.Count > 1)
         {
             path.RemoveAt(path.Count - 1);
             targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
         }
-
         else
         {
             animator.SetFloat("speed", 0f);
