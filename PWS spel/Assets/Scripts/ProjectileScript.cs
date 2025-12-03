@@ -9,6 +9,7 @@ public class ProjectileScript : MonoBehaviour
     public Vector3 velocity;
     public float damage;
     bool stopped = false;
+    public GameObject bulletImpactObj;
 
     public float dragFactor;
 
@@ -35,11 +36,13 @@ public class ProjectileScript : MonoBehaviour
                 {
                     enemyScript.Hit(damage);
                     print("hit");
+                  //  GameObject bulletImpactObj = Instantiate(bulletimpact, hit.point + hit.normal* 0.001f, Quaternion.LookRotation(hit.normal, Vector3.up) * bulletimpact.transform.rotation);
                     Destroy(gameObject);
                 }
 
                 stopped = true;
-                StartCoroutine(DespawnTimer());
+                
+             //   StartCoroutine(DespawnTimer());
             }
             else
             {
