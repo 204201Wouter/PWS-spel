@@ -33,6 +33,7 @@ public class InteractScript : MonoBehaviour
     public bool gravityDisabled = false;
 
     public GameObject pickUpWeaponPopup;
+    
     void FixedUpdate()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, reach, layerMask))

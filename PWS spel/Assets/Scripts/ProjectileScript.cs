@@ -35,7 +35,6 @@ public class ProjectileScript : MonoBehaviour
                 if (enemyScript != null)
                 {
                     enemyScript.Hit(damage);
-                    print("hit");
                   //  GameObject bulletImpactObj = Instantiate(bulletimpact, hit.point + hit.normal* 0.001f, Quaternion.LookRotation(hit.normal, Vector3.up) * bulletimpact.transform.rotation);
                     Destroy(gameObject);
                 }
