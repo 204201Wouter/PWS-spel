@@ -11,6 +11,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject mag;
     EnemyWeaponScript weaponScript;
 
+    public UnlockableDoorHandler unlockableDoorHandler;
 
     public Transform droppedWeaponsParent;
 
@@ -34,6 +35,9 @@ public class EnemyScript : MonoBehaviour
             int layer = LayerMask.NameToLayer("Interactable");
             weapon.layer = layer;
             weapon.tag = "enemy weapon";
+
+            unlockableDoorHandler.enemiesKilled++;
+            unlockableDoorHandler.CheckUnlockDoor1();
       
             Destroy(gameObject);
         }

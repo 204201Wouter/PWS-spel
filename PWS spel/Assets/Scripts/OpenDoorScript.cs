@@ -1,30 +1,25 @@
 using UnityEngine;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEngine.UIElements;
 
-public class OpenDoor : MonoBehaviour
+public class OpenDoorScript : MonoBehaviour
 {
-
     public Transform doora;
     public Transform doorb;
     Vector3 startpos;
     Vector3 endpos;
 
-
     int inside;
+
+    public bool locked;
 
     void Start()
     {
         startpos = doora.transform.position;
         endpos = doora.transform.position - 5f * doora.transform.right;
-
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<CharacterController>() != null)
+        if (other.GetComponent<CharacterController>() != null && !locked)
         {
             inside++;
         }
@@ -32,7 +27,7 @@ public class OpenDoor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<CharacterController>() != null)
+        if (other.GetComponent<CharacterController>() != null && !locked)
         {
             inside--;
         }
@@ -40,21 +35,14 @@ public class OpenDoor : MonoBehaviour
 
     void Update()
     {
-
-
-
         if (inside > 0)
         {
             if ((doora.transform.position - startpos).magnitude < 4.9f)
             {
                 doora.transform.position -= doora.transform.right;
                 doorb.transform.position -= doorb.transform.right;
-
             }
-
-            //    Debug.Log((transform.position - (startpos + transform.right * 5)).magnitude);
         }
-
         else
         {
             if ((doora.transform.position - endpos).magnitude < 4.9f)
@@ -64,9 +52,6 @@ public class OpenDoor : MonoBehaviour
                 doorb.transform.position += doorb.transform.right;
 
             }
-            //   Debug.Log((transform.position - (startpos)).magnitude);
         }
-   
-
     }
 }

@@ -3,7 +3,7 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Game : MonoBehaviour
+public class EnemySpawnScript : MonoBehaviour
 {
     public Transform computer;
     public TextMeshProUGUI AmmoText;
@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
         StartCoroutine(SpawnEnemies(elevatorRoom1, 10));
     }
 
-    IEnumerator SpawnEnemies(Transform spawnPositions, int enemyAmount)
+    public IEnumerator SpawnEnemies(Transform spawnPositions, int enemyAmount)
     {
         int posIndex = Random.Range(0, 7);
         Transform doors1 = spawnPositions.parent.Find("door1");
