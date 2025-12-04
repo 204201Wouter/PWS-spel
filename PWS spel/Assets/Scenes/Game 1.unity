@@ -18482,6 +18482,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 2106027702}
   mag: {fileID: 2105123325}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &120708321
 CharacterController:
@@ -47733,6 +47734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 325256915}
+  - component: {fileID: 325256916}
   m_Layer: 3
   m_Name: map
   m_TagString: Untagged
@@ -47769,6 +47771,21 @@ Transform:
   - {fileID: 1396358280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325256916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325256914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b236ab6d03a2b7e4ebbeff96bf688418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door1: {fileID: 1155883868}
+  door2: {fileID: 1167237814}
+  enemiesKilled: 0
 --- !u!1 &325439286
 GameObject:
   m_ObjectHideFlags: 0
@@ -48952,6 +48969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918eb2a73e5aa4f49a8f37c6618f59be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockableDoorHandler: {fileID: 325256916}
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -57883,6 +57901,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1978808314}
   mag: {fileID: 2015112100}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &398520329
 CharacterController:
@@ -59091,6 +59110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1606223098}
   doorb: {fileID: 1744844072}
+  locked: 0
 --- !u!1 &407257146
 GameObject:
   m_ObjectHideFlags: 0
@@ -61356,6 +61376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1204740547}
   doorb: {fileID: 72055371}
+  locked: 0
 --- !u!1 &420773604
 GameObject:
   m_ObjectHideFlags: 0
@@ -88326,6 +88347,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1484121263}
   mag: {fileID: 756695681}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &600886036
 CharacterController:
@@ -105224,6 +105246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1442560645}
   doorb: {fileID: 430204901}
+  locked: 0
 --- !u!1 &721535443
 GameObject:
   m_ObjectHideFlags: 0
@@ -118380,6 +118403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 103329229}
   doorb: {fileID: 502554451}
+  locked: 0
 --- !u!1 &809019020
 GameObject:
   m_ObjectHideFlags: 0
@@ -123519,6 +123543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 605560987}
   doorb: {fileID: 913416543}
+  locked: 0
 --- !u!1 &847660633
 GameObject:
   m_ObjectHideFlags: 0
@@ -125129,6 +125154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1877399205}
   doorb: {fileID: 1467007900}
+  locked: 0
 --- !u!1 &866161892
 GameObject:
   m_ObjectHideFlags: 0
@@ -127526,6 +127552,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1685015975}
   mag: {fileID: 2036779059}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &885986463
 CharacterController:
@@ -130559,6 +130586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 438818010}
   doorb: {fileID: 1831868462}
+  locked: 0
 --- !u!1 &906374989
 GameObject:
   m_ObjectHideFlags: 0
@@ -142437,6 +142465,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1171964197}
   mag: {fileID: 1647042579}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &983672724
 CharacterController:
@@ -149452,6 +149481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 520969068}
   doorb: {fileID: 109138504}
+  locked: 0
 --- !u!1 &1029565912
 GameObject:
   m_ObjectHideFlags: 0
@@ -149692,6 +149722,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1573326573}
   mag: {fileID: 341793115}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &1030635565
 CharacterController:
@@ -165181,6 +165212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 829808308}
   doorb: {fileID: 2087859757}
+  locked: 1
 --- !u!1 &1155918013
 GameObject:
   m_ObjectHideFlags: 0
@@ -167068,6 +167100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1710619214}
   doorb: {fileID: 1844243021}
+  locked: 1
 --- !u!1 &1167273546
 GameObject:
   m_ObjectHideFlags: 0
@@ -170016,6 +170049,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 407834124}
   mag: {fileID: 180136528}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &1179490832
 CharacterController:
@@ -170202,6 +170236,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 1343102005}
   mag: {fileID: 1245586589}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &1179672283
 CharacterController:
@@ -171137,6 +171172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 224366472}
   doorb: {fileID: 1747349226}
+  locked: 0
 --- !u!1 &1185260826
 GameObject:
   m_ObjectHideFlags: 0
@@ -206326,6 +206362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 894154180}
   doorb: {fileID: 773312094}
+  locked: 0
 --- !u!1 &1427550383
 GameObject:
   m_ObjectHideFlags: 0
@@ -218072,6 +218109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 61186140}
   doorb: {fileID: 1988520932}
+  locked: 0
 --- !u!1 &1519789696
 GameObject:
   m_ObjectHideFlags: 0
@@ -219287,6 +219325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 297358846}
   doorb: {fileID: 310442557}
+  locked: 0
 --- !u!1 &1529054636
 GameObject:
   m_ObjectHideFlags: 0
@@ -222613,6 +222652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 310523671}
   doorb: {fileID: 1439422183}
+  locked: 0
 --- !u!1 &1553199550
 GameObject:
   m_ObjectHideFlags: 0
@@ -270117,6 +270157,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 916507245}
   mag: {fileID: 327155323}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &1879461868
 CharacterController:
@@ -279072,6 +279113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1539834358}
   doorb: {fileID: 976209531}
+  locked: 0
 --- !u!1 &1944259018
 GameObject:
   m_ObjectHideFlags: 0
@@ -297705,6 +297747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 321405667}
   doorb: {fileID: 1568088086}
+  locked: 0
 --- !u!1 &2078276199
 GameObject:
   m_ObjectHideFlags: 0
@@ -301181,6 +301224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 346271546}
   doorb: {fileID: 1302926303}
+  locked: 0
 --- !u!1 &2103234895
 GameObject:
   m_ObjectHideFlags: 0
@@ -302832,6 +302876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doora: {fileID: 1081267757}
   doorb: {fileID: 2011139811}
+  locked: 0
 --- !u!1 &2111257281
 GameObject:
   m_ObjectHideFlags: 0
@@ -305511,6 +305556,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 99814661}
   mag: {fileID: 2137713464}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &2129384824
 CharacterController:
@@ -307397,6 +307443,7 @@ MonoBehaviour:
   player: {fileID: 2746109580620250209}
   weapon: {fileID: 106198353}
   mag: {fileID: 944188651}
+  unlockableDoorHandler: {fileID: 325256916}
   droppedWeaponsParent: {fileID: 155333974}
 --- !u!143 &2146006453
 CharacterController:

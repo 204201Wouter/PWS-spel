@@ -5,6 +5,8 @@ using TMPro;
 
 public class InteractScript : MonoBehaviour
 {
+    public UnlockableDoorHandler unlockableDoorHandler;
+
     readonly float requiredComputerInteractLength = 5f;
     float computerInteractLength = 0f;
 
@@ -47,6 +49,7 @@ public class InteractScript : MonoBehaviour
                     {
                         mapDownloaded = true;
                         StartCoroutine(TextPopup(mapDownloadedPopup));
+                        unlockableDoorHandler.door2.locked = false;
                     }
                 }
                 else computerInteractLength = 0;
