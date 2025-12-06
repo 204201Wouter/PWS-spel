@@ -78,7 +78,6 @@ public class EnemyMovementScript : MonoBehaviour
                 {
                     aimtimedone = Time.time + AimTimeFormula();
                     aiming = true;
-                    print("aimtime enemy was: " + AimTimeFormula().ToString());
                 }
 
                 if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
@@ -89,9 +88,7 @@ public class EnemyMovementScript : MonoBehaviour
                     if (Random.value < AccuracyFormula())
                     {
                         player.GetComponent<PlayerHealth>().Hit(1);
-                        print("enemy hit");
                     }
-                    else print("enemy missed");
                 }
 
                 if (ammo == 0 && reloadStart == -1)

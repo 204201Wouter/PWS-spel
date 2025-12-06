@@ -25,6 +25,8 @@ public class EnemyScript : MonoBehaviour
     {
         health -= damage;
 
+        GetComponent<EnemyMovementScript>().mode = "cover";
+
         if (health <= 0 && !dead)
         {
             dead = true;
