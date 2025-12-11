@@ -28,15 +28,12 @@ public class EnemyWeaponScript : MonoBehaviour
 
     void Update()
     {
-        if (isDropped && !Physics.CheckSphere(transform.position, 0.09f, ground))
+        if (isDropped && !Physics.CheckSphere(transform.position, 0.09f, ground) && !InteractScript.gravityDisabled)
         {
-
-            //90 10
             transform.position -= Time.deltaTime * yspeed * Vector3.up;
             yspeed += Time.deltaTime * 10f;
             if (yspeed > 2) yspeed = 2;
-
-            transform.rotation = Quaternion.Euler(3.806f, transform.eulerAngles.y, -81.497f);
         }
+        if (isDropped) transform.rotation = Quaternion.Euler(3.806f, transform.eulerAngles.y, -81.497f);
     }
 }

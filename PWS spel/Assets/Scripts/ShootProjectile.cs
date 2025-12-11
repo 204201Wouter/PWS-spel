@@ -21,8 +21,6 @@ public class ShootProjectile : MonoBehaviour
     public WeaponScript weaponScript;
     public Movement movement;
 
-    public InteractScript interactScript;
-
     public float speed;
     public int ammo;
     public string ammoType;
@@ -40,9 +38,6 @@ public class ShootProjectile : MonoBehaviour
 
     public Image ammoimg;
     public Image magimg;
-
-
-
 
     public MouseLook mouseLook;
     public bool automatic;
@@ -78,7 +73,7 @@ public class ShootProjectile : MonoBehaviour
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
-            if (interactScript.gravityDisabled) movement.velocity += amount * damage * 0.003f * -transform.forward;
+            if (InteractScript.gravityDisabled) movement.velocity += amount * damage * 0.003f * -transform.forward;
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
@@ -168,16 +163,6 @@ public class ShootProjectile : MonoBehaviour
             recoilYSaved *= 0.9f;
             if (Mathf.Abs(recoilXSaved) < 0.01f) recoilXSaved = 0;
             if (Mathf.Abs(recoilYSaved) < 0.01f) recoilYSaved = 0;
-
-
-          //  weapon.transform.position -= weapon.transform.up * recoil * 0.2f;
-
-            // Debug.Log(weapon.transform.localEulerAngles.x);
-            //  if (weapon.transform.localEulerAngles.x > 270) weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
-            //   weapon.transform.Rotate(Mathf.Rad2Deg * 0.01f, 0f, 0f);
-
-            //  Debug.Log(weapon.transform.localEulerAngles.x);
-            // weapon.transform.Rotate(Mathf.Rad2Deg * -0.01f, 0f, 0f);
         }
 
 

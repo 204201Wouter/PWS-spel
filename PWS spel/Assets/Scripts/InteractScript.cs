@@ -6,6 +6,8 @@ using TMPro;
 public class InteractScript : MonoBehaviour
 {
     public UnlockableDoorHandler unlockableDoorHandler;
+    public EnemySpawnScript enemySpawnScript;
+    public Transform spawnLocationsGravDisabled;
 
     readonly float requiredComputerInteractLength = 5f;
     float computerInteractLength = 0f;
@@ -32,7 +34,7 @@ public class InteractScript : MonoBehaviour
     public GameObject gravityGeneratorInteractPopup;
     public RectTransform gravityGeneratorLoadingBar;
     public GameObject gravityDisabledPopup;
-    public bool gravityDisabled = false;
+    public static bool gravityDisabled = false;
 
     public GameObject pickUpWeaponPopup;
     
@@ -107,6 +109,7 @@ public class InteractScript : MonoBehaviour
                         gravityDisabled = true;
                         GetComponentInParent<Movement>().velocity = Vector3.zero;
                         StartCoroutine(TextPopup(gravityDisabledPopup));
+                        StartCoroutine(enemySpawnScript.SpawnEnemies(spawnLocationsGravDisabled, 8));
                     }
                 }
                 else gravityGeneratorInteractLength = 0;

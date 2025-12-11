@@ -9,7 +9,6 @@ public class Movement : MonoBehaviour
     public CharacterController controller;
     public WeaponScript weaponScript;
     public GuiOpenScript guiOpenScript;
-    public InteractScript interactScript;
 
     public float speed = 4f;
     public float gravity = -10f;
@@ -34,7 +33,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (!interactScript.gravityDisabled)
+        if (!InteractScript.gravityDisabled)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
 

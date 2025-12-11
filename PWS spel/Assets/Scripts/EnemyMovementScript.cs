@@ -46,10 +46,13 @@ public class EnemyMovementScript : MonoBehaviour
     float aimtimedone;
     bool aiming = false;
 
+    public BoxCollider lift;
+
     Vector3 lateralVelocity;
     Vector3 lateralAcceleration;
     Vector3 lastPos;
     Vector3 lastLateralVelocity;
+    Vector3 velocity;
 
 
     List <Vector2> path = new();
@@ -61,6 +64,11 @@ public class EnemyMovementScript : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         lastPlayerPos = player.transform.position;
+
+        if (mode == "move")
+        {
+            Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift);
+        }
     }
 
     void Update()
@@ -89,6 +97,8 @@ public class EnemyMovementScript : MonoBehaviour
                     {
                         player.GetComponent<PlayerHealth>().Hit(1);
                     }
+
+                    velocity += 0.003f * -transform.forward;
                 }
 
                 if (ammo == 0 && reloadStart == -1)
@@ -139,15 +149,22 @@ public class EnemyMovementScript : MonoBehaviour
                 mode = "guard";
             }
 
-
-            isGrounded = Physics.CheckSphere(transform.position - Vector3.up * 0.7f, 0.4f, groundMask);
-
-            if (isGrounded && ySpeed < 0)
+            if (!InteractScript.gravityDisabled)
             {
-                ySpeed = -2;
-            }
+                isGrounded = Physics.CheckSphere(transform.position - Vector3.up * 0.7f, 0.4f, groundMask);
 
-            ySpeed += gravity * Time.deltaTime;
+                if (isGrounded && ySpeed < 0)
+                {
+                    ySpeed = -2;
+                }
+
+                ySpeed += gravity * Time.deltaTime;
+            }
+            else
+            {
+                ySpeed += Random.Range(-0.01f, 0.01f);
+                ySpeed = Mathf.Clamp(ySpeed, -0.1f, 0.1f);
+            }
 
             controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
         }
@@ -163,11 +180,24 @@ public class EnemyMovementScript : MonoBehaviour
             targetPos = transform.position;
         }
 
+        if (InteractScript.gravityDisabled)
+        {
+            controller.Move(velocity);
+
+            velocity *= 0.99f;
+            if (Mathf.Abs(velocity.x) < 0.001f) velocity.x = 0;
+            if (Mathf.Abs(velocity.y) < 0.001f) velocity.y = 0;
+            if (Mathf.Abs(velocity.z) < 0.001f) velocity.z = 0;
+
+            Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
+        }
+
         targetPos.y = transform.position.y;
         Vector3 diffTargetPos = targetPos - transform.position;
-        if (diffTargetPos.magnitude > 0.05f)
+        if (diffTargetPos.magnitude > 0.05f && !InteractScript.gravityDisabled)
         {
-
             Quaternion targetRotation;
 
             if (mode == "cover")
@@ -176,7 +206,6 @@ public class EnemyMovementScript : MonoBehaviour
 
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             }
-
             else
             {
                 targetRotation = Quaternion.LookRotation(diffTargetPos);
@@ -189,7 +218,23 @@ public class EnemyMovementScript : MonoBehaviour
         }
         else if (mode == "move")
         {
-            mode = "guard";
+            if (InteractScript.gravityDisabled)
+            {
+                if (diffTargetPos.magnitude > 0.05f)
+                {
+                    velocity = diffTargetPos * 0.05f;
+                }
+                else
+                {
+                    mode = "guard";
+                    Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
+                }
+            }
+            else if (diffTargetPos.magnitude > 0.05f)
+            {
+                mode = "guard";
+                Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
+            }
         }
         else if (path.Count > 1)
         {
@@ -199,16 +244,6 @@ public class EnemyMovementScript : MonoBehaviour
         else
         {
             animator.SetFloat("speed", 0f);
-            /*path = AStar(ConvertPos(transform.position), ConvertPos(player.transform.position));
-            if (path.Count > 0)
-            {
-                targetPos = new Vector3(path[^1].x, transform.position.y, path[^1].y);
-            }
-            else
-            {
-                Vector2 playerPos = ConvertPos(player.transform.position);
-                targetPos = new Vector3(playerPos.x, transform.position.y, playerPos.y);
-            }*/
         }
 
         Vector3 relativeVelocity = (transform.position - lastPos) / Time.deltaTime - player.GetComponent<Movement>().velocity;
