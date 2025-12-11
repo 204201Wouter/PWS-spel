@@ -56,12 +56,19 @@ public class ShootProjectile : MonoBehaviour
 
     public bool canShoot = true;
 
+    public AudioSource audioSource;
+    public AudioClip shotsound;
+    public AudioClip reloadsound;
+    
 
     void Update()
     {
 
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
         {
+
+
+            audioSource.PlayOneShot(shotsound);
 
             for (int i = 0; i < amount; i++)
             {
@@ -205,6 +212,7 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && reloadStart == -1 && ammo != cap)
         {
+            audioSource.PlayOneShot(reloadsound);
             movement.reloading = true;
             reloadStart = Time.time;
             loadedAmmoText.text = "...";
