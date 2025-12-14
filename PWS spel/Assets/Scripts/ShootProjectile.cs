@@ -54,8 +54,18 @@ public class ShootProjectile : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip shotsound;
     public AudioClip reloadsound;
+
+    public Transform fpsbody;
+
+    public float recoilstrength;
+
+    public Vector3 startfpsbody;
     
 
+    void Start()
+    {
+        startfpsbody = fpsbody.localPosition;
+    }
     void Update()
     {
 
@@ -105,7 +115,9 @@ public class ShootProjectile : MonoBehaviour
 
 
             //  animator.Play("recoil", 2, 0f); // 1 = recoil layer index
-
+            
+            fpsbody.localPosition -= Vector3.forward*Time.deltaTime*recoilstrength;
+            /*
             if (ammo % 6 == 0)
             {
                 animator.ResetTrigger("recoil");
@@ -151,6 +163,7 @@ public class ShootProjectile : MonoBehaviour
                 animator.SetTrigger("recoilf");
                 animatorshadow.SetTrigger("recoilf");
             }
+            */
 
             //   animator.SetTrigger("recoil");
 
@@ -163,7 +176,11 @@ public class ShootProjectile : MonoBehaviour
             recoilYSaved *= 0.9f;
             if (Mathf.Abs(recoilXSaved) < 0.01f) recoilXSaved = 0;
             if (Mathf.Abs(recoilYSaved) < 0.01f) recoilYSaved = 0;
+
         }
+
+
+        fpsbody.localPosition = Vector3.MoveTowards(fpsbody.localPosition,startfpsbody,Time.deltaTime);
 
 
         if (Input.GetMouseButton(1) && reloadStart == -1)
