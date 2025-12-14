@@ -18,6 +18,7 @@ public class MouseLook : MonoBehaviour
     float xRotation = 0f;
 
     public float maxsway;
+    public float smoothness;
 
 
 
@@ -53,7 +54,7 @@ public class MouseLook : MonoBehaviour
         playerBody.Rotate(Vector3.up * (mouseX + recoilX * 0.02f));
 
        // if (Mathf.Abs(mouseX) > 0) {
-        fpsbody.localRotation = Quaternion.Euler(Mathf.Clamp(mouseY, -maxsway, maxsway), Mathf.Clamp(-mouseX, -maxsway, maxsway), 0f);
+        fpsbody.localRotation = Quaternion.Euler(Mathf.Clamp(smoothness*mouseY, -maxsway, maxsway), Mathf.Clamp(smoothness*-mouseX, -maxsway, maxsway), 0f);
         
        // else {
        // fpsbody.localRotation = Quaternion.Slerp(fpsbody.localRotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime);

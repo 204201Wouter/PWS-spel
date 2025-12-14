@@ -30,6 +30,8 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public Animator animatorshadow;
 
+    public Transform fpsbody;
+
 
     void Update()
     {
