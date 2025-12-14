@@ -32,6 +32,19 @@ public class Movement : MonoBehaviour
 
     public Transform fpsbody;
 
+    Vector3 startfpsbody;
+
+    float startwalk;
+    public float frequency;
+    public float amplitude;
+    public float amplitude2;
+
+    public float amplitude3;
+
+    void Start()
+    {
+        startfpsbody = fpsbody.localPosition;
+    }
 
     void Update()
     {
@@ -123,6 +136,30 @@ public class Movement : MonoBehaviour
         }
         else {
             soundRadius = 0;
+        }
+
+
+
+        if (velocity.magnitude > 0)
+        {
+            
+            
+            fpsbody.localPosition = startfpsbody
+            -amplitude*Vector3.up*Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time)))
+            +amplitude*Vector3.right*Vector3.Dot(velocity, Vector3.right)
+            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y*amplitude3,-10f,10f)
+            
+            ;
+            Debug.Log(ySpeed);
+
+
+
+        }
+        else if (Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time))) < 0.05f)
+        {
+            startwalk = Time.time;
+          //  fpsbody.localPosition = startfpsbody;
+
         }
 
 

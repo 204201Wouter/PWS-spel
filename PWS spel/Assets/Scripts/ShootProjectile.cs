@@ -60,6 +60,8 @@ public class ShootProjectile : MonoBehaviour
     public float recoilstrength;
 
     public Vector3 startfpsbody;
+
+    public float down;
     
 
     void Start()
@@ -77,7 +79,7 @@ public class ShootProjectile : MonoBehaviour
 
             for (int i = 0; i < amount; i++)
             {
-                GameObject projectile = Instantiate(originalProjectile, transform.position, transform.rotation, projectileParent);
+                GameObject projectile = Instantiate(originalProjectile, transform.position+Vector3.up*down, transform.rotation, projectileParent);
                 projectile.GetComponent<ProjectileScript>().enabled = true;
                 projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity + Random.onUnitSphere * spread;
                 projectile.GetComponent<ProjectileScript>().damage = damage;
