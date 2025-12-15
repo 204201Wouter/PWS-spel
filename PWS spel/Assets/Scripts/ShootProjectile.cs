@@ -62,7 +62,8 @@ public class ShootProjectile : MonoBehaviour
     public Vector3 startfpsbody;
 
     public float down;
-    
+
+
 
     void Start()
     {
@@ -192,8 +193,10 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView -= 2;
             }
             mouseLook.mouseSensitivity = 8 / zoom;
+
             animator.SetBool("IsAiming", true);
             animatorshadow.SetBool("IsAiming", true);
+
         }
         else
         {
@@ -202,14 +205,18 @@ public class ShootProjectile : MonoBehaviour
                 GetComponent<Camera>().fieldOfView += 2;
             }
             mouseLook.mouseSensitivity = 8;
+
             if (reloadStart == -1)
             {
                 animator.SetBool("IsAiming", false);
                 animatorshadow.SetBool("IsAiming", false);
             }
 
+
             // animator.SetTrigger("Fire");
         }
+
+
 
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);

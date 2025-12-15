@@ -41,6 +41,10 @@ public class Movement : MonoBehaviour
 
     public float amplitude3;
 
+    float bobspeed = 0f;
+
+    float headbobTime = 0f;
+
     void Start()
     {
         startfpsbody = fpsbody.localPosition;
@@ -48,6 +52,10 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
         if (!InteractScript.gravityDisabled)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
@@ -59,8 +67,7 @@ public class Movement : MonoBehaviour
             bool climbing = false;
             if (canMove)
             {
-                float x = Input.GetAxis("Horizontal");
-                float z = Input.GetAxis("Vertical");
+
 
                 Vector3 move = transform.right * x + transform.forward * z;
 
@@ -140,27 +147,52 @@ public class Movement : MonoBehaviour
 
 
 
-        if (velocity.magnitude > 0)
-        {
-            
-            
-            fpsbody.localPosition = startfpsbody
-            -amplitude*Vector3.up*Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time)))
-            +amplitude*Vector3.right*Vector3.Dot(velocity, Vector3.right)
-            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y*amplitude3,-10f,10f)
-            
-            ;
-            Debug.Log(ySpeed);
-
-
-
-        }
-        else if (Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time))) < 0.05f)
-        {
-            startwalk = Time.time;
+  
+        //if (velocity.magnitude < 1f && Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time))) < 0.05f)
+       // {
+          //  startwalk = Time.time;
           //  fpsbody.localPosition = startfpsbody;
 
+       // }
+
+
+        if (Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk))) < 0.1f)
+        {
+            if (velocity.magnitude > 1f)
+                bobspeed = velocity.magnitude;
+            if (velocity.magnitude < 1f)
+            {
+                startwalk = Time.time;
+            }
         }
+
+        bobspeed = 0f;
+
+        /*
+        fpsbody.localPosition = startfpsbody
+            -amplitude*Vector3.up*Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk)))
+            +amplitude3*x*Vector3.right
+            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
+            
+            ;*/
+
+
+
+        
+        if (isGrounded) {
+            headbobTime += velocity.magnitude ;
+        }
+
+        fpsbody.localPosition = startfpsbody
+            +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.up*Mathf.Sin(headbobTime*frequency)
+            +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.right*Mathf.Cos(headbobTime*frequency/2f)
+            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
+            +amplitude3*x*Vector3.right
+
+            ;     
+
+
+
 
 
         Vector2 vel2d = new Vector2(velocity.x, velocity.z);

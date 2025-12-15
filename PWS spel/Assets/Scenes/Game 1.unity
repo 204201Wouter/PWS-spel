@@ -59856,14 +59856,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.807, z: 0}
+  m_LocalRotation: {x: 0.119654745, y: -0, z: -0, w: -0.99281555}
+  m_LocalPosition: {x: 0, y: 0.804026, z: -0.02407074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1119668009}
   m_Father: {fileID: 3267349098572474075}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 346.256, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59926,6 +59926,9 @@ MonoBehaviour:
   recoilY: 0
   canLook: 1
   playerBody: {fileID: 3267349098572474075}
+  fpsbody: {fileID: 543450652427446475}
+  maxsway: 5
+  smoothness: 0.05
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59972,6 +59975,10 @@ MonoBehaviour:
   audioSource: {fileID: 4403632498417147318}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  fpsbody: {fileID: 543450652427446475}
+  recoilstrength: 2
+  startfpsbody: {x: 0, y: 0, z: 0}
+  down: 0
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197655,7 +197662,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.09999999
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -245042,6 +245049,11 @@ MonoBehaviour:
   reloading: 0
   animator: {fileID: 1453265904}
   animatorshadow: {fileID: 1552372377}
+  fpsbody: {fileID: 543450652427446475}
+  frequency: 0.05
+  amplitude: 0.005
+  amplitude2: 0.005
+  amplitude3: -0.01
 --- !u!143 &1389374217
 CharacterController:
   m_ObjectHideFlags: 0
@@ -388594,7 +388606,7 @@ Transform:
   m_GameObject: {fileID: 919132148153463409}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.058, y: -1.794, z: -0.21}
+  m_LocalPosition: {x: -0.058, y: -1.77, z: -0.21}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -392093,7 +392105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &3856683066024698724
 GameObject:
   m_ObjectHideFlags: 0
@@ -392620,6 +392632,11 @@ MonoBehaviour:
   reloading: 0
   animator: {fileID: 0}
   animatorshadow: {fileID: 0}
+  fpsbody: {fileID: 0}
+  frequency: 0
+  amplitude: 0
+  amplitude2: 0
+  amplitude3: 0
 --- !u!136 &4234374948888481643
 CapsuleCollider:
   m_ObjectHideFlags: 0
