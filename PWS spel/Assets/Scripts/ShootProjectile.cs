@@ -38,6 +38,7 @@ public class ShootProjectile : MonoBehaviour
 
     public Image ammoimg;
     public Image magimg;
+    public Image sight;
 
     public MouseLook mouseLook;
     public bool automatic;
@@ -197,6 +198,7 @@ public class ShootProjectile : MonoBehaviour
             {
                 GetComponent<Camera>().fieldOfView -= 2;
             }
+            else sight.enabled = true;
             mouseLook.mouseSensitivity = 8 / zoom;
 
             animator.SetBool("IsAiming", true);
@@ -205,6 +207,7 @@ public class ShootProjectile : MonoBehaviour
         }
         else
         {
+            sight.enabled = false;
             if (GetComponent<Camera>().fieldOfView < 60)
             {
                 GetComponent<Camera>().fieldOfView += 2;

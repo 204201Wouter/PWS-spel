@@ -199,7 +199,7 @@ public class Movement : MonoBehaviour
 
 
         Vector2 vel2d = new Vector2(velocity.x, velocity.z);
-        animator.SetFloat("speed", vel2d.magnitude);
+      //  animator.SetFloat("speed", vel2d.magnitude);
         animatorshadow.SetFloat("speed", vel2d.magnitude);
         
         if (firedGun)
