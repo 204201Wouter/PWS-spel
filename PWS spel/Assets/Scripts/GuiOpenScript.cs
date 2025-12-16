@@ -133,8 +133,8 @@ public class GuiOpenScript : MonoBehaviour
         {
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
             sightSlot.transform.GetChild(0).SetParent(sightInventory.transform);
-            SetActiveIfExists(weaponScript.currentScope.model, false);
         }
+        SetActiveIfExists(weaponScript.currentScope.model, false);
         weaponScript.currentScope = scope;
         weaponScript.availableScopes.Remove(scope.name);
         SetActiveIfExists(scope.model, true);
@@ -146,9 +146,10 @@ public class GuiOpenScript : MonoBehaviour
     void UnequipScope(GameObject button)
     {
         weaponScript.availableScopes.Add(weaponScript.currentScope.name);
+        SetActiveIfExists(weaponScript.currentScope.model, false);
         weaponScript.currentScope = weaponScript.scopes["no scope"];
         shootscript.zoom = 2;
-        SetActiveIfExists(weaponScript.currentScope.model, false);
+        SetActiveIfExists(weaponScript.currentScope.model, true);
 
         button.transform.SetParent(sightInventory.transform);
     }
@@ -173,6 +174,7 @@ public class GuiOpenScript : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
             button.transform.GetChild(0).GetComponent<Image>().sprite = magazine.sprite;
             button.transform.GetChild(1).GetComponent<Image>().sprite = magazine.ammoType.sprite;
+            Destroy(button.transform.GetChild(2).gameObject);
             button.GetComponent<AttachmentButtonScript>().magazineAttachment = magazine;
         }
     }
@@ -185,7 +187,9 @@ public class GuiOpenScript : MonoBehaviour
             GameObject button = Instantiate(attachmentButton);
             button.transform.SetParent(sightInventory.transform);
             button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
-            button.GetComponent<Image>().color = Random.ColorHSV();
+            if (scope.sprite != null) button.transform.GetChild(2).GetComponent<Image>().sprite = scope.sprite;
+            Destroy(button.transform.GetChild(0).gameObject);
+            Destroy(button.transform.GetChild(1).gameObject);
         }
     }
 
