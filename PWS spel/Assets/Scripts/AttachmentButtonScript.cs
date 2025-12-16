@@ -8,12 +8,18 @@ public class AttachmentButtonScript : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        guiOpenScript.selectedMagazineStats.gameObject.SetActive(true);
-        guiOpenScript.ChangeMagazineStats(magazineAttachment, false);
+        if (!magazineAttachment.Equals(default(MagazineAttachment)))
+        {
+            guiOpenScript.selectedMagazineStats.gameObject.SetActive(true);
+            guiOpenScript.ChangeMagazineStats(magazineAttachment, false);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        guiOpenScript.selectedMagazineStats.gameObject.SetActive(false);
+        if (!magazineAttachment.Equals(default(MagazineAttachment)))
+        {
+            guiOpenScript.selectedMagazineStats.gameObject.SetActive(false);
+        }
     }
 }

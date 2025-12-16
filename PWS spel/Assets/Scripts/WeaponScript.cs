@@ -33,6 +33,8 @@ public class WeaponScript : MonoBehaviour
     public Sprite buckshotSprite;
     public Sprite birdshotSprite;
 
+    public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
+
     void Awake() // awake runt eerder dan start en dat moet hier
     {                              //dmg
         ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal", ammoNormalSprite));
@@ -50,8 +52,8 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
         }
 
-        scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope")));
-        scopes.Add("no scope", new(2, "no scope", null));
+        scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope"), scopeSprite)); // scopeSprite vervangen voor nieuwe sprite dan
+        scopes.Add("no scope", new(2, "no scope", GameObject.Find("red dot sight"), null));
         // hier alle scopes
 
         // mag models
@@ -124,12 +126,14 @@ public struct ScopeAttachment
     public float zoomFactor;
     public string name;
     public GameObject model;
+    public Sprite sprite;
 
-    public ScopeAttachment(float zoomFactor, string name, GameObject model)
+    public ScopeAttachment(float zoomFactor, string name, GameObject model, Sprite sprite)
     {
         this.zoomFactor = zoomFactor;
         this.name = name;
         this.model = model;
+        this.sprite = sprite;
     }
 }
 
