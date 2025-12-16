@@ -63052,6 +63052,7 @@ MonoBehaviour:
   reloadTime: 1
   ammoimg: {fileID: 965992241}
   magimg: {fileID: 843779231}
+  sight: {fileID: 836985396}
   mouseLook: {fileID: 330585548}
   automatic: 1
   cap: 30
@@ -154615,7 +154616,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 380}
+  m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &836985396
 MonoBehaviour:
@@ -154637,7 +154638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9e18f2fb05c6c0c4c96f046608b794d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 55925fede7faa23c5bb1821d5fa7032d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -240760,7 +240761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1309299010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -337514,7 +337515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9002449286776997198, guid: 1d7869b625f4ff441888e6f9d019552b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9155276747989737948, guid: 1d7869b625f4ff441888e6f9d019552b, type: 3}
       propertyPath: m_CastShadows
