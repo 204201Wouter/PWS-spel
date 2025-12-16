@@ -119,7 +119,7 @@ public class ShootProjectile : MonoBehaviour
 
             //  animator.Play("recoil", 2, 0f); // 1 = recoil layer index
             
-            fpsbody.localPosition -= Vector3.forward*Time.deltaTime*recoilstrength;
+            movement.recoil = recoilstrength;
             /*
             if (ammo % 6 == 0)
             {
@@ -183,7 +183,12 @@ public class ShootProjectile : MonoBehaviour
         }
 
 
-        fpsbody.localPosition = Vector3.MoveTowards(fpsbody.localPosition,startfpsbody,Time.deltaTime);
+
+        if (movement.recoil > 0)
+        {
+            movement.recoil -= Time.deltaTime;
+        }
+
 
 
         if (Input.GetMouseButton(1) && reloadStart == -1)

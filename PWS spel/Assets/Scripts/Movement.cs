@@ -44,6 +44,7 @@ public class Movement : MonoBehaviour
     float bobspeed = 0f;
 
     float headbobTime = 0f;
+    public float recoil;
 
     void Start()
     {
@@ -188,6 +189,8 @@ public class Movement : MonoBehaviour
             +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.right*Mathf.Cos(headbobTime*frequency/2f)
             -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
             +amplitude3*x*Vector3.right
+
+            -Vector3.forward*recoil;
 
             ;     
 
