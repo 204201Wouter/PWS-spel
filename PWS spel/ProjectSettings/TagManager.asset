@@ -6,9 +6,12 @@ TagManager:
   tags:
   - computer
   - enemy weapon
-  - storage box
   - gravity generator
   - enemy spawner
+  - engine
+  - bomb storage box
+  - tool storage box
+  - fuel tank
   layers:
   - Default
   - TransparentFX

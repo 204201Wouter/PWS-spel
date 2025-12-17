@@ -230,7 +230,7 @@ public class EnemyMovementScript : MonoBehaviour
                     Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
                 }
             }
-            else if (diffTargetPos.magnitude > 0.05f)
+            else if (diffTargetPos.magnitude < 0.05f)
             {
                 mode = "guard";
                 Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);

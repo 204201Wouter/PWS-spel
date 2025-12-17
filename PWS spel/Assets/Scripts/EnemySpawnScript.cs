@@ -5,22 +5,8 @@ using System.Collections.Generic;
 
 public class EnemySpawnScript : MonoBehaviour
 {
-    public Transform computer;
-    public TextMeshProUGUI AmmoText;
-
-    public int enemySpawnStage = 1;
-
     public Transform enemyParent;
     public GameObject originalEnemy;
-
-    public Transform elevatorRoom1;
-    public Transform elevatorRoom2;
-
-
-    void Start()
-    {
-        StartCoroutine(SpawnEnemies(elevatorRoom1, 10));
-    }
 
     public IEnumerator SpawnEnemies(Transform spawnPositions, int enemyAmount)
     {

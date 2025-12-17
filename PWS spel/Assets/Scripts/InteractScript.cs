@@ -12,6 +12,9 @@ public class InteractScript : MonoBehaviour
     readonly float requiredComputerInteractLength = 5f;
     float computerInteractLength = 0f;
 
+    readonly float requiredEngineInteractLength = 5f;
+    float engineInteractLength = 0f;
+
     readonly float requiredGravityGeneratorInteractLength = 5f;
     float gravityGeneratorInteractLength = 0f;
 
@@ -30,6 +33,19 @@ public class InteractScript : MonoBehaviour
     public GameObject storageBoxInteractPopup;
     public GameObject toolObtainedPopup;
     public bool toolObtained = false;
+    public GameObject bombObtainedPopup;
+    public bool bombObtained = false;
+
+    public GameObject engineInteractPopup;
+    public RectTransform engineLoadingBar;
+    public GameObject enginesDisabledPopup;
+    bool engine1disabled;
+    bool engine2disabled;
+    public static bool enginesDisabled = false;
+
+    public GameObject fuelTankInteractPopup;
+    public GameObject bombPlantedPopup;
+    public bool bombPlanted = false;
 
     public GameObject gravityGeneratorInteractPopup;
     public RectTransform gravityGeneratorLoadingBar;
@@ -87,7 +103,7 @@ public class InteractScript : MonoBehaviour
             else pickUpWeaponPopup.SetActive(false);
 
 
-            if (hit.collider.gameObject.CompareTag("storage box") && !toolObtained && mapDownloaded)
+            if (hit.collider.gameObject.CompareTag("tool storage box") && !toolObtained && mapDownloaded)
             {
                 storageBoxInteractPopup.SetActive(true);
                 if (Input.GetKey(KeyCode.E))
@@ -97,6 +113,64 @@ public class InteractScript : MonoBehaviour
                 }
             }
             else storageBoxInteractPopup.SetActive(false);
+
+            if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
+            {
+                storageBoxInteractPopup.SetActive(true);
+                if (Input.GetKey(KeyCode.E))
+                {
+                    bombObtained = true;
+                    StartCoroutine(TextPopup(bombObtainedPopup));
+                }
+            }
+            else storageBoxInteractPopup.SetActive(false);
+
+
+            if (hit.collider.gameObject.CompareTag("engine") && !enginesDisabled && toolObtained)
+            {
+                bool engine1 = hit.collider.transform.parent.gameObject.name == "engine 1";
+                if ((engine1 && !engine1disabled) || (!engine1 && !engine2disabled))
+                {
+                    if (Input.GetKey(KeyCode.F))
+                    {
+                        engineInteractLength += Time.fixedDeltaTime;
+                        if (engineInteractLength >= requiredEngineInteractLength)
+                        {
+                            if (engine1) engine1disabled = true;
+                            else engine2disabled = true;
+                            enginesDisabled = engine1disabled && engine2disabled;
+
+                            if (enginesDisabled) StartCoroutine(TextPopup(enginesDisabledPopup));
+                        }
+                    }
+                    else engineInteractLength = 0;
+
+                    engineLoadingBar.sizeDelta = new(Mathf.Clamp(engineInteractLength / requiredEngineInteractLength * 95, 1, 95), 25);
+                    engineInteractPopup.SetActive(true);
+                }
+                else
+                {
+                    engineInteractLength = 0;
+                    engineInteractPopup.SetActive(false);
+                }
+            }
+            else
+            {
+                engineInteractLength = 0;
+                engineInteractLength = 0;
+            }
+
+
+            if (hit.collider.gameObject.CompareTag("fuel tank") && bombObtained && enginesDisabled && !bombPlanted)
+            {
+                fuelTankInteractPopup.SetActive(true);
+                if (Input.GetKey(KeyCode.E))
+                {
+                    bombPlanted = true;
+                    StartCoroutine(TextPopup(bombPlantedPopup));
+                }
+            }
+            else fuelTankInteractPopup.SetActive(false);
 
 
             if (hit.collider.gameObject.CompareTag("gravity generator") && !gravityDisabled && toolObtained)
@@ -109,7 +183,6 @@ public class InteractScript : MonoBehaviour
                         gravityDisabled = true;
                         GetComponentInParent<Movement>().velocity = Vector3.zero;
                         StartCoroutine(TextPopup(gravityDisabledPopup));
-                        StartCoroutine(enemySpawnScript.SpawnEnemies(spawnLocationsGravDisabled, 8));
                     }
                 }
                 else gravityGeneratorInteractLength = 0;
@@ -129,6 +202,9 @@ public class InteractScript : MonoBehaviour
             computerInteractPopup.SetActive(false);
             pickUpWeaponPopup.SetActive(false);
             storageBoxInteractPopup.SetActive(false);
+            engineInteractLength = 0;
+            engineInteractPopup.SetActive(false);
+            fuelTankInteractPopup.SetActive(false);
             gravityGeneratorInteractPopup.SetActive(false);
             gravityGeneratorInteractLength = 0;
         }

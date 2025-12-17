@@ -2,20 +2,39 @@ using UnityEngine;
 
 public class EnemiesTriggerScript : MonoBehaviour
 {
-    bool hasTriggered = false;
-
     public Transform enemiesToTrigger;
+    public bool isLiftRoomTrigger;
+    public Transform liftRoom;
+    public EnemySpawnScript enemySpawnScript;
+    public int enemySpawnAmount;
+    public string requirement;
+    bool canTrigger = true;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player" && !hasTriggered)
+        switch (requirement)
         {
-            hasTriggered = true;
-            foreach (Transform enemy in enemiesToTrigger)
+            case "gravity": canTrigger = InteractScript.gravityDisabled; break;
+            case "engine": canTrigger = InteractScript.enginesDisabled; break;
+            default: break;
+        }
+
+        if (other.gameObject.name == "Player" && canTrigger)
+        {
+            if (isLiftRoomTrigger)
             {
-                enemy.GetComponent<EnemyMovementScript>().enabled = true;
-                enemy.GetComponent<EnemyScript>().enabled = true;
+                StartCoroutine(enemySpawnScript.SpawnEnemies(liftRoom, enemySpawnAmount));
             }
+            else
+            {
+                foreach (Transform enemy in enemiesToTrigger)
+                {
+                    enemy.GetComponent<EnemyMovementScript>().enabled = true;
+                    enemy.GetComponent<EnemyScript>().enabled = true;
+                }
+            }
+
+            Destroy(GetComponent<BoxCollider>());
         }
     }
 }
