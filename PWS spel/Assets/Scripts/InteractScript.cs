@@ -46,6 +46,7 @@ public class InteractScript : MonoBehaviour
     public GameObject fuelTankInteractPopup;
     public GameObject bombPlantedPopup;
     public bool bombPlanted = false;
+    public GameObject bombTimer;
 
     public GameObject gravityGeneratorInteractPopup;
     public RectTransform gravityGeneratorLoadingBar;
@@ -156,7 +157,7 @@ public class InteractScript : MonoBehaviour
             }
             else
             {
-                engineInteractLength = 0;
+                engineInteractPopup.SetActive(false);
                 engineInteractLength = 0;
             }
 
@@ -167,7 +168,11 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombPlanted = true;
+                    bombTimer.SetActive(true);
                     StartCoroutine(TextPopup(bombPlantedPopup));
+                    StartCoroutine(BombTimer());
+
+                    if (gravityDisabled) unlockableDoorHandler.UnlockEscapePods();
                 }
             }
             else fuelTankInteractPopup.SetActive(false);
@@ -181,8 +186,9 @@ public class InteractScript : MonoBehaviour
                     if (gravityGeneratorInteractLength >= requiredGravityGeneratorInteractLength)
                     {
                         gravityDisabled = true;
-                        GetComponentInParent<Movement>().velocity = Vector3.zero;
                         StartCoroutine(TextPopup(gravityDisabledPopup));
+
+                        if (bombPlanted) unlockableDoorHandler.UnlockEscapePods();
                     }
                 }
                 else gravityGeneratorInteractLength = 0;
@@ -221,4 +227,21 @@ public class InteractScript : MonoBehaviour
         }
         popup.SetActive(false);
     }
-}
+
+    IEnumerator BombTimer()
+    {
+        int timer = 300;
+
+        while (timer >= 0)
+        {
+            int minutes = Mathf.FloorToInt(timer / 60);
+            int seconds = (timer % 60);
+            bombTimer.GetComponent<TextMeshProUGUI>().text = "Detonation in " + minutes.ToString() + ":" + seconds.ToString();
+            if (seconds < 10) bombTimer.GetComponent<TextMeshProUGUI>().text += "0";
+
+            yield return new WaitForSeconds(1);
+
+            timer--;
+        }
+    }
+ }

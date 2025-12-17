@@ -118,7 +118,12 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            controller.Move(velocity);
+            controller.Move(velocity * Time.deltaTime);
+            Vector3 realVelocity = (transform.position - lastPos) / Time.deltaTime;
+
+            if (velocity.x != 0 && Mathf.Abs(realVelocity.x / velocity.x - 1) > 0.3f) velocity.x = realVelocity.x;
+            if (velocity.y != 0 && Mathf.Abs(realVelocity.y / velocity.y - 1) > 0.3f) velocity.x = realVelocity.x;
+            if (velocity.z != 0 && Mathf.Abs(realVelocity.z / velocity.z - 1) > 0.3f) velocity.x = realVelocity.x;
 
             velocity *= 0.99f;
             if (Mathf.Abs(velocity.x) < 0.001f) velocity.x = 0;
@@ -189,13 +194,7 @@ public class Movement : MonoBehaviour
             +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.right*Mathf.Cos(headbobTime*frequency/2f)
             -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
             +amplitude3*x*Vector3.right
-
             -Vector3.forward*recoil;
-
-            ;     
-
-
-
 
 
         Vector2 vel2d = new Vector2(velocity.x, velocity.z);
