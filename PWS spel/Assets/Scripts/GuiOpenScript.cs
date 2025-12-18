@@ -55,7 +55,7 @@ public class GuiOpenScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && !settingsMenu.activeSelf)
         {
             if (gui.activeSelf)
             {
@@ -77,7 +77,7 @@ public class GuiOpenScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gui.activeSelf)
         {
             if (settingsMenu.activeSelf)
             {
