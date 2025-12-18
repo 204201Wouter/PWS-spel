@@ -11,21 +11,22 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
     public Image damageimg;
 
-
+    public GuiOpenScript guiOpenScript;
     public void Hit(float damage)
     {
         health -= damage;
 
-        healthText.text = "+ " + Mathf.Round(health).ToString();
         Color c = damageimg.color;
         c.a = 1f;
         damageimg.color = c;
 
-
-        /*if (health <= 0)
+        if (health <= 0)
         {
-            doodgaan code
-        }*/
+            guiOpenScript.ShowDeathScreen();
+            health = 0;
+        }
+
+        healthText.text = "+ " + Mathf.Round(health).ToString();
     }
 
     void Update()

@@ -34,6 +34,8 @@ public class GuiOpenScript : MonoBehaviour
     public GameObject settingsMenu;
     public Slider volumeSlider;
 
+    public GameObject deathScreen;
+
     void Start()
     {
         gui.SetActive(false);
@@ -241,6 +243,16 @@ public class GuiOpenScript : MonoBehaviour
             selectedMagazineStats.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.capacity.ToString();
             selectedMagazineStats.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.reloadTime.ToString();
         }
+    }
+
+    public void ShowDeathScreen()
+    {
+        deathScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        movement.canMove = false;
+        mouseLook.canLook = false;
+        shootscript.canShoot = false;
     }
 
     public void ChangeVolume()
