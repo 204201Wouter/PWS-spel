@@ -75,8 +75,6 @@ public class ShootProjectile : MonoBehaviour
 
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
         {
-
-
             audioSource.PlayOneShot(shotsound);
 
             for (int i = 0; i < amount; i++)
@@ -87,7 +85,7 @@ public class ShootProjectile : MonoBehaviour
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
-            if (InteractScript.gravityDisabled) movement.velocity += amount * damage * 0.003f * -transform.forward;
+            if (InteractScript.gravityDisabled) movement.velocity += amount * damage * 0.15f * -transform.forward;
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
@@ -107,70 +105,9 @@ public class ShootProjectile : MonoBehaviour
 
             lastShot = Time.time;
 
-
-
             UpdateAmmoText();
-
-            // weapon.transform.Rotate(recoil * -10, 0f, 0f);
-         //   weapon.transform.position += weapon.transform.up*recoil*0.2f;
-
-         //   movement.firedGun = true;
-
-
-
-            //  animator.Play("recoil", 2, 0f); // 1 = recoil layer index
             
             movement.recoil = recoilstrength;
-            /*
-            if (ammo % 6 == 0)
-            {
-                animator.ResetTrigger("recoil");
-                animatorshadow.ResetTrigger("recoil");
-                animator.SetTrigger("recoil");
-                animatorshadow.SetTrigger("recoil");
-            }
-
-            if (ammo % 6 == 1)
-            {
-                animator.ResetTrigger("recoilb");
-                animatorshadow.ResetTrigger("recoilb");
-                animator.SetTrigger("recoilb");
-                animatorshadow.SetTrigger("recoilb");
-            }
-            if (ammo % 6 == 2)
-            {
-                animator.ResetTrigger("recoilc");
-                animatorshadow.ResetTrigger("recoilc");
-                animator.SetTrigger("recoilc");
-                animatorshadow.SetTrigger("recoilc");
-            }
-
-            if (ammo % 6 == 3)
-            {
-                animator.ResetTrigger("recoild");
-                animatorshadow.ResetTrigger("recoild");
-                animator.SetTrigger("recoild");
-                animatorshadow.SetTrigger("recoild");
-            }
-            if (ammo % 6 == 4)
-            {
-                animator.ResetTrigger("recoile");
-                animatorshadow.ResetTrigger("recoile");
-                animator.SetTrigger("recoile");
-                animatorshadow.SetTrigger("recoile");
-            }
-
-            if (ammo % 6 == 5)
-            {
-                animator.ResetTrigger("recoilf");
-                animatorshadow.ResetTrigger("recoilf");
-                animator.SetTrigger("recoilf");
-                animatorshadow.SetTrigger("recoilf");
-            }
-            */
-
-            //   animator.SetTrigger("recoil");
-
         }
         else
         {
@@ -180,17 +117,12 @@ public class ShootProjectile : MonoBehaviour
             recoilYSaved *= 0.9f;
             if (Mathf.Abs(recoilXSaved) < 0.01f) recoilXSaved = 0;
             if (Mathf.Abs(recoilYSaved) < 0.01f) recoilYSaved = 0;
-
         }
-
-
 
         if (movement.recoil > 0)
         {
             movement.recoil -= Time.deltaTime;
         }
-
-
 
         if (Input.GetMouseButton(1) && reloadStart == -1)
         {   
@@ -219,12 +151,7 @@ public class ShootProjectile : MonoBehaviour
                 animator.SetBool("IsAiming", false);
                 animatorshadow.SetBool("IsAiming", false);
             }
-
-
-            // animator.SetTrigger("Fire");
         }
-
-
 
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);
