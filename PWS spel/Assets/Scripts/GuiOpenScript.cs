@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
 
 
@@ -30,6 +31,9 @@ public class GuiOpenScript : MonoBehaviour
     public Movement movement;
     public WeaponScript weaponScript;
 
+    public GameObject settingsMenu;
+    public Slider volumeSlider;
+
     void Start()
     {
         gui.SetActive(false);
@@ -45,6 +49,8 @@ public class GuiOpenScript : MonoBehaviour
         shootscript.UpdateAmmoText();
 
         magazineSlot.transform.GetChild(0).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
+
+        volumeSlider.value = AudioListener.volume;
     }
 
     void Update()
@@ -63,6 +69,28 @@ public class GuiOpenScript : MonoBehaviour
             else
             {
                 gui.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                movement.canMove = false;
+                mouseLook.canLook = false;
+                shootscript.canShoot = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (settingsMenu.activeSelf)
+            {
+                settingsMenu.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                movement.canMove = true;
+                mouseLook.canLook = true;
+                shootscript.canShoot = true;
+            }
+            else
+            {
+                settingsMenu.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 movement.canMove = false;
@@ -213,6 +241,16 @@ public class GuiOpenScript : MonoBehaviour
             selectedMagazineStats.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.capacity.ToString();
             selectedMagazineStats.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.reloadTime.ToString();
         }
+    }
+
+    public void ChangeVolume()
+    {
+        AudioListener.volume = volumeSlider.value;
+    }
+
+    public void ExitToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void SetActiveIfExists(GameObject obj, bool active)
