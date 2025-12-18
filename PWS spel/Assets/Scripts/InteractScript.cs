@@ -41,7 +41,7 @@ public class InteractScript : MonoBehaviour
     public GameObject enginesDisabledPopup;
     bool engine1disabled;
     bool engine2disabled;
-    public static bool enginesDisabled = false;
+    public static bool enginesDisabled = true;
 
     public GameObject fuelTankInteractPopup;
     public GameObject bombPlantedPopup;
@@ -103,7 +103,6 @@ public class InteractScript : MonoBehaviour
             }
             else pickUpWeaponPopup.SetActive(false);
 
-
             if (hit.collider.gameObject.CompareTag("tool storage box") && !toolObtained && mapDownloaded)
             {
                 storageBoxInteractPopup.SetActive(true);
@@ -113,9 +112,7 @@ public class InteractScript : MonoBehaviour
                     StartCoroutine(TextPopup(toolObtainedPopup));
                 }
             }
-            else storageBoxInteractPopup.SetActive(false);
-
-            if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
+            else if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
             {
                 storageBoxInteractPopup.SetActive(true);
                 if (Input.GetKey(KeyCode.E))
@@ -219,7 +216,7 @@ public class InteractScript : MonoBehaviour
     IEnumerator TextPopup(GameObject popup)
     {
         popup.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         for (float a = 1; a >= 0; a -= 0.01f)
         {
             popup.GetComponent<TextMeshProUGUI>().color = new(1, 1, 1, a);
@@ -235,9 +232,11 @@ public class InteractScript : MonoBehaviour
         while (timer >= 0)
         {
             int minutes = Mathf.FloorToInt(timer / 60);
-            int seconds = (timer % 60);
-            bombTimer.GetComponent<TextMeshProUGUI>().text = "Detonation in " + minutes.ToString() + ":" + seconds.ToString();
-            if (seconds < 10) bombTimer.GetComponent<TextMeshProUGUI>().text += "0";
+            int seconds = timer % 60;
+            string secondsStr;
+            if (seconds < 10) secondsStr = "0" + seconds.ToString();
+            else secondsStr = seconds.ToString();
+            bombTimer.GetComponent<TextMeshProUGUI>().text = "Detonation in " + minutes.ToString() + ":" + secondsStr;
 
             yield return new WaitForSeconds(1);
 

@@ -43121,7 +43121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 1
   liftRoom: {fileID: 409611966}
   enemySpawnScript: {fileID: 4403632498417147317}
@@ -71272,9 +71272,9 @@ MonoBehaviour:
   mapDownloaded: 1
   storageBoxInteractPopup: {fileID: 1141164305}
   toolObtainedPopup: {fileID: 1020975929}
-  toolObtained: 1
+  toolObtained: 0
   bombObtainedPopup: {fileID: 1118468695}
-  bombObtained: 1
+  bombObtained: 0
   engineInteractPopup: {fileID: 324002513}
   engineLoadingBar: {fileID: 2008457617}
   enginesDisabledPopup: {fileID: 869988599}
@@ -90379,7 +90379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 1
   liftRoom: {fileID: 606273043}
   enemySpawnScript: {fileID: 4403632498417147317}
@@ -93535,7 +93535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 1
   liftRoom: {fileID: 606273043}
   enemySpawnScript: {fileID: 4403632498417147317}
@@ -192369,9 +192369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 1
-  liftRoom: {fileID: 606273043}
+  liftRoom: {fileID: 900855804}
   enemySpawnScript: {fileID: 4403632498417147317}
   enemySpawnAmount: 12
   requirement: 
@@ -212630,7 +212630,7 @@ Transform:
   m_GameObject: {fileID: 1016252721}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.86602545, z: 0, w: 0.49999994}
-  m_LocalPosition: {x: 158.61, y: 4.08, z: 397.34}
+  m_LocalPosition: {x: 158.491, y: 4.08, z: 397.275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -417382,7 +417382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 1
   liftRoom: {fileID: 606273043}
   enemySpawnScript: {fileID: 4403632498417147317}
@@ -455092,7 +455092,7 @@ Transform:
   m_GameObject: {fileID: 2746109580620250209}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 1.11, z: 200}
+  m_LocalPosition: {x: 208.1, y: 1.11, z: -89.1}
   m_LocalScale: {x: 0.79999995, y: 1, z: 0.79999995}
   m_ConstrainProportionsScale: 0
   m_Children:
