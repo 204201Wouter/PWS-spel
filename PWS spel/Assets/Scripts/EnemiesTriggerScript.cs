@@ -16,14 +16,14 @@ public class EnemiesTriggerScript : MonoBehaviour
         {
             case "gravity": canTrigger = InteractScript.gravityDisabled; break;
             case "engine": canTrigger = InteractScript.enginesDisabled; break;
-            default: break;
+            default: canTrigger = true; break;
         }
 
         if (other.gameObject.name == "Player" && canTrigger)
         {
             if (isLiftRoomTrigger)
             {
-                StartCoroutine(enemySpawnScript.SpawnEnemies(liftRoom, enemySpawnAmount));
+                print("spawning enemies");
             }
             else
             {
