@@ -58453,7 +58453,7 @@ GameObject:
   - component: {fileID: 268456944}
   - component: {fileID: 268456943}
   m_Layer: 5
-  m_Name: weapon (1)
+  m_Name: weapon mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71046,9 +71046,8 @@ MonoBehaviour:
   audioSource: {fileID: 4403632498417147318}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
-  fpsbody: {fileID: 543450652427446475}
+  fpsbody: {fileID: 919132148153463409}
   recoilstrength: 0.05
-  startfpsbody: {x: 0, y: 0, z: 0}
   down: 0
 --- !u!114 &330585550
 MonoBehaviour:
@@ -71075,6 +71074,11 @@ MonoBehaviour:
   ammoBigSprite: {fileID: 21300000, guid: c6873b14a2bcd0d4c84cfe6df66060df, type: 3}
   buckshotSprite: {fileID: 21300000, guid: 265585a8a7a31474899f4c2c04795ae4, type: 3}
   birdshotSprite: {fileID: 21300000, guid: be93271d97b4a0b47aea682b8b7c78a6, type: 3}
+  scopeSpriteBig: {fileID: 21300000, guid: 9ea13a65729b83cc2a5bb4d90d153b68, type: 3}
+  reddotSpriteBig: {fileID: 21300000, guid: db76988ca0e0171c3a75551084bb47d1, type: 3}
+  ARMagSpriteBig: {fileID: 21300000, guid: 65090d2f2b834cbb5bf99dd9f8c67802, type: 3}
+  sniperMagSpriteBig: {fileID: 21300000, guid: b82a64797f953b713bc6d4b1e03ebab4, type: 3}
+  drumMapSpriteBig: {fileID: 21300000, guid: 81366343553474374bb2267324319757, type: 3}
   scopeSprite: {fileID: 21300000, guid: 9739affcc268c96f698dd990f9b3e8f3, type: 3}
 --- !u!114 &330585551
 MonoBehaviour:
@@ -173421,7 +173425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &836985395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -173439,7 +173443,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2000, y: 2000}
+  m_SizeDelta: {x: 3000, y: 3000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &836985396
 MonoBehaviour:
@@ -288181,6 +288185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb095200aaa06ad4c8ac0a8c16208686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightBig: {fileID: 1719872465}
+  magazineBig: {fileID: 268456943}
   gui: {fileID: 1309299009}
   sightSlot: {fileID: 1974824869}
   magazineSlot: {fileID: 111391610}
@@ -357691,7 +357697,7 @@ GameObject:
   - component: {fileID: 1719872466}
   - component: {fileID: 1719872465}
   m_Layer: 5
-  m_Name: weapon (2)
+  m_Name: weapon sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357736,7 +357742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ea13a65729b83cc2a5bb4d90d153b68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db76988ca0e0171c3a75551084bb47d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -455176,6 +455182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb095200aaa06ad4c8ac0a8c16208686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightBig: {fileID: 0}
+  magazineBig: {fileID: 0}
   gui: {fileID: 0}
   sightSlot: {fileID: 0}
   magazineSlot: {fileID: 0}

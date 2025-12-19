@@ -46,6 +46,9 @@ public class Movement : MonoBehaviour
     float headbobTime = 0f;
     public float recoil;
 
+    public AudioSource audioSource;
+    public AudioClip walkSound;
+
     void Start()
     {
         startfpsbody = fpsbody.localPosition;
@@ -62,7 +65,10 @@ public class Movement : MonoBehaviour
         }
         if (!InteractScript.gravityDisabled)
         {
+
+            if (!isGrounded && Physics.CheckSphere(groundCheck.position, 0.1f, groundMask)) audioSource.PlayOneShot(walkSound);
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
+
 
             if (isGrounded && ySpeed < 0)
             {
@@ -161,6 +167,9 @@ public class Movement : MonoBehaviour
             -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
             +amplitude3*x*Vector3.right
             -Vector3.forward*recoil;
+
+
+        if (isGrounded && headbobTime*frequency % (Mathf.PI*2) < velocity.magnitude*0.05f && (headbobTime-velocity.magnitude)*frequency % (Mathf.PI*2) > (Mathf.PI-velocity.magnitude*0.05f)) audioSource.PlayOneShot(walkSound);
 
 
         Vector2 vel2d = new Vector2(velocity.x, velocity.z);
