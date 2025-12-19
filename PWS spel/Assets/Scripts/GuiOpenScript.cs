@@ -9,8 +9,6 @@ using static UnityEditor.PlayerSettings;
 public class GuiOpenScript : MonoBehaviour
 {
     public GameObject gui;
-    public Button primaryButton;
-    public Button secundaryButton;
     public Button sightSlot;
     public Button magazineSlot;
     public Image weapon;
@@ -41,8 +39,6 @@ public class GuiOpenScript : MonoBehaviour
         gui.SetActive(false);
         sightInventory.SetActive(false);
         magazineInventory.SetActive(true);
-        primaryButton.onClick.AddListener(() => ChangePicture(primaryPNG));
-        secundaryButton.onClick.AddListener(() => ChangePicture(secundaryPNG));
         sightSlot.onClick.AddListener(() => OpenInventory(sightInventory));
         magazineSlot.onClick.AddListener(() => OpenInventory(magazineInventory));
 
@@ -102,10 +98,6 @@ public class GuiOpenScript : MonoBehaviour
         }
     }
 
-    void ChangePicture(Sprite picture)
-    {
-        weapon.sprite = picture;
-    }
     void OpenInventory(GameObject newInventory)
     {
         activeInventory.SetActive(false);

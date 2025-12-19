@@ -23,7 +23,7 @@ public class EnemiesTriggerScript : MonoBehaviour
         {
             if (isLiftRoomTrigger)
             {
-                print("spawning enemies");
+                StartCoroutine(enemySpawnScript.SpawnEnemies(liftRoom, enemySpawnAmount));
             }
             else
             {

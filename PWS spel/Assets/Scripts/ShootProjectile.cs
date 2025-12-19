@@ -65,14 +65,12 @@ public class ShootProjectile : MonoBehaviour
     public float down;
 
 
-
     void Start()
     {
         startfpsbody = fpsbody.localPosition;
     }
     void Update()
     {
-
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
         {
             audioSource.PlayOneShot(shotsound);
@@ -156,7 +154,7 @@ public class ShootProjectile : MonoBehaviour
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);
 
-        if (Input.GetKeyDown(KeyCode.R) && reloadStart == -1 && ammo != cap)
+        if ((Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && ammo == 0)) && reloadStart == -1)
         {
             audioSource.PlayOneShot(reloadsound);
             movement.reloading = true;
