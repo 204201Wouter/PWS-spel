@@ -35,6 +35,8 @@ public class InteractScript : MonoBehaviour
     public bool toolObtained = false;
     public GameObject bombObtainedPopup;
     public bool bombObtained = false;
+    public GameObject toolMarker;
+    public GameObject bombMarker;
 
     public GameObject engineInteractPopup;
     public RectTransform engineLoadingBar;
@@ -109,6 +111,7 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     toolObtained = true;
+                    toolMarker.SetActive(false);
                     StartCoroutine(TextPopup(toolObtainedPopup));
                 }
             }
@@ -118,6 +121,7 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombObtained = true;
+                    bombMarker.SetActive(false);
                     StartCoroutine(TextPopup(bombObtainedPopup));
                 }
             }

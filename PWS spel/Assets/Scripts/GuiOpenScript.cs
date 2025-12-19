@@ -29,10 +29,17 @@ public class GuiOpenScript : MonoBehaviour
     public Movement movement;
     public WeaponScript weaponScript;
 
+    public InteractScript interactScript;
+
     public GameObject settingsMenu;
     public Slider volumeSlider;
 
     public GameObject deathScreen;
+
+    public GameObject map;
+    public RectTransform playerMarker;
+
+    bool menuOpen = false;
 
     void Start()
     {
@@ -53,7 +60,7 @@ public class GuiOpenScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && !settingsMenu.activeSelf)
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (gui.activeSelf)
             {
@@ -63,8 +70,9 @@ public class GuiOpenScript : MonoBehaviour
                 movement.canMove = true;
                 mouseLook.canLook = true;
                 shootscript.canShoot = true;
+                menuOpen = false;
             }
-            else
+            else if (!menuOpen)
             {
                 gui.SetActive(true);
                 Cursor.visible = true;
@@ -72,10 +80,11 @@ public class GuiOpenScript : MonoBehaviour
                 movement.canMove = false;
                 mouseLook.canLook = false;
                 shootscript.canShoot = false;
+                menuOpen = true;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !gui.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (settingsMenu.activeSelf)
             {
@@ -85,8 +94,9 @@ public class GuiOpenScript : MonoBehaviour
                 movement.canMove = true;
                 mouseLook.canLook = true;
                 shootscript.canShoot = true;
+                menuOpen = false;
             }
-            else
+            else if (!menuOpen)
             {
                 settingsMenu.SetActive(true);
                 Cursor.visible = true;
@@ -94,7 +104,38 @@ public class GuiOpenScript : MonoBehaviour
                 movement.canMove = false;
                 mouseLook.canLook = false;
                 shootscript.canShoot = false;
+                menuOpen = true;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M) && interactScript.mapDownloaded)
+        {
+            if (map.activeSelf)
+            {
+                map.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                movement.canMove = true;
+                mouseLook.canLook = true;
+                shootscript.canShoot = true;
+                menuOpen = false;
+            }
+            else if (!menuOpen)
+            {
+                map.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                movement.canMove = false;
+                mouseLook.canLook = false;
+                shootscript.canShoot = false;
+                menuOpen = true;
+            }
+        }
+
+        if (interactScript.mapDownloaded && map.activeSelf)
+        {
+            Vector2 markerPos = new((transform.position.x - 135f) * 1.59f, (transform.position.z + 57f) * 1.75f);
+            playerMarker.anchoredPosition = markerPos;
         }
     }
 
