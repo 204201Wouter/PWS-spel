@@ -134,7 +134,7 @@ public class GuiOpenScript : MonoBehaviour
 
         if (interactScript.mapDownloaded && map.activeSelf)
         {
-            Vector2 markerPos = new((transform.position.x - 135f) * 1.75f, (transform.position.z + 57f) * 1.75f);
+            Vector2 markerPos = new((transform.position.x - 135f) * 1.6174f, (transform.position.z + 57f) * 1.7193f);
             playerMarker.anchoredPosition = markerPos;
         }
     }

@@ -122,7 +122,7 @@ public class ShootProjectile : MonoBehaviour
             movement.recoil -= Time.deltaTime;
         }
 
-        if (Input.GetMouseButton(1) && reloadStart == -1)
+        if (Input.GetMouseButton(1) && reloadStart == -1 && canShoot)
         {   
             if (GetComponent<Camera>().fieldOfView > 60 / zoom) 
             {

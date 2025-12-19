@@ -53,10 +53,13 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = 0;
+        float z = 0;
+        if (canMove)
+        {
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
+        }
         if (!InteractScript.gravityDisabled)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
@@ -68,8 +71,6 @@ public class Movement : MonoBehaviour
             bool climbing = false;
             if (canMove)
             {
-
-
                 Vector3 move = transform.right * x + transform.forward * z;
 
                 controller.Move(speed * Time.deltaTime * move);
@@ -87,16 +88,7 @@ public class Movement : MonoBehaviour
                         animatorshadow.SetTrigger("jump");
 
                     }
-                    /*
-                    if (Physics.Raycast(rayBottom, 0.6f, groundMask) && !Physics.Raycast(rayTop, 0.6f, groundMask))
-                    {
-                        climbing = true;
-                        ySpeed = 2f;
-                    }
-                    */
-
                 }
-
             }
 
             ySpeed += gravity * Time.deltaTime;
@@ -152,42 +144,16 @@ public class Movement : MonoBehaviour
         }
 
 
-
-  
-        //if (velocity.magnitude < 1f && Mathf.Abs(Mathf.Sin(velocity.magnitude*frequency*(startwalk-Time.time))) < 0.05f)
-       // {
-          //  startwalk = Time.time;
-          //  fpsbody.localPosition = startfpsbody;
-
-       // }
-
-
         if (Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk))) < 0.1f)
         {
-            if (velocity.magnitude > 1f)
-                bobspeed = velocity.magnitude;
-            if (velocity.magnitude < 1f)
-            {
-                startwalk = Time.time;
-            }
+            if (velocity.magnitude > 1f) bobspeed = velocity.magnitude;
+            if (velocity.magnitude < 1f) startwalk = Time.time;
         }
 
         bobspeed = 0f;
 
-        /*
-        fpsbody.localPosition = startfpsbody
-            -amplitude*Vector3.up*Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk)))
-            +amplitude3*x*Vector3.right
-            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
-            
-            ;*/
-
-
-
         
-        if (isGrounded) {
-            headbobTime += velocity.magnitude ;
-        }
+        if (isGrounded) headbobTime += velocity.magnitude;
 
         fpsbody.localPosition = startfpsbody
             +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.up*Mathf.Sin(headbobTime*frequency)
@@ -198,7 +164,6 @@ public class Movement : MonoBehaviour
 
 
         Vector2 vel2d = new Vector2(velocity.x, velocity.z);
-      //  animator.SetFloat("speed", vel2d.magnitude);
         animatorshadow.SetFloat("speed", vel2d.magnitude);
         
         if (firedGun)
