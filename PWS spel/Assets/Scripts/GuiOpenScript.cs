@@ -53,7 +53,7 @@ public class GuiOpenScript : MonoBehaviour
 
         shootscript.UpdateAmmoText();
 
-        magazineSlot.transform.GetChild(0).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
+        magazineSlot.transform.GetChild(1).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
 
         volumeSlider.value = AudioListener.volume;
     }
@@ -171,7 +171,7 @@ public class GuiOpenScript : MonoBehaviour
         SetActiveIfExists(magazine.model, true);
 
 
-        magazineSlot.transform.GetChild(0).SetParent(magazineInventory.transform);
+        magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
 
@@ -195,7 +195,7 @@ public class GuiOpenScript : MonoBehaviour
         if (weaponScript.currentScope.name != "no scope")
         {
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
-            sightSlot.transform.GetChild(0).SetParent(sightInventory.transform);
+            sightSlot.transform.GetChild(1).SetParent(sightInventory.transform);
         }
         SetActiveIfExists(weaponScript.currentScope.model, false);
         weaponScript.currentScope = scope;

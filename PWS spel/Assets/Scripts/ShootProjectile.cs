@@ -154,7 +154,7 @@ public class ShootProjectile : MonoBehaviour
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);
 
-        if ((Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && ammo == 0)) && reloadStart == -1)
+        if ((Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && ammo == 0)) && reloadStart == -1 && canShoot)
         {
             audioSource.PlayOneShot(reloadsound);
             movement.reloading = true;

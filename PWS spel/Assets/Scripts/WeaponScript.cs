@@ -56,7 +56,7 @@ public class WeaponScript : MonoBehaviour
         scopes.Add("no scope", new(2, "no scope", GameObject.Find("red dot sight"), null));
         // hier alle scopes
 
-        // mag models
+        // magazine models
         GameObject ARMag = GameObject.Find("ar mag");
         GameObject drumMag = GameObject.Find("drum mag");
         GameObject sniperMag = GameObject.Find("sniper mag");
@@ -80,14 +80,13 @@ public class WeaponScript : MonoBehaviour
         lasers.Add("no laser", new(Color.red, 0, "no laser", null));
         // hier alle lasers
 
-        // tijdelijk
         currentScope = scopes["no scope"];
         currentMagazine = magazines["default magazine"];
         currentSilencer = silencers["no silencer"];
         currentLaser = lasers["no laser"];
 
         GetComponent<ShootProjectile>().ChangeAttachment();
-        Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(0).GetComponent<Button>();
+        Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(1).GetComponent<Button>();
         defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
 
         guiScript.NewMagazine(magazines["small drum"]);
