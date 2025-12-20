@@ -234,6 +234,7 @@ public class GuiOpenScript : MonoBehaviour
             weaponScript.availableMagazines.Add(magazine.name);
             GameObject button = Instantiate(attachmentButton);
             button.transform.SetParent(magazineInventory.transform);
+            button.transform.localScale = new(1, 1, 1);
             button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
             button.transform.GetChild(0).GetComponent<Image>().sprite = magazine.sprite;
             button.transform.GetChild(1).GetComponent<Image>().sprite = magazine.ammoType.sprite;
@@ -268,8 +269,6 @@ public class GuiOpenScript : MonoBehaviour
         }
         else
         {
-            print(magazine.name);
-            print(magazine.ammoType.name);
             selectedMagazineStats.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.name[0].ToString().ToUpper() + magazine.ammoType.name[1..];
             selectedMagazineStats.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.damage.ToString();
             selectedMagazineStats.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = Mathf.Round(1 / magazine.shotCooldown).ToString();

@@ -34,6 +34,7 @@ public class WeaponScript : MonoBehaviour
     public Sprite birdshotSprite;
 
     public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
+    public Sprite redDotSprite;
 
     void Awake() // awake runt eerder dan start en dat moet hier
     {                              //dmg
@@ -52,8 +53,9 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
         }
 
-        scopes.Add("scopeding", new(4, "scopeding", GameObject.Find("scope"), scopeSprite)); // scopeSprite vervangen voor nieuwe sprite dan
-        scopes.Add("no scope", new(2, "no scope", GameObject.Find("red dot sight"), null));
+        scopes.Add("scope", new(4, "scope", GameObject.Find("scope"), scopeSprite)); // scopeSprite vervangen voor nieuwe sprite dan
+        scopes.Add("red dot", new(2, "red dot", GameObject.Find("red dot sight"), redDotSprite));
+        scopes.Add("no scope", new(1.3f, "no scope", GameObject.Find("iron sight"), null));
         // hier alle scopes
 
         // magazine models
@@ -91,7 +93,8 @@ public class WeaponScript : MonoBehaviour
 
         guiScript.NewMagazine(magazines["small drum"]);
         guiScript.NewMagazine(magazines["birdshot"]);
-        guiScript.NewScope(scopes["scopeding"]);
+        guiScript.NewScope(scopes["scope"]);
+        guiScript.NewScope(scopes["red dot"]);
 
         foreach (ScopeAttachment scope in scopes.Values)
         {
