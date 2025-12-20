@@ -63,9 +63,9 @@ public class Movement : MonoBehaviour
             x = Input.GetAxis("Horizontal");
             z = Input.GetAxis("Vertical");
         }
+
         if (!InteractScript.gravityDisabled)
         {
-
             if (!isGrounded && Physics.CheckSphere(groundCheck.position, 0.1f, groundMask)) audioSource.PlayOneShot(walkSound);
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
 
@@ -83,7 +83,6 @@ public class Movement : MonoBehaviour
 
                 if (Input.GetButton("Jump"))
                 {
-
                     Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
                     Ray rayTop = new Ray(transform.position + new Vector3(0, 1.5f, 0), transform.forward);
 
@@ -103,9 +102,6 @@ public class Movement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !Input.GetMouseButton(1) != climbing && !reloading) speed = 8f;
             if (!Input.GetKey(KeyCode.LeftShift) || Input.GetMouseButton(1) || climbing || reloading) speed = 4f;
-
-            //if (Input.GetKey(KeyCode.LeftControl); crouch
-            //if (!Input.GetKey(KeyCode.X); crawl
 
             if (transform.position.y < -20)
             {

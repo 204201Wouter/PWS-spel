@@ -40,10 +40,12 @@ public class GuiOpenScript : MonoBehaviour
 
     public GameObject map;
     public RectTransform playerMarker;
+    public GameObject minimap;
+    public RectTransform minimapImage;
+    public RectTransform miniPlayerMarker;
 
     public AudioSource audioSource;
     public AudioClip clickSound;
-
 
 
     bool menuOpen = false;
@@ -122,6 +124,7 @@ public class GuiOpenScript : MonoBehaviour
             if (map.activeSelf)
             {
                 map.SetActive(false);
+                minimap.SetActive(true);
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 movement.canMove = true;
@@ -132,6 +135,7 @@ public class GuiOpenScript : MonoBehaviour
             else if (!menuOpen)
             {
                 map.SetActive(true);
+                minimap.SetActive(false);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 movement.canMove = false;
@@ -142,10 +146,20 @@ public class GuiOpenScript : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
-        if (interactScript.mapDownloaded && map.activeSelf)
+        if (interactScript.mapDownloaded)
         {
             Vector2 markerPos = new((transform.position.x - 135f) * 1.6174f, (transform.position.z + 57f) * 1.7193f);
-            playerMarker.anchoredPosition = markerPos;
+            float markerRot = -transform.rotation.eulerAngles.y - 135;
+            if (map.activeSelf)
+            {
+                playerMarker.anchoredPosition = markerPos;
+                playerMarker.rotation = Quaternion.Euler(0, 0, markerRot);
+            }
+            else
+            {
+                minimapImage.anchoredPosition = 2f * markerPos;
+                miniPlayerMarker.rotation = Quaternion.Euler(0, 0, markerRot);
+            }
         }
     }
 
@@ -227,7 +241,7 @@ public class GuiOpenScript : MonoBehaviour
         weaponScript.availableScopes.Add(weaponScript.currentScope.name);
         SetActiveIfExists(weaponScript.currentScope.model, false);
         weaponScript.currentScope = weaponScript.scopes["no scope"];
-        shootscript.zoom = 2;
+        shootscript.zoom = weaponScript.currentScope.zoomFactor;
         SetActiveIfExists(weaponScript.currentScope.model, true);
 
         button.transform.SetParent(sightInventory.transform);
@@ -302,6 +316,7 @@ public class GuiOpenScript : MonoBehaviour
         movement.canMove = false;
         mouseLook.canLook = false;
         shootscript.canShoot = false;
+        menuOpen = true;
     }
 
     public void ChangeVolume()

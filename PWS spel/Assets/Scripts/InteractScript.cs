@@ -37,6 +37,8 @@ public class InteractScript : MonoBehaviour
     public bool bombObtained = false;
     public GameObject toolMarker;
     public GameObject bombMarker;
+    public GameObject miniToolMarker;
+    public GameObject miniBombMarker;
 
     public GameObject engineInteractPopup;
     public RectTransform engineLoadingBar;
@@ -71,6 +73,7 @@ public class InteractScript : MonoBehaviour
                         mapDownloaded = true;
                         StartCoroutine(TextPopup(mapDownloadedPopup));
                         unlockableDoorHandler.door2.locked = false;
+                        guiOpenScript.minimap.SetActive(true);
                     }
                 }
                 else computerInteractLength = 0;
@@ -112,6 +115,7 @@ public class InteractScript : MonoBehaviour
                 {
                     toolObtained = true;
                     toolMarker.SetActive(false);
+                    miniToolMarker.SetActive(false);
                     StartCoroutine(TextPopup(toolObtainedPopup));
                 }
             }
@@ -122,6 +126,7 @@ public class InteractScript : MonoBehaviour
                 {
                     bombObtained = true;
                     bombMarker.SetActive(false);
+                    miniBombMarker.SetActive(false);
                     StartCoroutine(TextPopup(bombObtainedPopup));
                 }
             }
