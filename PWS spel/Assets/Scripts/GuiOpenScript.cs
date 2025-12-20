@@ -8,6 +8,8 @@ using static UnityEditor.PlayerSettings;
 
 public class GuiOpenScript : MonoBehaviour
 {
+    public Image sightBig;
+    public Image magazineBig;
     public GameObject gui;
     public Button sightSlot;
     public Button magazineSlot;
@@ -38,6 +40,11 @@ public class GuiOpenScript : MonoBehaviour
 
     public GameObject map;
     public RectTransform playerMarker;
+
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+
+
 
     bool menuOpen = false;
 
@@ -82,6 +89,7 @@ public class GuiOpenScript : MonoBehaviour
                 shootscript.canShoot = false;
                 menuOpen = true;
             }
+            audioSource.PlayOneShot(clickSound);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -106,6 +114,7 @@ public class GuiOpenScript : MonoBehaviour
                 shootscript.canShoot = false;
                 menuOpen = true;
             }
+            audioSource.PlayOneShot(clickSound);
         }
 
         if (Input.GetKeyDown(KeyCode.M) && interactScript.mapDownloaded)
@@ -130,6 +139,7 @@ public class GuiOpenScript : MonoBehaviour
                 shootscript.canShoot = false;
                 menuOpen = true;
             }
+            audioSource.PlayOneShot(clickSound);
         }
 
         if (interactScript.mapDownloaded && map.activeSelf)
@@ -145,6 +155,7 @@ public class GuiOpenScript : MonoBehaviour
         newInventory.SetActive(true);
         activeInventory = newInventory;
         inventoryText.text = newInventory.name;
+        audioSource.PlayOneShot(clickSound);
     }
 
     void EquipMagazine(MagazineAttachment magazine, GameObject button)
@@ -177,6 +188,9 @@ public class GuiOpenScript : MonoBehaviour
 
         magazineImage.sprite = magazine.sprite;
         ammoImage.sprite = magazine.ammoType.sprite;
+        magazineBig.sprite = magazine.spriteBig;
+        audioSource.PlayOneShot(clickSound);
+ 
     }
 
     public void ClickMagazine(MagazineAttachment magazine, GameObject button)
@@ -191,6 +205,7 @@ public class GuiOpenScript : MonoBehaviour
     void EquipScope(ScopeAttachment scope, GameObject button)
     {
         shootscript.zoom = scope.zoomFactor;
+        sightBig.sprite = scope.spriteBig;
 
         if (weaponScript.currentScope.name != "no scope")
         {
@@ -204,6 +219,7 @@ public class GuiOpenScript : MonoBehaviour
 
         button.transform.SetParent(sightSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
+        audioSource.PlayOneShot(clickSound);
     }
 
     void UnequipScope(GameObject button)
@@ -215,6 +231,7 @@ public class GuiOpenScript : MonoBehaviour
         SetActiveIfExists(weaponScript.currentScope.model, true);
 
         button.transform.SetParent(sightInventory.transform);
+        audioSource.PlayOneShot(clickSound);
     }
 
     void ClickScope(ScopeAttachment scope, GameObject button)

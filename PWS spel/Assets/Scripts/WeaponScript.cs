@@ -33,6 +33,12 @@ public class WeaponScript : MonoBehaviour
     public Sprite buckshotSprite;
     public Sprite birdshotSprite;
 
+    public Sprite scopeSpriteBig;
+    public Sprite redDotSpriteBig;
+    public Sprite ARMagSpriteBig;
+    public Sprite sniperMagSpriteBig;
+    public Sprite drumMapSpriteBig;
+
     public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
     public Sprite redDotSprite;
 
@@ -53,9 +59,9 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
         }
 
-        scopes.Add("scope", new(4, "scope", GameObject.Find("scope"), scopeSprite)); // scopeSprite vervangen voor nieuwe sprite dan
-        scopes.Add("red dot", new(2, "red dot", GameObject.Find("red dot sight"), redDotSprite));
-        scopes.Add("no scope", new(1.3f, "no scope", GameObject.Find("iron sight"), null));
+        scopes.Add("scope", new(4, "scope", GameObject.Find("scope"), scopeSprite, scopeSpriteBig)); // scopeSprite vervangen voor nieuwe sprite dan
+        scopes.Add("red dot", new(2, "red dot", GameObject.Find("red dot sight"), redDotSprite, redDotSpriteBig));
+        scopes.Add("no scope", new(1.3f, "no scope", GameObject.Find("iron sight"), null, null));
         // hier alle scopes
 
         // magazine models
@@ -63,15 +69,15 @@ public class WeaponScript : MonoBehaviour
         GameObject drumMag = GameObject.Find("drum mag");
         GameObject sniperMag = GameObject.Find("sniper mag");
 
-        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite));
-        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite));
-        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite));
-        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite));
-        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite));
-        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite));
-        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite));
-        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite));
-        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite));
+        magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite, ARMagSpriteBig));
+        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite, ARMagSpriteBig));
+        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite, sniperMagSpriteBig));
+        magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
+        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
+        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite, drumMapSpriteBig));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
@@ -129,15 +135,20 @@ public struct ScopeAttachment
     public string name;
     public GameObject model;
     public Sprite sprite;
+    public Sprite spriteBig;
 
-    public ScopeAttachment(float zoomFactor, string name, GameObject model, Sprite sprite)
+    public ScopeAttachment(float zoomFactor, string name, GameObject model, Sprite sprite, Sprite spriteBig)
     {
         this.zoomFactor = zoomFactor;
         this.name = name;
         this.model = model;
         this.sprite = sprite;
+        this.spriteBig = spriteBig;
     }
 }
+
+
+
 
 public struct MagazineAttachment
 {
@@ -148,8 +159,9 @@ public struct MagazineAttachment
     public string name;
     public GameObject model;
     public Sprite sprite;
+    public Sprite spriteBig;
 
-    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model, Sprite sprite)
+    public MagazineAttachment(int capacity, float reloadTime, float shotCooldown, AmmoType ammoType, string name, GameObject model, Sprite sprite, Sprite spriteBig)
     {
         this.capacity = capacity;
         this.reloadTime = reloadTime;
@@ -158,6 +170,7 @@ public struct MagazineAttachment
         this.name = name;
         this.model = model;
         this.sprite = sprite;
+        this.spriteBig = spriteBig;
     }
 }
 

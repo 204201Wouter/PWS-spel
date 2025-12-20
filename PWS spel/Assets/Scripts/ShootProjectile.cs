@@ -56,19 +56,16 @@ public class ShootProjectile : MonoBehaviour
     public AudioClip shotsound;
     public AudioClip reloadsound;
 
-    public Transform fpsbody;
+    public GameObject fpsbody;
 
     public float recoilstrength;
 
-    public Vector3 startfpsbody;
+
 
     public float down;
 
 
-    void Start()
-    {
-        startfpsbody = fpsbody.localPosition;
-    }
+
     void Update()
     {
         if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
@@ -128,7 +125,10 @@ public class ShootProjectile : MonoBehaviour
             {
                 GetComponent<Camera>().fieldOfView -= 2;
             }
-            else sight.enabled = true;
+            if (GetComponent<Camera>().fieldOfView < 60 / zoom * 2 && zoom >= 4f) {
+                sight.enabled = true;
+                fpsbody.SetActive(false);
+                }
             mouseLook.mouseSensitivity = 8 / zoom;
 
             animator.SetBool("IsAiming", true);
@@ -137,6 +137,7 @@ public class ShootProjectile : MonoBehaviour
         }
         else
         {
+            fpsbody.SetActive(true);
             sight.enabled = false;
             if (GetComponent<Camera>().fieldOfView < 60)
             {
@@ -156,6 +157,7 @@ public class ShootProjectile : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && ammo == 0)) && reloadStart == -1 && canShoot)
         {
+            fpsbody.SetActive(true);
             audioSource.PlayOneShot(reloadsound);
             movement.reloading = true;
             reloadStart = Time.time;
