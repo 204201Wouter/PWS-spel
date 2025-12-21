@@ -12,6 +12,9 @@ public class PlayerHealth : MonoBehaviour
     public Image damageimg;
 
     public GuiOpenScript guiOpenScript;
+    public float starthealth;
+
+
     public void Hit(float damage)
     {
         health -= damage;
@@ -33,15 +36,15 @@ public class PlayerHealth : MonoBehaviour
     {
         health += Time.deltaTime;
         
-        if (health > 100f)
+        if (health > starthealth)
         {
-            health = 100f;
+            health = starthealth;
         }
 
         healthText.text = "+ " + Mathf.Round(health).ToString();
 
         Color c = damageimg.color;
-        c.a = Mathf.MoveTowards(c.a, 1f-health/100f, 2f * Time.deltaTime);
+        c.a = Mathf.MoveTowards(c.a, 1f-health/starthealth, 2f * Time.deltaTime);
         damageimg.color = c;
     }
 }

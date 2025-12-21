@@ -92,7 +92,17 @@ public class EnemyMovementScript : MonoBehaviour
                 {
                     lastShot = Time.time;
                     ammo -= 1;
-                    animator.SetTrigger("recoil");
+                    if (ammo < 0 )
+                    {
+                        if (ammo % 4 == 0)
+                        animator.SetTrigger("recoil");
+                        if (ammo % 4 == 1)
+                        animator.SetTrigger("recoilb");
+                        if (ammo % 4 == 2)
+                        animator.SetTrigger("recoilc");
+                        if (ammo % 4 == 3)
+                        animator.SetTrigger("recoild");
+                    }
                     if (Random.value < AccuracyFormula())
                     {
                         player.GetComponent<PlayerHealth>().Hit(1);
@@ -104,7 +114,9 @@ public class EnemyMovementScript : MonoBehaviour
                 if (ammo == 0 && reloadStart == -1)
                 {
                     reloadStart = Time.time;
+                    
                     animator.SetTrigger("reload");
+                    
                 }
                 if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
                 {
@@ -123,7 +135,7 @@ public class EnemyMovementScript : MonoBehaviour
             // cover
             if (HasLineOfSight() && mode == "scout")
             {
-                mode = "cover";
+               // mode = "cover";
                 lastPlayerPos = player.transform.position + Vector3.up * 2;
             }
             // zoek player
@@ -169,7 +181,7 @@ public class EnemyMovementScript : MonoBehaviour
             controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
         }
 
-
+        mode = "cover";
         if (mode == "cover" || mode == "scout")
         {
             MoveEnemy(mode);
@@ -213,7 +225,9 @@ public class EnemyMovementScript : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
             }
 
-            animator.SetFloat("speed", speed);
+
+                animator.SetFloat("speed", speed);
+  
             controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
         }
         else if (mode == "move")
@@ -292,7 +306,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         Movement playerMovement = player.GetComponent<Movement>();
 
-        /*float soundRadius = 0;
+        float soundRadius = 0;
 
         if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
         {
@@ -311,7 +325,7 @@ public class EnemyMovementScript : MonoBehaviour
             soundRadius = 0;
         }
 
-        lastisGrounded = playerMovement.isGrounded;*/
+        lastisGrounded = playerMovement.isGrounded;
 
         return (player.transform.position - transform.position).magnitude < playerMovement.soundRadius;
     }

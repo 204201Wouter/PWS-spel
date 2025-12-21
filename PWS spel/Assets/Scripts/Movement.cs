@@ -49,6 +49,8 @@ public class Movement : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip walkSound;
 
+    public Camera playercam;
+
     void Start()
     {
         startfpsbody = fpsbody.localPosition;
@@ -144,6 +146,10 @@ public class Movement : MonoBehaviour
         else {
             soundRadius = 0;
         }
+
+
+        // 4-8
+        playercam.fieldOfView = Mathf.Clamp((velocity.magnitude-4f)*(5f/4f)+60f, 60f, 65f);
 
 
         if (Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk))) < 0.1f)
