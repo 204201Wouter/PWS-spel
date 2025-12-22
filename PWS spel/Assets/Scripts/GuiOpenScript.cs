@@ -376,6 +376,7 @@ public class GuiOpenScript : MonoBehaviour
 
     public void ExitToMainMenu()
     {
+        audioSource.PlayOneShot(clickSound);
         SceneManager.LoadScene("Menu");
     }
 
