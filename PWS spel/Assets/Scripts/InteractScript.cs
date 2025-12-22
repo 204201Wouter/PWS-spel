@@ -45,7 +45,7 @@ public class InteractScript : MonoBehaviour
     public GameObject enginesDisabledPopup;
     bool engine1disabled;
     bool engine2disabled;
-    public static bool enginesDisabled = true;
+    public static bool enginesDisabled = false;
 
     public GameObject fuelTankInteractPopup;
     public GameObject bombPlantedPopup;
@@ -74,6 +74,7 @@ public class InteractScript : MonoBehaviour
                         StartCoroutine(TextPopup(mapDownloadedPopup));
                         unlockableDoorHandler.door2.locked = false;
                         guiOpenScript.minimap.SetActive(true);
+                        guiOpenScript.UpdateObjective("Download the map from a computer");
                     }
                 }
                 else computerInteractLength = 0;
@@ -117,6 +118,7 @@ public class InteractScript : MonoBehaviour
                     toolMarker.SetActive(false);
                     miniToolMarker.SetActive(false);
                     StartCoroutine(TextPopup(toolObtainedPopup));
+                    guiOpenScript.UpdateObjective("Open the 2 marked storage boxes");
                 }
             }
             else if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
@@ -128,6 +130,7 @@ public class InteractScript : MonoBehaviour
                     bombMarker.SetActive(false);
                     miniBombMarker.SetActive(false);
                     StartCoroutine(TextPopup(bombObtainedPopup));
+                    guiOpenScript.UpdateObjective("Open the 2 marked storage boxes");
                 }
             }
             else storageBoxInteractPopup.SetActive(false);
@@ -146,6 +149,7 @@ public class InteractScript : MonoBehaviour
                             if (engine1) engine1disabled = true;
                             else engine2disabled = true;
                             enginesDisabled = engine1disabled && engine2disabled;
+                            guiOpenScript.UpdateObjective("Disable the engines");
 
                             if (enginesDisabled) StartCoroutine(TextPopup(enginesDisabledPopup));
                         }
@@ -177,6 +181,7 @@ public class InteractScript : MonoBehaviour
                     bombTimer.SetActive(true);
                     StartCoroutine(TextPopup(bombPlantedPopup));
                     StartCoroutine(BombTimer());
+                    guiOpenScript.UpdateObjective("Plant the bomb at the fuel tanks");
 
                     if (gravityDisabled) unlockableDoorHandler.UnlockEscapePods();
                 }
@@ -193,6 +198,7 @@ public class InteractScript : MonoBehaviour
                     {
                         gravityDisabled = true;
                         StartCoroutine(TextPopup(gravityDisabledPopup));
+                        guiOpenScript.UpdateObjective("Disable the gravity generator");
 
                         if (bombPlanted) unlockableDoorHandler.UnlockEscapePods();
                     }

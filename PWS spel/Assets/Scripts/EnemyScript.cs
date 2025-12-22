@@ -38,7 +38,6 @@ public class EnemyScript : MonoBehaviour
             weapon.layer = layer;
             weapon.tag = "enemy weapon";
 
-            unlockableDoorHandler.enemiesKilled++;
             unlockableDoorHandler.CheckUnlockDoor1();
       
             Destroy(gameObject);

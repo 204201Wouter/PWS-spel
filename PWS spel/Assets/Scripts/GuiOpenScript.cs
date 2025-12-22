@@ -47,6 +47,11 @@ public class GuiOpenScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clickSound;
 
+    public TextMeshProUGUI objectiveText;
+    int currentObjectiveIndex = 0;
+    List<string> objectives = new();
+    List<int> objectiveRequiredAmounts = new();
+    int currentAmountDone;
 
     bool menuOpen = false;
 
@@ -65,6 +70,21 @@ public class GuiOpenScript : MonoBehaviour
         magazineSlot.transform.GetChild(1).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
 
         volumeSlider.value = AudioListener.volume;
+
+        objectives.Add("Kill enemies");
+        objectiveRequiredAmounts.Add(10);
+        objectives.Add("Download the map from a computer");
+        objectiveRequiredAmounts.Add(1);
+        objectives.Add("Open the 2 marked storage boxes");
+        objectiveRequiredAmounts.Add(2);
+        objectives.Add("Disable the engines");
+        objectiveRequiredAmounts.Add(2);
+        objectives.Add("Plant the bomb at the fuel tanks");
+        objectiveRequiredAmounts.Add(1);
+        objectives.Add("Disable the gravity generator");
+        objectiveRequiredAmounts.Add(1);
+        objectives.Add("Escape the spaceship");
+        objectiveRequiredAmounts.Add(1);
     }
 
     void Update()
@@ -148,7 +168,7 @@ public class GuiOpenScript : MonoBehaviour
 
         if (interactScript.mapDownloaded)
         {
-            Vector2 markerPos = new((transform.position.x - 135f) * 1.6174f, (transform.position.z + 57f) * 1.7193f);
+            Vector2 markerPos = new((transform.position.x - 135f) * 1.743f, (transform.position.z + 57f) * 1.743f);
             float markerRot = -transform.rotation.eulerAngles.y - 135;
             if (map.activeSelf)
             {
@@ -317,6 +337,36 @@ public class GuiOpenScript : MonoBehaviour
         mouseLook.canLook = false;
         shootscript.canShoot = false;
         menuOpen = true;
+    }
+
+    public void NextObjective()
+    {
+        currentAmountDone = 0;
+        currentObjectiveIndex++;
+        if (objectiveRequiredAmounts[currentObjectiveIndex] == 1)
+        {
+            objectiveText.text = objectives[currentObjectiveIndex];
+        }
+        else
+        {
+            objectiveText.text = objectives[currentObjectiveIndex] + " (" + currentAmountDone.ToString() + "/" + objectiveRequiredAmounts[currentObjectiveIndex].ToString() + ")";
+        }
+    }
+
+    public void UpdateObjective(string objective)
+    {
+        if (objective == objectives[currentObjectiveIndex])
+        {
+            currentAmountDone++;
+            if (currentAmountDone >= objectiveRequiredAmounts[currentObjectiveIndex])
+            {
+                NextObjective();
+            }
+            else
+            {
+                objectiveText.text = objectives[currentObjectiveIndex] + " (" + currentAmountDone.ToString() + "/" + objectiveRequiredAmounts[currentObjectiveIndex].ToString() + ")";
+            }
+        }
     }
 
     public void ChangeVolume()

@@ -181,7 +181,6 @@ public class EnemyMovementScript : MonoBehaviour
             controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
         }
 
-        mode = "cover";
         if (mode == "cover" || mode == "scout")
         {
             MoveEnemy(mode);
@@ -274,10 +273,8 @@ public class EnemyMovementScript : MonoBehaviour
     {
         if ((player.transform.position - lastPlayerPos).magnitude > 1f)
         {
-            if (mode == "cover")
-            path = NearestCover((player.transform.position - transform.position).magnitude);
-            if (mode == "scout")
-            path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
+            if (mode == "cover") path = NearestCover((player.transform.position - transform.position).magnitude);
+            if (mode == "scout") path = AStarTarget(new Vector2(transform.position.x, transform.position.z), new Vector2(player.transform.position.x, player.transform.position.z));
 
             for (int i = 0; i < path.Count - 1; i++)
             {
@@ -303,27 +300,7 @@ public class EnemyMovementScript : MonoBehaviour
 
     bool HearPlayer()
     {
-
         Movement playerMovement = player.GetComponent<Movement>();
-
-        float soundRadius = 0;
-
-        if (playerMovement.velocity.magnitude >= 8 && playerMovement.isGrounded)
-        {
-            soundRadius = 50;
-        }
-        else if (!lastisGrounded && playerMovement.isGrounded)
-        {
-            soundRadius = 40;
-        }
-        else if (playerMovement.velocity.magnitude >= 4 && playerMovement.isGrounded)
-        {
-            soundRadius = 20;
-        }
-        else if (playerMovement.velocity.magnitude >= 10 && playerMovement.isGrounded) //crouchspeed
-        {
-            soundRadius = 0;
-        }
 
         lastisGrounded = playerMovement.isGrounded;
 
@@ -393,20 +370,15 @@ public class EnemyMovementScript : MonoBehaviour
 
     List<Vector2> NodesReachable(Vector2 pos)
     {
-
         Transform[] children = nodes.GetComponentsInChildren<Transform>();
         List<Vector2> reachableNodes = new();
 
-
         for (int i = 1; i < children.Length; i++)
         {
-            
             Transform child = children[i];
             Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
-
             if (!Cast(childPos, pos))
-          //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
                 reachableNodes.Add(childPos);
             }
@@ -422,13 +394,10 @@ public class EnemyMovementScript : MonoBehaviour
 
         for (int i = 1; i < children.Length; i++)
         {
-
             Transform child = children[i];
             Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
-
             if (!Cast(childPos, pos))
-            //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
                 reachableNodes.Add(childPos);
             }
@@ -438,13 +407,10 @@ public class EnemyMovementScript : MonoBehaviour
 
         for (int i = 1; i < children.Length; i++)
         {
-
             Transform child = children[i];
             Vector2 childPos = new Vector2(child.position.x, child.position.z);
 
-
             if (!Cast(childPos, pos))
-            //  if (!Physics.Raycast(child.position, dir.normalized, dir.magnitude, groundMask))
             {
                 reachableNodes.Add(childPos);
             }
@@ -464,7 +430,6 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 end3 = new Vector3(end.x, 1f, end.y);
       //  Debug.DrawLine(start3, end3, Color.blue, 100f);
         return Physics.SphereCast(start3, 0.4f, (end3 - start3).normalized, out _, (end3 - start3).magnitude, groundMask);
-
     }
 
     List<Vector2> AStarHide(Vector2 pos)
@@ -570,7 +535,6 @@ public class EnemyMovementScript : MonoBehaviour
                     current = cameFrom[current];
                     path.Add(current);
                 }
-                
 
                 return path;
             }
@@ -599,8 +563,6 @@ public class EnemyMovementScript : MonoBehaviour
     float HCost(Vector2 pos, Vector2 target)
     {
         return Vector2.Distance(pos, target);
-
-
     }
 
 
