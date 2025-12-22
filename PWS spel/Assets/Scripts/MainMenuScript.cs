@@ -5,9 +5,11 @@ public class MainMenuScript : MonoBehaviour
 {
     public Slider volumeSlider;
 
+
     void Start()
     {
         volumeSlider.value = AudioListener.volume;
+        
     }
 
     public void PlayGame()
