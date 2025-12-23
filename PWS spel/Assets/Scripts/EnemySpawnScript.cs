@@ -14,6 +14,8 @@ public class EnemySpawnScript : MonoBehaviour
         Transform doors1 = spawnPositions.parent.Find("door1");
         Transform doors2 = spawnPositions.parent.Find("door2");
         Transform boxes = spawnPositions.parent.Find("Lifts");
+        Transform nodes = spawnPositions.parent.Find("nodes");
+        Transform cover = spawnPositions.parent.Find("cover");
         for (int i = 0; i < enemyAmount; i++)
         {
             Transform point = spawnPositions.GetChild(posIndex);
@@ -23,6 +25,8 @@ public class EnemySpawnScript : MonoBehaviour
             enemy.GetComponent<EnemyMovementScript>().enabled = true;
             enemy.GetComponent<EnemyMovementScript>().mode = "move";
             enemy.GetComponent<EnemyMovementScript>().lift = boxes.GetChild(posIndex).GetChild(0).GetComponent<BoxCollider>();
+            enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
+            enemy.GetComponent<EnemyMovementScript>().cover = cover;
 
             if (point.localPosition.x < 0) enemy.GetComponent<EnemyMovementScript>().targetPos = point.position + 5 * point.right;
             else enemy.GetComponent<EnemyMovementScript>().targetPos = point.position - 5 * point.right;

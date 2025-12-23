@@ -49,8 +49,8 @@ public class GuiOpenScript : MonoBehaviour
 
     public TextMeshProUGUI objectiveText;
     int currentObjectiveIndex = 0;
-    List<string> objectives = new();
-    List<int> objectiveRequiredAmounts = new();
+    readonly List<string> objectives = new();
+    readonly List<int> objectiveRequiredAmounts = new();
     int currentAmountDone;
 
     bool menuOpen = false;

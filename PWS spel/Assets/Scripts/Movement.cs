@@ -86,15 +86,11 @@ public class Movement : MonoBehaviour
 
                 if (Input.GetButton("Jump"))
                 {
-                    Ray rayBottom = new Ray(transform.position + new Vector3(0, -0.6f, 0), transform.forward);
-                    Ray rayTop = new Ray(transform.position + new Vector3(0, 1.5f, 0), transform.forward);
-
                     if (isGrounded)
                     {
                         ySpeed = Mathf.Sqrt(jumpHeight * -2f * gravity);
                         animator.SetTrigger("jump");
                         animatorshadow.SetTrigger("jump");
-
                     }
                 }
             }
@@ -165,17 +161,17 @@ public class Movement : MonoBehaviour
         if (isGrounded) headbobTime += velocity.magnitude;
 
         fpsbody.localPosition = startfpsbody
-            +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.up*Mathf.Sin(headbobTime*frequency)
-            +Mathf.Clamp(velocity.magnitude,-1f,1f)*amplitude*Vector3.right*Mathf.Cos(headbobTime*frequency/2f)
-            -amplitude2*Vector3.up*Mathf.Clamp(velocity.y,-10f,10f)
-            +amplitude3*x*Vector3.right
-            -Vector3.forward*recoil;
+            + amplitude * Mathf.Clamp(velocity.magnitude, -1f, 1f) * Mathf.Sin(headbobTime * frequency) * Vector3.up
+            + amplitude * Mathf.Clamp(velocity.magnitude, -1f, 1f) * Mathf.Cos(headbobTime * frequency / 2f) * Vector3.right
+            - amplitude2 * Mathf.Clamp(velocity.y, -10f, 10f) * Vector3.up
+            + amplitude3 * x * Vector3.right
+            - Vector3.forward * recoil;
 
 
         if (isGrounded && headbobTime*frequency % (Mathf.PI*2) < velocity.magnitude*0.05f && (headbobTime-velocity.magnitude)*frequency % (Mathf.PI*2) > (Mathf.PI-velocity.magnitude*0.05f)) audioSource.PlayOneShot(walkSound);
 
 
-        Vector2 vel2d = new Vector2(velocity.x, velocity.z);
+        Vector2 vel2d = new(velocity.x, velocity.z);
         animatorshadow.SetFloat("speed", vel2d.magnitude);
         
         if (firedGun)
