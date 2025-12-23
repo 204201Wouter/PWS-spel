@@ -49,6 +49,7 @@ public class ShootProjectile : MonoBehaviour
 
     public int cap;
     public float zoom;
+    public bool aiming;
 
     public bool canShoot = true;
 
@@ -60,11 +61,7 @@ public class ShootProjectile : MonoBehaviour
 
     public float recoilstrength;
 
-
-
     public float down;
-
-
 
     void Update()
     {
@@ -125,15 +122,17 @@ public class ShootProjectile : MonoBehaviour
             {
                 GetComponent<Camera>().fieldOfView -= 2;
             }
-            if (GetComponent<Camera>().fieldOfView < 60 / zoom * 2 && zoom >= 4f) {
+            if (GetComponent<Camera>().fieldOfView < 60 / zoom * 2 && zoom >= 4f) 
+            {
                 sight.enabled = true;
                 fpsbody.SetActive(false);
-                }
+            }
             mouseLook.mouseSensitivity = 8 / zoom;
 
             animator.SetBool("IsAiming", true);
             animatorshadow.SetBool("IsAiming", true);
 
+            aiming = true;
         }
         else
         {
@@ -143,6 +142,7 @@ public class ShootProjectile : MonoBehaviour
             {
                 GetComponent<Camera>().fieldOfView += 2;
             }
+            else aiming = false;
             mouseLook.mouseSensitivity = 8;
 
             if (reloadStart == -1)
@@ -168,11 +168,11 @@ public class ShootProjectile : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            GameObject Grenade = Instantiate(originalGrenade, transform.position, transform.rotation, grenadeParent);
+            GameObject grenade = Instantiate(originalGrenade, transform.position, transform.rotation, grenadeParent);
 
-            Grenade.GetComponent<BounceProjectileScript>().enabled = true;
-            Grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f + GetComponentInParent<Movement>().velocity;
-            Grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
+            grenade.GetComponent<BounceProjectileScript>().enabled = true;
+            grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f + GetComponentInParent<Movement>().velocity;
+            grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
         }
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 

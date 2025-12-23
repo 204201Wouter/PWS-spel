@@ -240,6 +240,7 @@ public class GuiOpenScript : MonoBehaviour
     {
         shootscript.zoom = scope.zoomFactor;
         sightBig.sprite = scope.spriteBig;
+        sightBig.color = Color.white; // deze regel weg als er een iron sight sprite is
 
         if (weaponScript.currentScope.name != "no scope")
         {
@@ -262,6 +263,8 @@ public class GuiOpenScript : MonoBehaviour
         SetActiveIfExists(weaponScript.currentScope.model, false);
         weaponScript.currentScope = weaponScript.scopes["no scope"];
         shootscript.zoom = weaponScript.currentScope.zoomFactor;
+        sightBig.sprite = weaponScript.currentScope.spriteBig;
+        sightBig.color = Color.clear; // deze regel weg als er een iron sight sprite is
         SetActiveIfExists(weaponScript.currentScope.model, true);
 
         button.transform.SetParent(sightInventory.transform);

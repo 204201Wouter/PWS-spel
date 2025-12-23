@@ -310,10 +310,8 @@ public class EnemyMovementScript : MonoBehaviour
     public bool HasLineOfSight()
     {
         Vector3 dir = player.transform.position - transform.position;
-        if (Vector3.Angle(dir.normalized, transform.forward) < 40f)
+        if (Vector3.Angle(dir.normalized, transform.forward) < 75f)
         {
-            //Debug.DrawRay(transform.position, dir * 100, Color.red, 2f);
-
             return Person2PersonCast(transform.position+Vector3.up*0.5f, player.transform.position);
         }
         else return false;

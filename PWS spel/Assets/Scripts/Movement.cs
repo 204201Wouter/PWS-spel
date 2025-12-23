@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public CharacterController controller;
     public WeaponScript weaponScript;
     public GuiOpenScript guiOpenScript;
+    public ShootProjectile shootProjectile;
 
     public float speed = 4f;
     public float gravity = -10f;
@@ -149,7 +150,7 @@ public class Movement : MonoBehaviour
 
 
         // 4-8
-        playercam.fieldOfView = Mathf.Clamp((velocity.magnitude-4f)*(5f/4f)+60f, 60f, 65f);
+        if (!shootProjectile.aiming) playercam.fieldOfView = Mathf.Clamp(1.25f * velocity.magnitude + 55f, 60f, 65f);
 
 
         if (Mathf.Abs(Mathf.Sin(bobspeed*frequency*(Time.time-startwalk))) < 0.1f)

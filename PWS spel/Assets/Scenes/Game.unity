@@ -73204,7 +73204,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 100
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -73346,6 +73346,7 @@ MonoBehaviour:
   automatic: 1
   cap: 30
   zoom: 2
+  aiming: 0
   canShoot: 1
   audioSource: {fileID: 4403632498417147318}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
@@ -73382,7 +73383,8 @@ MonoBehaviour:
   redDotSpriteBig: {fileID: 21300000, guid: db76988ca0e0171c3a75551084bb47d1, type: 3}
   ARMagSpriteBig: {fileID: 21300000, guid: 65090d2f2b834cbb5bf99dd9f8c67802, type: 3}
   sniperMagSpriteBig: {fileID: 21300000, guid: b82a64797f953b713bc6d4b1e03ebab4, type: 3}
-  drumMapSpriteBig: {fileID: 21300000, guid: 81366343553474374bb2267324319757, type: 3}
+  drumMagSpriteBig: {fileID: 21300000, guid: 81366343553474374bb2267324319757, type: 3}
+  ironSightSpriteBig: {fileID: 0}
   scopeSprite: {fileID: 21300000, guid: 9739affcc268c96f698dd990f9b3e8f3, type: 3}
   redDotSprite: {fileID: 21300000, guid: 7401a0879fb908d379608cfbdff2a57e, type: 3}
 --- !u!114 &330585551
@@ -76625,7 +76627,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -231.81, y: -95}
+  m_AnchoredPosition: {x: -252, y: -95}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &349612738
@@ -93258,7 +93260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -317.56, y: -120}
+  m_AnchoredPosition: {x: -344, y: -120}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &430922279
@@ -299797,6 +299799,7 @@ MonoBehaviour:
   controller: {fileID: 1389374217}
   weaponScript: {fileID: 330585550}
   guiOpenScript: {fileID: 1389374223}
+  shootProjectile: {fileID: 330585549}
   speed: 4
   gravity: -10
   jumpHeight: 0.5
@@ -319012,7 +319015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158.78, y: -60}
+  m_AnchoredPosition: {x: -172, y: -60}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1472960246
@@ -372799,14 +372802,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db76988ca0e0171c3a75551084bb47d1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -444759,7 +444762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -463.62, y: -190}
+  m_AnchoredPosition: {x: -504, y: -190}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030621231
@@ -472883,7 +472886,7 @@ Transform:
   m_GameObject: {fileID: 2746109580620250209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: 1.1, z: -254.2}
+  m_LocalPosition: {x: 5.6, y: 1.1, z: 206.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -474387,6 +474390,7 @@ MonoBehaviour:
   controller: {fileID: 4234374948888481644}
   weaponScript: {fileID: 330585550}
   guiOpenScript: {fileID: 0}
+  shootProjectile: {fileID: 0}
   speed: 4
   gravity: -10
   jumpHeight: 1

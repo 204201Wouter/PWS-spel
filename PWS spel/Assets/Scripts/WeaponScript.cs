@@ -37,7 +37,8 @@ public class WeaponScript : MonoBehaviour
     public Sprite redDotSpriteBig;
     public Sprite ARMagSpriteBig;
     public Sprite sniperMagSpriteBig;
-    public Sprite drumMapSpriteBig;
+    public Sprite drumMagSpriteBig;
+    public Sprite ironSightSpriteBig;
 
     public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
     public Sprite redDotSprite;
@@ -70,14 +71,14 @@ public class WeaponScript : MonoBehaviour
         GameObject sniperMag = GameObject.Find("sniper mag");
 
         magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite, ARMagSpriteBig));
-        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, drumMagSpriteBig));
         magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite, ARMagSpriteBig));
-        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite, drumMagSpriteBig));
         magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite, sniperMagSpriteBig));
         magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
-        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite, drumMagSpriteBig));
         magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
-        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite, drumMapSpriteBig));
+        magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite, drumMagSpriteBig));
         // hier alle magazines
 
         silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
