@@ -73068,7 +73068,7 @@ MonoBehaviour:
   escapeDoor2: {fileID: 24933010}
   escapeDoor3: {fileID: 1158868728}
   enemiesKilled: 0
-  guiOpenScript: {fileID: 1389374223}
+  guiScript: {fileID: 1389374223}
 --- !u!1 &325354423
 GameObject:
   m_ObjectHideFlags: 0
@@ -74978,15 +74978,15 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  guiOpenScript: {fileID: 1389374223}
+  guiScript: {fileID: 1389374223}
   weaponScript: {fileID: 330585550}
   computerInteractPopup: {fileID: 1777427257}
   computerLoadingBar: {fileID: 1508452989}
   mapDownloadedPopup: {fileID: 269392627}
-  mapDownloaded: 0
+  mapDownloaded: 1
   storageBoxInteractPopup: {fileID: 1141164305}
   toolObtainedPopup: {fileID: 1020975929}
-  toolObtained: 0
+  toolObtained: 1
   bombObtainedPopup: {fileID: 1118468695}
   bombObtained: 0
   toolMarker: {fileID: 1472960244}
@@ -165963,7 +165963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e368ea7e009e849984c2db140ecf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiOpenScript: {fileID: 1389374223}
+  guiScript: {fileID: 1389374223}
 --- !u!1 &760389682
 GameObject:
   m_ObjectHideFlags: 0
@@ -173206,7 +173206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &792770023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227668,8 +227668,8 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   animator: {fileID: 2099861369}
   map: {fileID: 325256914}
-  nodes: {fileID: 792770022}
-  cover: {fileID: 2024325244}
+  nodes: {fileID: 792770024}
+  cover: {fileID: 2024325245}
   mode: guard
   ammo: 30
   reloadStart: 0
@@ -303870,7 +303870,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1389374217}
   weaponScript: {fileID: 330585550}
-  guiOpenScript: {fileID: 1389374223}
   shootProjectile: {fileID: 330585549}
   speed: 4
   gravity: -10
@@ -303959,7 +303958,7 @@ MonoBehaviour:
   health: 10000
   healthText: {fileID: 1431698819}
   damageimg: {fileID: 1784304189}
-  guiOpenScript: {fileID: 1389374223}
+  guiScript: {fileID: 1389374223}
   starthealth: 10000
 --- !u!114 &1389374223
 MonoBehaviour:
@@ -326678,7 +326677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e368ea7e009e849984c2db140ecf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guiOpenScript: {fileID: 1389374223}
+  guiScript: {fileID: 1389374223}
 --- !u!1 &1486017813
 GameObject:
   m_ObjectHideFlags: 0
@@ -480335,7 +480334,7 @@ Transform:
   m_GameObject: {fileID: 2746109580620250209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1, y: 1.1, z: -17.4}
+  m_LocalPosition: {x: 385.5, y: 1.1, z: -75.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -481822,7 +481821,7 @@ MonoBehaviour:
   health: 100
   healthText: {fileID: 0}
   damageimg: {fileID: 0}
-  guiOpenScript: {fileID: 0}
+  guiScript: {fileID: 0}
   starthealth: 0
 --- !u!114 &4234374948888481642
 MonoBehaviour:
@@ -481838,7 +481837,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4234374948888481644}
   weaponScript: {fileID: 330585550}
-  guiOpenScript: {fileID: 0}
   shootProjectile: {fileID: 0}
   speed: 4
   gravity: -10

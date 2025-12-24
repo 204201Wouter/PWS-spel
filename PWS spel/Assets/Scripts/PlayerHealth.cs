@@ -1,8 +1,6 @@
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
     public Image damageimg;
 
-    public GuiOpenScript guiOpenScript;
+    public GuiScript guiScript;
     public float starthealth;
 
 
@@ -25,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            guiOpenScript.ShowDeathScreen();
+            guiScript.ShowDeathScreen();
             health = 0;
         }
 

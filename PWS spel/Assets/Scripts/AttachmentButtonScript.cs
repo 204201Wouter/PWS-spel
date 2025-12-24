@@ -3,15 +3,15 @@ using UnityEngine.EventSystems;
 
 public class AttachmentButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GuiOpenScript guiOpenScript;
+    public GuiScript guiScript;
     public MagazineAttachment magazineAttachment;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!magazineAttachment.Equals(default(MagazineAttachment)))
         {
-            guiOpenScript.selectedMagazineStats.gameObject.SetActive(true);
-            guiOpenScript.ChangeMagazineStats(magazineAttachment, false);
+            guiScript.selectedMagazineStats.gameObject.SetActive(true);
+            guiScript.ChangeMagazineStats(magazineAttachment, false);
         }
     }
 
@@ -19,7 +19,7 @@ public class AttachmentButtonScript : MonoBehaviour, IPointerEnterHandler, IPoin
     {
         if (!magazineAttachment.Equals(default(MagazineAttachment)))
         {
-            guiOpenScript.selectedMagazineStats.gameObject.SetActive(false);
+            guiScript.selectedMagazineStats.gameObject.SetActive(false);
         }
     }
 }

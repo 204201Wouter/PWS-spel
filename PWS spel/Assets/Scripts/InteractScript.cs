@@ -22,7 +22,7 @@ public class InteractScript : MonoBehaviour
 
     public LayerMask layerMask;
 
-    public GuiOpenScript guiOpenScript;
+    public GuiScript guiScript;
     public WeaponScript weaponScript;
 
     public GameObject computerInteractPopup;
@@ -73,8 +73,8 @@ public class InteractScript : MonoBehaviour
                         mapDownloaded = true;
                         StartCoroutine(TextPopup(mapDownloadedPopup));
                         unlockableDoorHandler.door2.locked = false;
-                        guiOpenScript.minimap.SetActive(true);
-                        guiOpenScript.UpdateObjective("Download the map from a computer");
+                        guiScript.minimap.SetActive(true);
+                        guiScript.UpdateObjective("Download the map from a computer");
                     }
                 }
                 else computerInteractLength = 0;
@@ -96,8 +96,8 @@ public class InteractScript : MonoBehaviour
                 {
                     EnemyWeaponScript enemyWeaponScript = hit.collider.GetComponent<EnemyWeaponScript>();
 
-                    guiOpenScript.NewScope(enemyWeaponScript.scopeAttachment);
-                    guiOpenScript.NewMagazine(enemyWeaponScript.magazineAttachment);
+                    guiScript.NewScope(enemyWeaponScript.scopeAttachment);
+                    guiScript.NewMagazine(enemyWeaponScript.magazineAttachment);
 
                     if (!weaponScript.availableSilencers.Contains(enemyWeaponScript.silencerAttachment.name)) weaponScript.availableSilencers.Add(enemyWeaponScript.silencerAttachment.name);
                     if (!weaponScript.availableLasers.Contains(enemyWeaponScript.laserAttachment.name)) weaponScript.availableLasers.Add(enemyWeaponScript.laserAttachment.name);
@@ -118,7 +118,7 @@ public class InteractScript : MonoBehaviour
                     toolMarker.SetActive(false);
                     miniToolMarker.SetActive(false);
                     StartCoroutine(TextPopup(toolObtainedPopup));
-                    guiOpenScript.UpdateObjective("Open the 2 marked storage boxes");
+                    guiScript.UpdateObjective("Open the 2 marked storage boxes");
                 }
             }
             else if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
@@ -130,7 +130,7 @@ public class InteractScript : MonoBehaviour
                     bombMarker.SetActive(false);
                     miniBombMarker.SetActive(false);
                     StartCoroutine(TextPopup(bombObtainedPopup));
-                    guiOpenScript.UpdateObjective("Open the 2 marked storage boxes");
+                    guiScript.UpdateObjective("Open the 2 marked storage boxes");
                 }
             }
             else storageBoxInteractPopup.SetActive(false);
@@ -149,7 +149,7 @@ public class InteractScript : MonoBehaviour
                             if (engine1) engine1disabled = true;
                             else engine2disabled = true;
                             enginesDisabled = engine1disabled && engine2disabled;
-                            guiOpenScript.UpdateObjective("Disable the engines");
+                            guiScript.UpdateObjective("Disable the engines");
 
                             if (enginesDisabled) StartCoroutine(TextPopup(enginesDisabledPopup));
                         }
@@ -181,7 +181,7 @@ public class InteractScript : MonoBehaviour
                     bombTimer.SetActive(true);
                     StartCoroutine(TextPopup(bombPlantedPopup));
                     StartCoroutine(BombTimer());
-                    guiOpenScript.UpdateObjective("Plant the bomb at the fuel tanks");
+                    guiScript.UpdateObjective("Plant the bomb at the fuel tanks");
 
                     if (gravityDisabled) unlockableDoorHandler.UnlockEscapePods();
                 }
@@ -198,7 +198,7 @@ public class InteractScript : MonoBehaviour
                     {
                         gravityDisabled = true;
                         StartCoroutine(TextPopup(gravityDisabledPopup));
-                        guiOpenScript.UpdateObjective("Disable the gravity generator");
+                        guiScript.UpdateObjective("Disable the gravity generator");
 
                         if (bombPlanted) unlockableDoorHandler.UnlockEscapePods();
                     }

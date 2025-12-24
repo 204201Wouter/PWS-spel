@@ -274,7 +274,6 @@ public class EnemyMovementScript : MonoBehaviour
 
             lastPlayerPos = player.transform.position;
 
-
             if (path.Count > 0)
             {
                 targetPos = new(path[^1].x, transform.position.y, path[^1].y);
@@ -307,11 +306,11 @@ public class EnemyMovementScript : MonoBehaviour
     float AccuracyFormula()
     {
         float distance = (player.transform.position - transform.position).magnitude;
-        float weaponaccuracy = 1f; // deze is misschien handig om makkelijk elk wapen andere accuracy te laten hebben bij enemy
+        float weaponaccuracy = 1f;
         int acceleration = 0;
         if (lateralAcceleration.magnitude > 10) acceleration = 1;
 
-        return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration, 0.04f, 0.97f) * weaponaccuracy; // echte formule moet er nog in
+        return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration, 0.04f, 0.97f) * weaponaccuracy;
     }
 
     float AimTimeFormula()
@@ -331,7 +330,7 @@ public class EnemyMovementScript : MonoBehaviour
         Vector3 left = -Vector3.Cross(pos2 - pos, Vector3.up).normalized * 0.4f;
         Vector3 right = Vector3.Cross(pos2 - pos, Vector3.up).normalized * 0.4f;
 
-        rpos = pos2 + Vector3.up* height + left;
+        rpos = pos2 + Vector3.up * height + left;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
        // Debug.DrawRay(pos, dir, Color.blue);
@@ -349,8 +348,6 @@ public class EnemyMovementScript : MonoBehaviour
       //  Debug.DrawRay(pos, dir, Color.blue);
 
         return false;
-        // return !Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask);
-
     }
 
     List<Vector2> NodesReachable(Vector2 pos)
@@ -467,12 +464,8 @@ public class EnemyMovementScript : MonoBehaviour
             }
         }
 
-        // print("no path found");
-        // print(target);
         return new();
     }
-
-
 
     List<Vector2> AStarTarget(Vector2 pos, Vector2 target)
     {
@@ -532,8 +525,6 @@ public class EnemyMovementScript : MonoBehaviour
             }
         }
 
-       // print("no path found");
-       // print(target);
         return new();
     }
 
@@ -541,10 +532,6 @@ public class EnemyMovementScript : MonoBehaviour
     {
         return Vector2.Distance(pos, target);
     }
-
-
-
-
 }
 
 

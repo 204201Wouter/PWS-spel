@@ -9,13 +9,13 @@ public class UnlockableDoorHandler : MonoBehaviour
     public OpenDoorScript escapeDoor3;
 
     public int enemiesKilled = 0;
-    public GuiOpenScript guiOpenScript;
+    public GuiScript guiScript;
 
     public void CheckUnlockDoor1()
     {
         enemiesKilled++;
         if (enemiesKilled >= 10) door1.locked = false;
-        if (enemiesKilled <= 10) guiOpenScript.UpdateObjective("Kill enemies");
+        if (enemiesKilled <= 10) guiScript.UpdateObjective("Kill enemies");
     }
 
     public void UnlockEscapePods()

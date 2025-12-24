@@ -22,7 +22,7 @@ public class WeaponScript : MonoBehaviour
 
     public Dictionary<string, int> ammoAmounts = new();
 
-    public GuiOpenScript guiScript;
+    public GuiScript guiScript;
 
     public Sprite ARMagSprite;
     public Sprite sniperMagSprite;

@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject weapon;
     public GameObject mag;
     EnemyWeaponScript weaponScript;
+    EnemyMovementScript movementScript;
 
     public UnlockableDoorHandler unlockableDoorHandler;
 
@@ -16,6 +17,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         weaponScript = weapon.GetComponent<EnemyWeaponScript>();
+        movementScript = GetComponent<EnemyMovementScript>();
     }
 
     bool dead = false;
@@ -23,7 +25,7 @@ public class EnemyScript : MonoBehaviour
     {
         health -= damage;
 
-        GetComponent<EnemyMovementScript>().mode = "cover";
+        if (movementScript.mode != "move") movementScript.mode = "cover";
 
         if (health <= 0 && !dead)
         {

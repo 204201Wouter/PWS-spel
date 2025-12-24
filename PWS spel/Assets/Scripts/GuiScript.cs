@@ -3,10 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static UnityEditor.PlayerSettings;
 
-
-public class GuiOpenScript : MonoBehaviour
+public class GuiScript : MonoBehaviour
 {
     public Image sightBig;
     public Image magazineBig;

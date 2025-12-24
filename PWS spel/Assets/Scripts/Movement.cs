@@ -1,14 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI;
-using static UnityEngine.UI.Image;
 
 public class Movement : MonoBehaviour
 {
     public CharacterController controller;
     public WeaponScript weaponScript;
-    public GuiOpenScript guiOpenScript;
     public ShootProjectile shootProjectile;
 
     public float speed = 4f;
@@ -115,8 +110,8 @@ public class Movement : MonoBehaviour
             Vector3 realVelocity = (transform.position - lastPos) / Time.deltaTime;
 
             if (velocity.x != 0 && Mathf.Abs(realVelocity.x / velocity.x - 1) > 0.3f) velocity.x = realVelocity.x;
-            if (velocity.y != 0 && Mathf.Abs(realVelocity.y / velocity.y - 1) > 0.3f) velocity.x = realVelocity.x;
-            if (velocity.z != 0 && Mathf.Abs(realVelocity.z / velocity.z - 1) > 0.3f) velocity.x = realVelocity.x;
+            if (velocity.y != 0 && Mathf.Abs(realVelocity.y / velocity.y - 1) > 0.3f) velocity.y = realVelocity.y;
+            if (velocity.z != 0 && Mathf.Abs(realVelocity.z / velocity.z - 1) > 0.3f) velocity.z = realVelocity.z;
 
             velocity *= 0.99f;
             if (Mathf.Abs(velocity.x) < 0.001f) velocity.x = 0;

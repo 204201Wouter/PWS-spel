@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class gravityanimation : MonoBehaviour
+public class GravityAnimation : MonoBehaviour
 {
     public Transform ring1;
     public Transform ring2;
@@ -12,7 +12,7 @@ public class gravityanimation : MonoBehaviour
     {
         if (InteractScript.gravityDisabled && speed != 0)
         {
-            speed -= 0.001f;
+            speed -= 0.002f;
             if (speed < 0.001f) speed = 0;
         }
         ring1.transform.Rotate(0, 0, 90f * Time.deltaTime * speed);
