@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
-using UnityEngine.InputSystem.Controls;
 
 public class EnemyWeaponScript : MonoBehaviour
 {

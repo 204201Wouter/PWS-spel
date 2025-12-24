@@ -58,7 +58,15 @@ public class InteractScript : MonoBehaviour
     public static bool gravityDisabled = false;
 
     public GameObject pickUpWeaponPopup;
-    
+
+    public GameObject pickUpWeaponsPopup;
+    public GameObject openInventoryPopup;
+
+    void Start()
+    {
+        StartCoroutine(TextPopup(openInventoryPopup));
+    }
+
     void FixedUpdate()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, reach, layerMask))
@@ -228,7 +236,7 @@ public class InteractScript : MonoBehaviour
         }
     }
 
-    IEnumerator TextPopup(GameObject popup)
+    public IEnumerator TextPopup(GameObject popup)
     {
         popup.SetActive(true);
         yield return new WaitForSeconds(4f);

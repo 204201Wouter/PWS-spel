@@ -10,12 +10,14 @@ public class UnlockableDoorHandler : MonoBehaviour
 
     public int enemiesKilled = 0;
     public GuiScript guiScript;
+    public InteractScript interactScript;
 
     public void CheckUnlockDoor1()
     {
         enemiesKilled++;
         if (enemiesKilled >= 10) door1.locked = false;
         if (enemiesKilled <= 10) guiScript.UpdateObjective("Kill enemies");
+        if (enemiesKilled == 1) StartCoroutine(interactScript.TextPopup(interactScript.pickUpWeaponsPopup));
     }
 
     public void UnlockEscapePods()

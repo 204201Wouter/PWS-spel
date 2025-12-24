@@ -98,11 +98,6 @@ public class WeaponScript : MonoBehaviour
         Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(1).GetComponent<Button>();
         defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
 
-        guiScript.NewMagazine(magazines["small drum"]);
-        guiScript.NewMagazine(magazines["birdshot"]);
-        guiScript.NewScope(scopes["scope"]);
-        guiScript.NewScope(scopes["red dot"]);
-
         foreach (ScopeAttachment scope in scopes.Values)
         {
             guiScript.SetActiveIfExists(scope.model, false);
