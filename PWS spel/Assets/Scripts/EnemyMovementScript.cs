@@ -40,6 +40,14 @@ public class EnemyMovementScript : MonoBehaviour
     Vector3 lastLateralVelocity;
     Vector3 velocity;
 
+    public AudioSource audioSource;
+    public AudioClip shotsound;
+    public AudioClip reloadsound;
+    public AudioClip walkSound;
+
+    float walkPhase;
+    public float frequency;
+
 
     List <Vector2> path = new();
 
@@ -80,6 +88,7 @@ public class EnemyMovementScript : MonoBehaviour
                     {
                         lastShot = Time.time;
                         ammo -= 1;
+                        audioSource.PlayOneShot(shotsound);
                         if (ammo < 0)
                         {
                             if (ammo % 4 == 0)
@@ -102,6 +111,7 @@ public class EnemyMovementScript : MonoBehaviour
                     if (ammo == 0 && reloadStart == -1)
                     {
                         reloadStart = Time.time;
+                        audioSource.PlayOneShot(reloadsound);
 
                         animator.SetTrigger("reload");
 
@@ -169,6 +179,7 @@ public class EnemyMovementScript : MonoBehaviour
                 controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
             }
 
+            mode = "move";
             if (mode == "cover" || mode == "scout")
             {
                 MoveEnemy(mode);
@@ -213,6 +224,16 @@ public class EnemyMovementScript : MonoBehaviour
                 }
 
                 animator.SetFloat("speed", speed);
+                float prev = Mathf.Repeat(walkPhase, Mathf.PI * 2);
+
+                walkPhase += speed * frequency * Time.deltaTime;
+
+                float curr = Mathf.Repeat(walkPhase, Mathf.PI * 2);
+
+                if (curr < prev)
+                {
+                    audioSource.PlayOneShot(walkSound);
+                }
 
                 controller.Move(speed * Time.deltaTime * diffTargetPos.normalized);
             }
