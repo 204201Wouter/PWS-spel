@@ -13,7 +13,7 @@ public class endScript : MonoBehaviour
 
     void Start()
     {
-        Destroy(targetObject, 2f);
+        Destroy(targetObject, 10f);
     }
 
     
@@ -24,7 +24,7 @@ public class endScript : MonoBehaviour
         timer += Time.deltaTime;
 
    
-        if (timer >= 5f)
+        if (timer >= 15f)
         {
             credits.SetActive(true);
         }

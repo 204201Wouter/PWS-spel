@@ -14811,10 +14811,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &66305905
 MonoBehaviour:
@@ -25472,7 +25471,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -27862,7 +27860,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -30166,10 +30163,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &128875035
 MonoBehaviour:
@@ -34085,7 +34081,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -47604,6 +47599,33 @@ Transform:
   - {fileID: 827224869}
   m_Father: {fileID: 1543927989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &198330344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8734656084990592097, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
+  m_PrefabInstance: {fileID: 863031162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &198330348
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198330344}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1292036834617771344, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
 --- !u!1 &198895255
 GameObject:
   m_ObjectHideFlags: 0
@@ -47823,7 +47845,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -49853,10 +49874,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &207033859
 MonoBehaviour:
@@ -60564,10 +60584,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &258671718
 MonoBehaviour:
@@ -73871,6 +73890,7 @@ Transform:
   - {fileID: 464076092}
   - {fileID: 825692117}
   - {fileID: 1105189596}
+  - {fileID: 535708810}
   - {fileID: 1396358280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74310,7 +74330,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -75203,7 +75222,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -89047,7 +89065,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -89701,10 +89718,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &401405934
 MonoBehaviour:
@@ -109624,10 +109640,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &508035938
 MonoBehaviour:
@@ -111120,10 +111135,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &513048737
 MonoBehaviour:
@@ -113749,10 +113763,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &524789749
 MonoBehaviour:
@@ -115964,6 +115977,33 @@ Transform:
   - {fileID: 653450883}
   m_Father: {fileID: 410483385}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &535072714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3735102090226358198, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
+  m_PrefabInstance: {fileID: 863031162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &535072718
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535072714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2252909918924021680, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
 --- !u!1 &535223148
 GameObject:
   m_ObjectHideFlags: 0
@@ -115998,6 +116038,76 @@ Transform:
   - {fileID: 1089330101}
   m_Father: {fileID: 466265495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &535708809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 535708810}
+  - component: {fileID: 535708811}
+  - component: {fileID: 535708812}
+  m_Layer: 5
+  m_Name: endtrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &535708810
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535708809}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -85.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 325256915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -126.3, y: 2.42}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!65 &535708811
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535708809}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 10, z: 100}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &535708812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535708809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ab756600fe02bc9a4485ee1958c15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &535741575
 GameObject:
   m_ObjectHideFlags: 0
@@ -120424,10 +120534,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &554314992
 MonoBehaviour:
@@ -127015,7 +127124,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -127478,7 +127586,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -130575,7 +130682,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -131887,7 +131993,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -141363,7 +141468,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -144304,10 +144408,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &660542918
 MonoBehaviour:
@@ -145914,7 +146017,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -152057,7 +152159,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -161856,10 +161957,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &734890037
 MonoBehaviour:
@@ -167024,7 +167124,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -175560,10 +175659,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &791338271
 MonoBehaviour:
@@ -180890,10 +180988,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &816095388
 MonoBehaviour:
@@ -184644,10 +184741,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &831476981
 MonoBehaviour:
@@ -189264,10 +189360,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &849167385
 MonoBehaviour:
@@ -191832,13 +191927,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -6733177361254619370, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 997241871}
+      addedObject: {fileID: 997241875}
     - targetCorrespondingSourceObject: {fileID: 1365132098506396400, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 23382074}
+    - targetCorrespondingSourceObject: {fileID: 3735102090226358198, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 535072718}
     - targetCorrespondingSourceObject: {fileID: -7739189329204300329, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1409300971}
+    - targetCorrespondingSourceObject: {fileID: -8734656084990592097, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 198330348}
   m_SourcePrefab: {fileID: 100100000, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
 --- !u!1 &863471543
 GameObject:
@@ -194947,10 +195048,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &873704250
 MonoBehaviour:
@@ -197783,7 +197883,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -212463,10 +212562,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &957450293
 MonoBehaviour:
@@ -212754,10 +212852,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &958318345
 MonoBehaviour:
@@ -215612,9 +215709,9 @@ Transform:
   - {fileID: 1557605688}
   - {fileID: 104156125}
   - {fileID: 2069928222}
+  - {fileID: 1138251838}
   - {fileID: 942691279}
   - {fileID: 846064740}
-  - {fileID: 983853859}
   m_Father: {fileID: 542388042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &967472954
@@ -219008,7 +219105,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -219267,118 +219363,6 @@ Transform:
   - {fileID: 495627205}
   m_Father: {fileID: 965808341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &983853858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 983853859}
-  - component: {fileID: 983853862}
-  - component: {fileID: 983853861}
-  - component: {fileID: 983853860}
-  m_Layer: 3
-  m_Name: wall2.001 (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 65
-  m_IsActive: 1
---- !u!4 &983853859
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983853858}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0.0001, y: 0, z: 0.488}
-  m_LocalScale: {x: -1, y: 1, z: -25.818861}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 967153959}
-  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 0}
---- !u!64 &983853860
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983853858}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 602211938655563166, guid: c1e9ff6b63e2c464ca25a543e4612413, type: 3}
---- !u!23 &983853861
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983853858}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 3a4071afa1630f741be4ebb93d23bf6d, type: 2}
-  - {fileID: 2100000, guid: 15f6ef2b6653a5741b574923a45f97b6, type: 2}
-  - {fileID: 2100000, guid: 3e562fc072cf17f49be3b467b8e8e6d9, type: 2}
-  - {fileID: 2100000, guid: 0c77a2b1a3a39204c82ddd3e5922e63c, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &983853862
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983853858}
-  m_Mesh: {fileID: 602211938655563166, guid: c1e9ff6b63e2c464ca25a543e4612413, type: 3}
 --- !u!1 &983982795
 GameObject:
   m_ObjectHideFlags: 0
@@ -222686,7 +222670,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -6733177361254619370, guid: 0aec8987495c3f84890bba364c283bc5, type: 3}
   m_PrefabInstance: {fileID: 863031162}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &997241871
+--- !u!64 &997241875
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229384,7 +229368,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -230000,10 +229983,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1025561545
 MonoBehaviour:
@@ -231489,7 +231471,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 1030635570}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -233621,10 +233602,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1041463514
 MonoBehaviour:
@@ -240792,10 +240772,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1078413093
 MonoBehaviour:
@@ -250083,10 +250062,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1121329754
 MonoBehaviour:
@@ -251858,7 +251836,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -253237,6 +253214,118 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137885382}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1138251837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138251838}
+  - component: {fileID: 1138251841}
+  - component: {fileID: 1138251840}
+  - component: {fileID: 1138251839}
+  m_Layer: 3
+  m_Name: wall2.001 (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 65
+  m_IsActive: 1
+--- !u!4 &1138251838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138251837}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -0.0001, y: 0, z: 0.4896}
+  m_LocalScale: {x: -1, y: 1, z: -25.818861}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 967153959}
+  m_LocalEulerAnglesHint: {x: -180, y: -90, z: 0}
+--- !u!64 &1138251839
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138251837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 602211938655563166, guid: c1e9ff6b63e2c464ca25a543e4612413, type: 3}
+--- !u!23 &1138251840
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138251837}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3a4071afa1630f741be4ebb93d23bf6d, type: 2}
+  - {fileID: 2100000, guid: 15f6ef2b6653a5741b574923a45f97b6, type: 2}
+  - {fileID: 2100000, guid: 3e562fc072cf17f49be3b467b8e8e6d9, type: 2}
+  - {fileID: 2100000, guid: 0c77a2b1a3a39204c82ddd3e5922e63c, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1138251841
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138251837}
+  m_Mesh: {fileID: 602211938655563166, guid: c1e9ff6b63e2c464ca25a543e4612413, type: 3}
 --- !u!1 &1138337603
 GameObject:
   m_ObjectHideFlags: 0
@@ -262151,7 +262240,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -262476,7 +262564,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -263132,10 +263219,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1180388050
 MonoBehaviour:
@@ -266814,7 +266900,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -270763,10 +270848,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1212808257
 MonoBehaviour:
@@ -273132,10 +273216,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1226529392
 MonoBehaviour:
@@ -275137,7 +275220,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -275739,7 +275821,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -301975,7 +302056,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -304283,10 +304363,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1370860472
 MonoBehaviour:
@@ -323242,7 +323321,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -328058,10 +328136,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1465651657
 MonoBehaviour:
@@ -330257,10 +330334,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1476492575
 MonoBehaviour:
@@ -334967,7 +335043,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -337399,7 +337474,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -341425,10 +341499,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1528883078
 MonoBehaviour:
@@ -355255,7 +355328,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -357539,10 +357611,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1594135881
 MonoBehaviour:
@@ -358835,10 +358906,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1598376966
 MonoBehaviour:
@@ -361424,10 +361494,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1607915100
 MonoBehaviour:
@@ -362616,10 +362685,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1615125695
 MonoBehaviour:
@@ -386529,10 +386597,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1721286428
 MonoBehaviour:
@@ -386820,10 +386887,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1721306477
 MonoBehaviour:
@@ -396919,10 +396985,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1767065130
 MonoBehaviour:
@@ -398349,10 +398414,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1771496363
 MonoBehaviour:
@@ -425227,7 +425291,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -426042,10 +426105,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1883106700
 MonoBehaviour:
@@ -432577,10 +432639,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1910526387
 MonoBehaviour:
@@ -433325,7 +433386,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -442829,10 +442889,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1957040555
 MonoBehaviour:
@@ -443120,10 +443179,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &1957219812
 MonoBehaviour:
@@ -453316,7 +453374,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -454254,10 +454311,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &2008658286
 MonoBehaviour:
@@ -459979,10 +460035,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &2030798281
 MonoBehaviour:
@@ -466882,7 +466937,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -472416,10 +472470,9 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
-  shotsound: {fileID: 0}
-  reloadsound: {fileID: 0}
-  walkSound: {fileID: 0}
+  shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
+  reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
+  walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
   frequency: 0
 --- !u!114 &2085208844
 MonoBehaviour:
@@ -476839,7 +476892,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 0}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -481936,7 +481988,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}
@@ -485508,7 +485559,6 @@ MonoBehaviour:
   ammo: 30
   reloadStart: 0
   lift: {fileID: 0}
-  audioSource: {fileID: 2129384828}
   shotsound: {fileID: 8300000, guid: 3837b46ee290f9c6eb65606cef5bc6dc, type: 3}
   reloadsound: {fileID: 8300000, guid: ace75e09a685f5846890c3b9c56bf862, type: 3}
   walkSound: {fileID: 8300000, guid: 4a7fb2e55ded3f2549f6483e3aa1f223, type: 3}

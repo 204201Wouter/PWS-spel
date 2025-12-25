@@ -40,7 +40,7 @@ public class EnemyMovementScript : MonoBehaviour
     Vector3 lastLateralVelocity;
     Vector3 velocity;
 
-    public AudioSource audioSource;
+    AudioSource audioSource;
     public AudioClip shotsound;
     public AudioClip reloadsound;
     public AudioClip walkSound;
@@ -53,6 +53,8 @@ public class EnemyMovementScript : MonoBehaviour
 
     void Start()
     {
+
+        audioSource = GetComponentInChildren<AudioSource>();
         ammo = GetComponentInChildren<MagazineScript>().cap;
 
         controller = GetComponent<CharacterController>();
@@ -179,7 +181,7 @@ public class EnemyMovementScript : MonoBehaviour
                 controller.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
             }
 
-            mode = "move";
+          
             if (mode == "cover" || mode == "scout")
             {
                 MoveEnemy(mode);

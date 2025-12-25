@@ -153,8 +153,10 @@ public class Movement : MonoBehaviour
         bobspeed = 0f;
 
         
-        if (isGrounded) headbobTime += velocity.magnitude;
+        if (isGrounded && !InteractScript.gravityDisabled) headbobTime += velocity.magnitude;
 
+        if (InteractScript.gravityDisabled) x = 0f;
+ 
         fpsbody.localPosition = startfpsbody
             + amplitude * Mathf.Clamp(velocity.magnitude, -1f, 1f) * Mathf.Sin(headbobTime * frequency) * Vector3.up
             + amplitude * Mathf.Clamp(velocity.magnitude, -1f, 1f) * Mathf.Cos(headbobTime * frequency / 2f) * Vector3.right
@@ -163,9 +165,9 @@ public class Movement : MonoBehaviour
             - Vector3.forward * recoil;
 
 
-        if (isGrounded && headbobTime*frequency % (Mathf.PI*2) < velocity.magnitude*0.05f && (headbobTime-velocity.magnitude)*frequency % (Mathf.PI*2) > (Mathf.PI-velocity.magnitude*0.05f)) audioSource.PlayOneShot(walkSound);
+        if (isGrounded && !InteractScript.gravityDisabled && headbobTime*frequency % (Mathf.PI*2) < velocity.magnitude*0.05f && (headbobTime-velocity.magnitude)*frequency % (Mathf.PI*2) > (Mathf.PI-velocity.magnitude*0.05f)) audioSource.PlayOneShot(walkSound);
 
-
+        
         Vector2 vel2d = new(velocity.x, velocity.z);
         animatorshadow.SetFloat("speed", vel2d.magnitude);
         
