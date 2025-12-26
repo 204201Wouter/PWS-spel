@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 public class MainMenuScript : MonoBehaviour
 {
     public Slider volumeSlider;
@@ -30,4 +32,39 @@ public class MainMenuScript : MonoBehaviour
     {
         AudioListener.volume = volumeSlider.value;
     }
+
+    public void Save()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/save.shoot";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        string data = "piet";
+        formatter.Serialize(stream, data);
+        stream.Close();
+
+    }
+
+    public void Load()
+    {
+        string path = Application.persistentDataPath + "/save.shoot";
+        if (File.Exists(path))
+        {
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            string data = formatter.Deserialize(stream) as string;
+            stream.Close();
+
+            Debug.Log(data);
+            
+        } else {
+            Debug.Log("nofile");
+        }
+        
+
+    }
+    
+
 }
