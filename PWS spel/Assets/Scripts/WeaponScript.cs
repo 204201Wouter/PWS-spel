@@ -43,6 +43,12 @@ public class WeaponScript : MonoBehaviour
     public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
     public Sprite redDotSprite;
 
+    public GameObject scopeObject;
+    public GameObject reddotObject;
+    public GameObject armagObject;
+    public GameObject drummagObject;
+    public GameObject snipermagObject;
+
     void Awake() // awake runt eerder dan start en dat moet hier
     {                              //dmg
         ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal", ammoNormalSprite));
@@ -60,15 +66,15 @@ public class WeaponScript : MonoBehaviour
             ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
         }
 
-        scopes.Add("scope", new(4, "scope", GameObject.Find("scope"), scopeSprite, scopeSpriteBig)); // scopeSprite vervangen voor nieuwe sprite dan
-        scopes.Add("red dot", new(2, "red dot", GameObject.Find("red dot sight"), redDotSprite, redDotSpriteBig));
-        scopes.Add("no scope", new(1.3f, "no scope", GameObject.Find("iron sight"), null, null));
+        scopes.Add("scope", new(4, "scope", scopeObject, scopeSprite, scopeSpriteBig)); // scopeSprite vervangen voor nieuwe sprite dan
+        scopes.Add("red dot", new(2, "red dot", reddotObject, redDotSprite, redDotSpriteBig));
+        scopes.Add("no scope", new(1.3f, "no scope", null, null, null));
         // hier alle scopes
 
         // magazine models
-        GameObject ARMag = GameObject.Find("ar mag");
-        GameObject drumMag = GameObject.Find("drum mag");
-        GameObject sniperMag = GameObject.Find("sniper mag");
+        GameObject ARMag = armagObject;
+        GameObject drumMag = drummagObject;
+        GameObject sniperMag = snipermagObject;
 
         magazines.Add("default magazine", new(30, 2, 0.1f, ammoTypes["normal"], "default magazine", ARMag, ARMagSprite, ARMagSpriteBig));
         magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, drumMagSpriteBig));

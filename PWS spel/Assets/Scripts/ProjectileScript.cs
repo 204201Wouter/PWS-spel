@@ -41,7 +41,7 @@ public class ProjectileScript : MonoBehaviour
                 transform.SetParent(hit.transform);
                 stopped = true;
                 GetComponent<MeshRenderer>().enabled = true;
-                StartCoroutine(DespawnTimer());
+                Destroy(gameObject, 5f + Random.Range(-0.5f, 0.5f));
             }
             else
             {
@@ -56,9 +56,5 @@ public class ProjectileScript : MonoBehaviour
         }
     }
 
-    IEnumerator DespawnTimer()
-    {
-        yield return new WaitForSeconds(5 + Random.Range(-0.5f, 0.5f));
-        Destroy(gameObject);
-    }
+
 }
