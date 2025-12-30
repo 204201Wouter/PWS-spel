@@ -13,6 +13,7 @@ public class EnemyWeaponScript : MonoBehaviour
     public int ammo;
     public LayerMask ground; 
     public float yspeed = 0;
+    public MagazineScript magazinescript;
 
     void Start()
     {
@@ -78,6 +79,10 @@ public class EnemyWeaponScript : MonoBehaviour
 
         ammo = Random.Range(20, 150);
        // Debug.Log('e');
+
+       magazinescript.reloadTime = magazineAttachment.;
+       magazinescript.cap = magazineAttachment.;
+       magazinescript.shotCooldown = magazineAttachment.;
     }
 
     void Update()

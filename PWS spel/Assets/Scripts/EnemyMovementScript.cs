@@ -112,6 +112,7 @@ public class EnemyMovementScript : MonoBehaviour
 
                     if (ammo == 0 && reloadStart == -1)
                     {
+                        animator.SetFloat("reloadspeed", GetComponentInChildren<MagazineScript>().reloadTime);
                         reloadStart = Time.time;
                         audioSource.PlayOneShot(reloadsound);
 

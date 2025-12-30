@@ -9,6 +9,13 @@ public class EnemiesTriggerScript : MonoBehaviour
     public int enemySpawnAmount;
     public string requirement;
     bool canTrigger = true;
+    public Transform nodes;
+    public Transform cover;
+    public GameObject originalEnemy;
+    public Transform parent;
+    public float zwidth;
+    public float xwidth;
+    public LayerMask groundMask;
 
     void OnTriggerEnter(Collider other)
     {
@@ -27,11 +34,28 @@ public class EnemiesTriggerScript : MonoBehaviour
             }
             else
             {
-                foreach (Transform enemy in enemiesToTrigger)
-                {
-                    enemy.GetComponent<EnemyMovementScript>().enabled = true;
-                    enemy.GetComponent<EnemyScript>().enabled = true;
+                
+                for (int i = 0; i<enemySpawnAmount; i++)
+                {   
+                    bool validSpawn = false;
+
+                    while (validSpawn);
+                        Vector3 pos = parent.position+Vector3.left*xwidth*(Random.value-0.5f)+Vector3.forward*zwidth*(Random.value-0.5f);
+                        if (!Physics.CheckSphere(pos, 0.4f, groundMask))
+                        {
+                            validSpawn = true;
+                            GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, parent);
+                            enemy.GetComponent<EnemyMovementScript>().enabled = true;
+                            enemy.GetComponent<EnemyScript>().enabled = true;
+
+                            enemy.GetComponent<EnemyMovementScript>().mode = "guard";
+                            enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
+                            enemy.GetComponent<EnemyMovementScript>().cover = cover;
+                            
+                        }
+
                 }
+
             }
 
             Destroy(GetComponent<BoxCollider>());
