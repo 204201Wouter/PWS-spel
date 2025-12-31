@@ -61,6 +61,8 @@ public class InteractScript : MonoBehaviour
 
     public GameObject pickUpWeaponsPopup;
     public GameObject openInventoryPopup;
+    public AudioSource audioSource;
+    public AudioClip interactSound;
 
     void Start()
     {
@@ -79,6 +81,7 @@ public class InteractScript : MonoBehaviour
                     if (computerInteractLength >= requiredComputerInteractLength)
                     {
                         mapDownloaded = true;
+                        audioSource.PlayOneShot(interactSound);
                         StartCoroutine(TextPopup(mapDownloadedPopup));
                         unlockableDoorHandler.door2.locked = false;
                         guiScript.minimap.SetActive(true);
@@ -113,6 +116,7 @@ public class InteractScript : MonoBehaviour
                     weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
 
                     Destroy(hit.collider.gameObject);
+                    audioSource.PlayOneShot(interactSound);
                 }
             }
             else pickUpWeaponPopup.SetActive(false);
@@ -123,6 +127,7 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     toolObtained = true;
+                    audioSource.PlayOneShot(interactSound);
                     toolMarker.SetActive(false);
                     miniToolMarker.SetActive(false);
                     StartCoroutine(TextPopup(toolObtainedPopup));
@@ -135,6 +140,7 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombObtained = true;
+                    audioSource.PlayOneShot(interactSound);
                     bombMarker.SetActive(false);
                     miniBombMarker.SetActive(false);
                     StartCoroutine(TextPopup(bombObtainedPopup));
@@ -156,6 +162,7 @@ public class InteractScript : MonoBehaviour
                         {
                             if (engine1) engine1disabled = true;
                             else engine2disabled = true;
+                            audioSource.PlayOneShot(interactSound);
                             enginesDisabled = engine1disabled && engine2disabled;
                             guiScript.UpdateObjective("Disable the engines");
 
@@ -186,6 +193,7 @@ public class InteractScript : MonoBehaviour
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombPlanted = true;
+                    audioSource.PlayOneShot(interactSound);
                     bombTimer.SetActive(true);
                     StartCoroutine(TextPopup(bombPlantedPopup));
                     StartCoroutine(BombTimer());
@@ -205,6 +213,7 @@ public class InteractScript : MonoBehaviour
                     if (gravityGeneratorInteractLength >= requiredGravityGeneratorInteractLength)
                     {
                         gravityDisabled = true;
+                        audioSource.PlayOneShot(interactSound);
                         StartCoroutine(TextPopup(gravityDisabledPopup));
                         guiScript.UpdateObjective("Disable the gravity generator");
 

@@ -11,8 +11,12 @@ public class OpenDoorScript : MonoBehaviour
 
     public bool locked;
 
+    AudioSource audioSource;
+    public AudioClip doorSound;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         startpos = doora.transform.position;
         endpos = doora.transform.position - 5f * doora.transform.right;
     }
@@ -22,6 +26,10 @@ public class OpenDoorScript : MonoBehaviour
         if (other.GetComponent<CharacterController>() != null && !locked)
         {
             inside++;
+            if (inside > 0)
+            {
+                audioSource.PlayOneShot(doorSound);
+            }
         }
     }
 
@@ -30,6 +38,10 @@ public class OpenDoorScript : MonoBehaviour
         if (other.GetComponent<CharacterController>() != null && !locked)
         {
             inside--;
+            if (inside == 0)
+            {
+                audioSource.PlayOneShot(doorSound);
+            }
         }
     }
 
