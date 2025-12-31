@@ -80,9 +80,10 @@ public class EnemyWeaponScript : MonoBehaviour
         ammo = Random.Range(20, 150);
        // Debug.Log('e');
 
-    //   magazinescript.reloadTime = magazineAttachment.;
-     //  magazinescript.cap = magazineAttachment.;
-      // magazinescript.shotCooldown = magazineAttachment.;
+       magazinescript.reloadTime = magazineAttachment.reloadTime;
+       magazinescript.cap = magazineAttachment.capacity;
+       magazinescript.shotCooldown = magazineAttachment.shotCooldown;
+       magazinescript.ammoType = magazineAttachment.ammoType;
     }
 
     void Update()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public float health = 200;
+    public float health = 100;
 
     public GameObject player;
     public GameObject weapon;

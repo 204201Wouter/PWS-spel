@@ -104,7 +104,8 @@ public class EnemyMovementScript : MonoBehaviour
                         }
                         if (Random.value < AccuracyFormula())
                         {
-                            player.GetComponent<PlayerHealth>().Hit(1);
+                            player.GetComponent<PlayerHealth>().Hit(GetComponentInChildren<MagazineScript>().ammoType.damage);
+                            Debug.Log(GetComponentInChildren<MagazineScript>().ammoType.damage);
                         }
 
                         velocity += 0.003f * -transform.forward;
@@ -112,7 +113,7 @@ public class EnemyMovementScript : MonoBehaviour
 
                     if (ammo == 0 && reloadStart == -1)
                     {
-                        //animator.SetFloat("reloadspeed", GetComponentInChildren<MagazineScript>().);
+                        animator.SetFloat("reloadspeed", 6f/GetComponentInChildren<MagazineScript>().reloadTime);
                         reloadStart = Time.time;
                         audioSource.PlayOneShot(reloadsound);
 
