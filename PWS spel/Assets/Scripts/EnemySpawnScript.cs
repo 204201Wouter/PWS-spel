@@ -7,6 +7,7 @@ public class EnemySpawnScript : MonoBehaviour
 {
     public Transform enemyParent;
     public GameObject originalEnemy;
+    public AudioClip doorSound;
 
     public IEnumerator SpawnEnemies(Transform spawnPositions, int enemyAmount)
     {
@@ -19,6 +20,7 @@ public class EnemySpawnScript : MonoBehaviour
         for (int i = 0; i < enemyAmount; i++)
         {
             Transform point = spawnPositions.GetChild(posIndex);
+            point.GetComponent<AudioSource>().PlayOneShot(doorSound);
             GameObject enemy = Instantiate(originalEnemy, point.position, point.rotation, enemyParent);
 
             enemy.GetComponent<EnemyScript>().enabled = true;
