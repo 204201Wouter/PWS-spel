@@ -21,8 +21,6 @@ public class EnemyWeaponScript : MonoBehaviour
         magazineAttachment = weaponScript.magazines.Values.ToArray()[Random.Range(0, weaponScript.magazines.Count)];
         silencerAttachment = weaponScript.silencers.Values.ToArray()[Random.Range(0, weaponScript.silencers.Count)];
         laserAttachment = weaponScript.lasers.Values.ToArray()[Random.Range(0, weaponScript.lasers.Count)];
-
-
         
         GameObject sightobj = transform.Find("sight1").gameObject;
         GameObject scopeobj = transform.Find("scope1").gameObject;
@@ -36,9 +34,10 @@ public class EnemyWeaponScript : MonoBehaviour
         {
             scopeobj.SetActive(true);
         }
-        GameObject medmag = transform.parent.parent.Find("Bone.016").Find("ar mag.002").Find("ar mag1").gameObject;
-        GameObject bigmag = transform.parent.parent.Find("Bone.016").Find("ar mag.002").Find("drum mag1").gameObject;
-        GameObject smallmag = transform.parent.parent.Find("Bone.016").Find("ar mag.002").Find("sniper mag1").gameObject;
+        Transform gunParent = transform.parent.parent.Find("Bone.016").Find("ar mag.002");
+        GameObject medmag = gunParent.Find("ar mag1").gameObject;
+        GameObject bigmag = gunParent.Find("drum mag1").gameObject;
+        GameObject smallmag = gunParent.Find("sniper mag1").gameObject;
         medmag.SetActive(false);
         bigmag.SetActive(false);
         smallmag.SetActive(false);
@@ -72,18 +71,14 @@ public class EnemyWeaponScript : MonoBehaviour
         if (magazineAttachment.reloadTime == 4)
         {
             smallmag2.SetActive(true);
-        }
-      //  scopeAttachment.model.SetActive(true);
-       // SetActiveIfExists(scopeAttachment.model, true);
-      //  SetActiveIfExists(magazineAttachment.model, true);        
+        }    
 
         ammo = Random.Range(20, 150);
-       // Debug.Log('e');
 
-       magazinescript.reloadTime = magazineAttachment.reloadTime;
-       magazinescript.cap = magazineAttachment.capacity;
-       magazinescript.shotCooldown = magazineAttachment.shotCooldown;
-       magazinescript.ammoType = magazineAttachment.ammoType;
+        magazinescript.reloadTime = magazineAttachment.reloadTime;
+        magazinescript.cap = magazineAttachment.capacity;
+        magazinescript.shotCooldown = magazineAttachment.shotCooldown;
+        magazinescript.ammoType = magazineAttachment.ammoType;
     }
 
     void Update()

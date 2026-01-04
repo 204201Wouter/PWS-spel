@@ -33,6 +33,8 @@ public class GuiScript : MonoBehaviour
 
     public GameObject settingsMenu;
     public Slider volumeSlider;
+    public Slider difficultySlider;
+    public TextMeshProUGUI currentDifficultyText;
 
     public GameObject deathScreen;
 
@@ -68,6 +70,8 @@ public class GuiScript : MonoBehaviour
         magazineSlot.transform.GetChild(1).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
 
         volumeSlider.value = AudioListener.volume;
+        difficultySlider.value = PlayerHealth.difficulty;
+        ChangeDifficulty();
 
         objectives.Add("Kill enemies");
         objectiveRequiredAmounts.Add(10);
@@ -213,7 +217,6 @@ public class GuiScript : MonoBehaviour
         weaponScript.availableMagazines.Remove(magazine.name);
         SetActiveIfExists(magazine.model, true);
 
-
         magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
@@ -222,7 +225,6 @@ public class GuiScript : MonoBehaviour
         ammoImage.sprite = magazine.ammoType.sprite;
         magazineBig.sprite = magazine.spriteBig;
         audioSource.PlayOneShot(clickSound);
- 
     }
 
     public void ClickMagazine(MagazineAttachment magazine, GameObject button)
@@ -286,7 +288,7 @@ public class GuiScript : MonoBehaviour
             weaponScript.availableMagazines.Add(magazine.name);
             GameObject button = Instantiate(attachmentButton);
             button.transform.SetParent(magazineInventory.transform);
-            button.transform.localScale = new(1, 1, 1);
+            button.transform.localScale = Vector3.one;
             button.GetComponent<Button>().onClick.AddListener(() => ClickMagazine(magazine, button));
             button.transform.GetChild(0).GetComponent<Image>().sprite = magazine.sprite;
             button.transform.GetChild(1).GetComponent<Image>().sprite = magazine.ammoType.sprite;
@@ -302,6 +304,7 @@ public class GuiScript : MonoBehaviour
             weaponScript.availableScopes.Add(scope.name);
             GameObject button = Instantiate(attachmentButton);
             button.transform.SetParent(sightInventory.transform);
+            button.transform.localScale = Vector3.one;
             button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
             if (scope.sprite != null) button.transform.GetChild(2).GetComponent<Image>().sprite = scope.sprite;
             Destroy(button.transform.GetChild(0).gameObject);
@@ -373,6 +376,17 @@ public class GuiScript : MonoBehaviour
     public void ChangeVolume()
     {
         AudioListener.volume = volumeSlider.value;
+    }
+
+    public void ChangeDifficulty()
+    {
+        PlayerHealth.difficulty = difficultySlider.value;
+        if (difficultySlider.value == 0) currentDifficultyText.text = "Creative";
+        else if (difficultySlider.value < 0.15f) currentDifficultyText.text = "Very easy";
+        else if (difficultySlider.value < 0.3f) currentDifficultyText.text = "Easy";
+        else if (difficultySlider.value < 0.5f) currentDifficultyText.text = "Moderate";
+        else if (difficultySlider.value < 0.8f) currentDifficultyText.text = "Hard";
+        else currentDifficultyText.text = "Impossible";
     }
 
     public void ExitToMainMenu()

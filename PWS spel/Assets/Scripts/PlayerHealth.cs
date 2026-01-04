@@ -12,10 +12,11 @@ public class PlayerHealth : MonoBehaviour
     public GuiScript guiScript;
     public float starthealth;
 
+    public static float difficulty = 0.25f;
 
     public void Hit(float damage)
     {
-        health -= damage;
+        health -= damage * difficulty;
 
         Color c = damageimg.color;
         c.a = 1f;

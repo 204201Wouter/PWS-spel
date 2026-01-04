@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 public class MainMenuScript : MonoBehaviour
 {
     public Slider volumeSlider;
+    public Slider difficultySlider;
+    public TextMeshProUGUI currentDifficultyText;
 
     public AudioClip clickSound;
     public AudioSource audioSource;
     void Start()
     {
         volumeSlider.value = AudioListener.volume;
-        
+        difficultySlider.value = PlayerHealth.difficulty;
+        ChangeDifficulty();
     }
 
     public void PlayGame()
@@ -31,6 +35,17 @@ public class MainMenuScript : MonoBehaviour
     public void ChangeVolume()
     {
         AudioListener.volume = volumeSlider.value;
+    }
+
+    public void ChangeDifficulty()
+    {
+        PlayerHealth.difficulty = difficultySlider.value;
+        if (difficultySlider.value == 0) currentDifficultyText.text = "Creative";
+        else if (difficultySlider.value < 0.15f) currentDifficultyText.text = "Very easy";
+        else if (difficultySlider.value < 0.3f) currentDifficultyText.text = "Easy";
+        else if (difficultySlider.value < 0.5f) currentDifficultyText.text = "Moderate";
+        else if (difficultySlider.value < 0.8f) currentDifficultyText.text = "Hard";
+        else currentDifficultyText.text = "Impossible";
     }
 
     public void Save()

@@ -48,14 +48,15 @@ public class EnemyMovementScript : MonoBehaviour
     float walkPhase;
     public float frequency;
 
-
     List <Vector2> path = new();
+
+    MagazineScript magazineScript;
 
     void Start()
     {
-
+        magazineScript = GetComponentInChildren<MagazineScript>();
         audioSource = GetComponentInChildren<AudioSource>();
-        ammo = GetComponentInChildren<MagazineScript>().cap;
+        ammo = magazineScript.cap;
 
         controller = GetComponent<CharacterController>();
 
@@ -86,44 +87,45 @@ public class EnemyMovementScript : MonoBehaviour
                         aiming = true;
                     }
 
-                    if (ammo > 0 && Time.time > lastShot + GetComponentInChildren<MagazineScript>().shotCooldown && Time.time > aimtimedone)
+                    if (ammo > 0 && Time.time > lastShot + magazineScript.shotCooldown && Time.time > aimtimedone)
                     {
                         lastShot = Time.time;
                         ammo -= 1;
                         audioSource.PlayOneShot(shotsound);
-                        if (ammo < 0)
+                        if (ammo >= 0)
                         {
-                            if (ammo % 4 == 0)
-                                animator.SetTrigger("recoil");
-                            if (ammo % 4 == 1)
-                                animator.SetTrigger("recoilb");
-                            if (ammo % 4 == 2)
-                                animator.SetTrigger("recoilc");
-                            if (ammo % 4 == 3)
-                                animator.SetTrigger("recoild");
-                        }
-                        if (Random.value < AccuracyFormula())
-                        {
-                            player.GetComponent<PlayerHealth>().Hit(GetComponentInChildren<MagazineScript>().ammoType.damage);
-                            Debug.Log(GetComponentInChildren<MagazineScript>().ammoType.damage);
+                            if (ammo % 4 == 0) animator.SetTrigger("recoil");
+                            if (ammo % 4 == 1) animator.SetTrigger("recoilb");
+                            if (ammo % 4 == 2) animator.SetTrigger("recoilc");
+                            if (ammo % 4 == 3) animator.SetTrigger("recoild");
                         }
 
+                        float accuracy = AccuracyFormula();
+                        for (int i = 0; i < magazineScript.ammoType.amount; i++)
+                        {
+                            if (Random.value < accuracy)
+                            {
+                                player.GetComponent<PlayerHealth>().Hit(magazineScript.ammoType.damage);
+                                Debug.Log(magazineScript.ammoType.damage);
+                            }
+                        }
+                        
                         velocity += 0.003f * -transform.forward;
                     }
 
                     if (ammo == 0 && reloadStart == -1)
                     {
-                        animator.SetFloat("reloadspeed", 6f/GetComponentInChildren<MagazineScript>().reloadTime);
+                        animator.SetFloat("reloadspeed", 6f/magazineScript.reloadTime);
                         reloadStart = Time.time;
                         audioSource.PlayOneShot(reloadsound);
 
                         animator.SetTrigger("reload");
 
                     }
-                    if (Time.time > reloadStart + GetComponentInChildren<MagazineScript>().reloadTime && reloadStart != -1)
+                    if (Time.time > reloadStart + magazineScript.reloadTime && reloadStart != -1)
                     {
                         reloadStart = -1;
-                        ammo = GetComponentInChildren<MagazineScript>().cap;
+                        ammo = magazineScript.cap;
                     }
                     animator.SetBool("IsAiming", true);
                 }
@@ -334,8 +336,8 @@ public class EnemyMovementScript : MonoBehaviour
         float weaponaccuracy = 1f;
         int acceleration = 0;
         if (lateralAcceleration.magnitude > 10) acceleration = 1;
-
-        return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration, 0.04f, 0.97f) * weaponaccuracy;
+        print(0.001f * Mathf.Sqrt(distance) * magazineScript.ammoType.spread);
+        return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration - 0.001f*Mathf.Sqrt(distance)*magazineScript.ammoType.spread, 0.04f, 0.97f) * weaponaccuracy;
     }
 
     float AimTimeFormula()
