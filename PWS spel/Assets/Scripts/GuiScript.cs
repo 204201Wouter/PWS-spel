@@ -299,7 +299,7 @@ public class GuiScript : MonoBehaviour
 
     public void NewScope(ScopeAttachment scope)
     {
-        if (!weaponScript.availableScopes.Contains(scope.name) && weaponScript.currentScope.name != scope.name)
+        if (!weaponScript.availableScopes.Contains(scope.name) && weaponScript.currentScope.name != scope.name && scope.name != "no scope")
         {
             weaponScript.availableScopes.Add(scope.name);
             GameObject button = Instantiate(attachmentButton);
@@ -307,8 +307,8 @@ public class GuiScript : MonoBehaviour
             button.transform.localScale = Vector3.one;
             button.GetComponent<Button>().onClick.AddListener(() => ClickScope(scope, button));
             if (scope.sprite != null) button.transform.GetChild(2).GetComponent<Image>().sprite = scope.sprite;
-            Destroy(button.transform.GetChild(0).gameObject);
             Destroy(button.transform.GetChild(1).gameObject);
+            Destroy(button.transform.GetChild(0).gameObject);
         }
     }
 

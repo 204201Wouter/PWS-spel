@@ -106,7 +106,6 @@ public class EnemyMovementScript : MonoBehaviour
                             if (Random.value < accuracy)
                             {
                                 player.GetComponent<PlayerHealth>().Hit(magazineScript.ammoType.damage);
-                                Debug.Log(magazineScript.ammoType.damage);
                             }
                         }
                         
@@ -336,7 +335,7 @@ public class EnemyMovementScript : MonoBehaviour
         float weaponaccuracy = 1f;
         int acceleration = 0;
         if (lateralAcceleration.magnitude > 10) acceleration = 1;
-        print(0.001f * Mathf.Sqrt(distance) * magazineScript.ammoType.spread);
+
         return Mathf.Clamp(0.97f - 0.07f*Mathf.Sqrt(distance) - 0.04f*lateralVelocity.magnitude - 0.1f*acceleration - 0.001f*Mathf.Sqrt(distance)*magazineScript.ammoType.spread, 0.04f, 0.97f) * weaponaccuracy;
     }
 
