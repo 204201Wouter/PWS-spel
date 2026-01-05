@@ -4,20 +4,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveScript : MonoBehaviour
 {
-
-
     public void Save()
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/save.shoot";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        string data = "henk";
+        SaveData data = null;
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public string Load()
+    public SaveData Load()
     {
         string path = Application.persistentDataPath + "/save.shoot";
 
@@ -26,7 +24,7 @@ public class SaveScript : MonoBehaviour
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            string data = formatter.Deserialize(stream) as string;
+            SaveData data = formatter.Deserialize(stream) as SaveData;
             stream.Close();
 
             return data;
