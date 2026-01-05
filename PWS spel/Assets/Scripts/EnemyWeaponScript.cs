@@ -15,7 +15,7 @@ public class EnemyWeaponScript : MonoBehaviour
     public float yspeed = 0;
     public MagazineScript magazinescript;
 
-    void Start()
+    public void InitializeValues()
     {
         scopeAttachment = weaponScript.scopes.Values.ToArray()[Random.Range(0, weaponScript.scopes.Count)];
         magazineAttachment = weaponScript.magazines.Values.ToArray()[Random.Range(0, weaponScript.magazines.Count)];

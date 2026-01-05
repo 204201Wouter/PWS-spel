@@ -43,14 +43,15 @@ public class InteractScript : MonoBehaviour
     public GameObject engineInteractPopup;
     public RectTransform engineLoadingBar;
     public GameObject enginesDisabledPopup;
-    bool engine1disabled;
-    bool engine2disabled;
+    public bool engine1Disabled;
+    public bool engine2Disabled;
     public static bool enginesDisabled = false;
 
     public GameObject fuelTankInteractPopup;
     public GameObject bombPlantedPopup;
     public bool bombPlanted = false;
     public GameObject bombTimer;
+    public int timer = 300;
 
     public GameObject gravityGeneratorInteractPopup;
     public RectTransform gravityGeneratorLoadingBar;
@@ -153,17 +154,17 @@ public class InteractScript : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("engine") && !enginesDisabled && toolObtained)
             {
                 bool engine1 = hit.collider.transform.parent.gameObject.name == "engine 1";
-                if ((engine1 && !engine1disabled) || (!engine1 && !engine2disabled))
+                if ((engine1 && !engine1Disabled) || (!engine1 && !engine2Disabled))
                 {
                     if (Input.GetKey(KeyCode.F))
                     {
                         engineInteractLength += Time.fixedDeltaTime;
                         if (engineInteractLength >= requiredEngineInteractLength)
                         {
-                            if (engine1) engine1disabled = true;
-                            else engine2disabled = true;
+                            if (engine1) engine1Disabled = true;
+                            else engine2Disabled = true;
                             audioSource.PlayOneShot(interactSound);
-                            enginesDisabled = engine1disabled && engine2disabled;
+                            enginesDisabled = engine1Disabled && engine2Disabled;
                             guiScript.UpdateObjective("Disable the engines");
 
                             if (enginesDisabled) StartCoroutine(TextPopup(enginesDisabledPopup));
@@ -259,8 +260,6 @@ public class InteractScript : MonoBehaviour
 
     IEnumerator BombTimer()
     {
-        int timer = 300;
-
         while (timer >= 0)
         {
             int minutes = Mathf.FloorToInt(timer / 60);

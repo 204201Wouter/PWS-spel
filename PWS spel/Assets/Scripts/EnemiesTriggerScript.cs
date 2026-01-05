@@ -19,13 +19,12 @@ public class EnemiesTriggerScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        switch (requirement)
+        canTrigger = requirement switch
         {
-            case "gravity": canTrigger = InteractScript.gravityDisabled; break;
-            case "engine": canTrigger = InteractScript.enginesDisabled; break;
-            default: canTrigger = true; break;
-        }
-
+            "gravity" => InteractScript.gravityDisabled,
+            "engine" => InteractScript.enginesDisabled,
+            _ => true,
+        };
         if (other.gameObject.name == "Player" && canTrigger)
         {
             if (isLiftRoomTrigger)
@@ -34,28 +33,25 @@ public class EnemiesTriggerScript : MonoBehaviour
             }
             else
             {
-                
-                for (int i = 0; i<enemySpawnAmount; i++)
+                for (int i = 0; i < enemySpawnAmount; i++)
                 {   
-                    bool validSpawn = false;
+                    Vector3 pos = parent.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
 
-                    while (validSpawn);
-                        Vector3 pos = parent.position+Vector3.left*xwidth*(Random.value-0.5f)+Vector3.forward*zwidth*(Random.value-0.5f);
-                        if (!Physics.CheckSphere(pos, 0.4f, groundMask))
-                        {
-                            validSpawn = true;
-                            GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, parent);
-                            enemy.GetComponent<EnemyMovementScript>().enabled = true;
-                            enemy.GetComponent<EnemyScript>().enabled = true;
+                    while (Physics.CheckSphere(pos, 0.4f, groundMask))
+                    {
+                        pos = parent.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
+                    }
 
-                            enemy.GetComponent<EnemyMovementScript>().mode = "guard";
-                            enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
-                            enemy.GetComponent<EnemyMovementScript>().cover = cover;
-                            
-                        }
+                    GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, parent);
+                    enemy.GetComponent<EnemyMovementScript>().enabled = true;
+                    enemy.GetComponent<EnemyScript>().enabled = true;
 
+                    enemy.GetComponent<EnemyMovementScript>().mode = "guard";
+                    enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
+                    enemy.GetComponent<EnemyMovementScript>().cover = cover;
+                    enemy.GetComponent<EnemyMovementScript>().room = nodes.gameObject.name;
+                    enemy.GetComponentInChildren<EnemyWeaponScript>().InitializeValues();
                 }
-
             }
 
             Destroy(GetComponent<BoxCollider>());

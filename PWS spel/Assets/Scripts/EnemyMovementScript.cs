@@ -21,6 +21,7 @@ public class EnemyMovementScript : MonoBehaviour
     public GameObject map;
     public Transform nodes;
     public Transform cover;
+    public string room;
 
     public string mode;
 

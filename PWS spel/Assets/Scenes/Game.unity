@@ -35975,7 +35975,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 1981224372}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -36219,7 +36219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1001969582}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -36228,7 +36228,7 @@ MonoBehaviour:
   nodes: {fileID: 911126575}
   cover: {fileID: 669621412}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1001969582}
+  parent: {fileID: 1981224372}
   zwidth: 50
   xwidth: 50
   groundMask:
@@ -45994,7 +45994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1308835423}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -46003,7 +46003,7 @@ MonoBehaviour:
   nodes: {fileID: 1196912739}
   cover: {fileID: 715197750}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1308835423}
+  parent: {fileID: 1981224372}
   zwidth: 80
   xwidth: 80
   groundMask:
@@ -47733,37 +47733,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268088194}
   m_Mesh: {fileID: -1550514412580984892, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
---- !u!1 &268122842
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 268122843}
-  m_Layer: 8
-  m_Name: storage room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &268122843
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268122842}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1, y: 1.1, z: -86.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &268456941
 GameObject:
   m_ObjectHideFlags: 0
@@ -58444,9 +58413,9 @@ MonoBehaviour:
   movement: {fileID: 1389374216}
   speed: 1000
   ammo: 0
-  ammoType: 
+  ammoType: normal
   damage: 0
-  amount: 0
+  projectilesPerShot: 0
   spread: 0
   size: 0
   recoil: 0
@@ -58545,10 +58514,13 @@ MonoBehaviour:
   engineInteractPopup: {fileID: 324002513}
   engineLoadingBar: {fileID: 2008457617}
   enginesDisabledPopup: {fileID: 869988599}
+  engine1Disabled: 0
+  engine2Disabled: 0
   fuelTankInteractPopup: {fileID: 408630919}
   bombPlantedPopup: {fileID: 869735924}
   bombPlanted: 0
   bombTimer: {fileID: 1091179965}
+  timer: 300
   gravityGeneratorInteractPopup: {fileID: 2066094964}
   gravityGeneratorLoadingBar: {fileID: 1048950532}
   gravityDisabledPopup: {fileID: 697146730}
@@ -72515,7 +72487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 1096314511}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -72524,7 +72496,7 @@ MonoBehaviour:
   nodes: {fileID: 522531098}
   cover: {fileID: 1675972873}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1096314511}
+  parent: {fileID: 1981224372}
   zwidth: 40
   xwidth: 65
   groundMask:
@@ -73913,7 +73885,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 1981224372}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -76316,7 +76288,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 1981224372}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -87512,7 +87484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522531098}
   m_Layer: 7
-  m_Name: fuel room
+  m_Name: Fuel room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132265,37 +132237,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770850413}
   m_Mesh: {fileID: -5495902117074765545, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
---- !u!1 &771501873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 771501874}
-  m_Layer: 8
-  m_Name: gravity room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &771501874
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 771501873}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 389.3, y: 1.1, z: -86.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773312093
 GameObject:
   m_ObjectHideFlags: 0
@@ -135383,7 +135324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &792770023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142983,7 +142924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &836985395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -158226,7 +158167,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 1981224372}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -171172,7 +171113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 2136851126}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -171181,7 +171122,7 @@ MonoBehaviour:
   nodes: {fileID: 1286046735}
   cover: {fileID: 1377817335}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 2136851126}
+  parent: {fileID: 1981224372}
   zwidth: 80
   xwidth: 15
   groundMask:
@@ -171437,37 +171378,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &1001969581
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1001969582}
-  m_Layer: 8
-  m_Name: computer room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1001969582
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001969581}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.9, y: 1.1, z: 39.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003113343
 GameObject:
   m_ObjectHideFlags: 0
@@ -177378,6 +177288,7 @@ MonoBehaviour:
   map: {fileID: 325256914}
   nodes: {fileID: 792770024}
   cover: {fileID: 2024325245}
+  room: 
   mode: guard
   ammo: 30
   reloadStart: 0
@@ -180564,7 +180475,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit to main menu
+  m_text: Save and exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -187182,37 +187093,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095184989}
   m_Mesh: {fileID: -5495902117074765545, guid: 903a917c53d593d42a10e74c306c3c36, type: 3}
---- !u!1 &1096314510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1096314511}
-  m_Layer: 8
-  m_Name: engine room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1096314511
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096314510}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3, y: 1.1, z: -313.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1096573297
 GameObject:
   m_ObjectHideFlags: 0
@@ -203468,7 +203348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 268122843}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -203477,7 +203357,7 @@ MonoBehaviour:
   nodes: {fileID: 1186581252}
   cover: {fileID: 198014799}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 268122843}
+  parent: {fileID: 1981224372}
   zwidth: 80
   xwidth: 80
   groundMask:
@@ -220541,37 +220421,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307323339}
   m_Mesh: {fileID: -8678823145569952518, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
---- !u!1 &1308835422
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1308835423}
-  m_Layer: 8
-  m_Name: office room
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1308835423
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308835422}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 142.4, y: 1.1, z: -86.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1309299009
 GameObject:
   m_ObjectHideFlags: 0
@@ -234965,6 +234814,17 @@ MonoBehaviour:
   audioSource: {fileID: 4403632498417147318}
   clickSound: {fileID: 8300000, guid: 2f230fbabb11b3b569a3792675360fbc, type: 3}
   objectiveText: {fileID: 380977278}
+  currentObjectiveIndex: 0
+  currentAmountDone: 0
+  enemyParent: {fileID: 1981224372}
+  unlockableDoorHandler: {fileID: 325256916}
+  enableEnemiesTriggers: {fileID: 1396358280}
+  originalEnemy: {fileID: 1030635562}
+  liftroom1: {fileID: 1837357014}
+  liftroom2: {fileID: 1715094948}
+  liftroom3: {fileID: 731215215}
+  allNodes: {fileID: 792770024}
+  allCover: {fileID: 2024325245}
 --- !u!1 &1389839339
 GameObject:
   m_ObjectHideFlags: 0
@@ -281439,7 +281299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05d08540cade5c4a857d5b6d1fcb5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToTrigger: {fileID: 771501874}
+  enemiesToTrigger: {fileID: 0}
   isLiftRoomTrigger: 0
   liftRoom: {fileID: 0}
   enemySpawnScript: {fileID: 0}
@@ -281448,7 +281308,7 @@ MonoBehaviour:
   nodes: {fileID: 498830674}
   cover: {fileID: 1858991176}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 771501874}
+  parent: {fileID: 1981224372}
   zwidth: 80
   xwidth: 80
   groundMask:
@@ -343761,7 +343621,7 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 1981224372}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -344149,12 +344009,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 155333974}
-  - {fileID: 1001969582}
-  - {fileID: 2136851126}
-  - {fileID: 268122843}
-  - {fileID: 1096314511}
-  - {fileID: 1308835423}
-  - {fileID: 771501874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981271248
@@ -369772,37 +369626,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135960781}
   m_Mesh: {fileID: -2228417370725966487, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
---- !u!1 &2136851125
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2136851126}
-  m_Layer: 8
-  m_Name: escape pods
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2136851126
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136851125}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -101.6, y: 1.1, z: -86.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1981224372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2137052150
 GameObject:
   m_ObjectHideFlags: 0
@@ -375429,6 +375252,17 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   clickSound: {fileID: 0}
   objectiveText: {fileID: 0}
+  currentObjectiveIndex: 0
+  currentAmountDone: 0
+  enemyParent: {fileID: 0}
+  unlockableDoorHandler: {fileID: 0}
+  enableEnemiesTriggers: {fileID: 0}
+  originalEnemy: {fileID: 0}
+  liftroom1: {fileID: 0}
+  liftroom2: {fileID: 0}
+  liftroom3: {fileID: 0}
+  allNodes: {fileID: 0}
+  allCover: {fileID: 0}
 --- !u!114 &4234374948888481641
 MonoBehaviour:
   m_ObjectHideFlags: 0

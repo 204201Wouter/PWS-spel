@@ -48,12 +48,23 @@ public class GuiScript : MonoBehaviour
     public AudioClip clickSound;
 
     public TextMeshProUGUI objectiveText;
-    int currentObjectiveIndex = 0;
+    public int currentObjectiveIndex = 0;
     readonly List<string> objectives = new();
     readonly List<int> objectiveRequiredAmounts = new();
-    int currentAmountDone;
+    public int currentAmountDone;
 
     bool menuOpen = false;
+
+    public Transform enemyParent;
+    public UnlockableDoorHandler unlockableDoorHandler;
+    public Transform enableEnemiesTriggers;
+
+    public GameObject originalEnemy;
+    public Transform liftroom1;
+    public Transform liftroom2;
+    public Transform liftroom3;
+    public Transform allNodes;
+    public Transform allCover;
 
     void Start()
     {
@@ -65,9 +76,12 @@ public class GuiScript : MonoBehaviour
 
         activeInventory = magazineInventory;
 
-        shootscript.UpdateAmmoText();
+        if (MainMenuScript.newGame)
+        {
+            shootscript.UpdateAmmoText();
 
-        magazineSlot.transform.GetChild(1).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
+            magazineSlot.transform.GetChild(1).GetComponent<AttachmentButtonScript>().magazineAttachment = weaponScript.currentMagazine;
+        }
 
         volumeSlider.value = AudioListener.volume;
         difficultySlider.value = PlayerHealth.difficulty;
@@ -87,6 +101,8 @@ public class GuiScript : MonoBehaviour
         objectiveRequiredAmounts.Add(1);
         objectives.Add("Escape the spaceship");
         objectiveRequiredAmounts.Add(1);
+
+        if (!MainMenuScript.newGame) LoadGame();
     }
 
     void Update()
@@ -200,7 +216,7 @@ public class GuiScript : MonoBehaviour
         shootscript.cap = magazine.capacity;
         shootscript.reloadTime = magazine.reloadTime;
         shootscript.damage = magazine.ammoType.damage;
-        shootscript.amount = magazine.ammoType.amount;
+        shootscript.projectilesPerShot = magazine.ammoType.amount;
         shootscript.spread = magazine.ammoType.spread;
         shootscript.size = magazine.ammoType.size;
         weaponScript.ammoAmounts[shootscript.ammoType] += shootscript.ammo;
@@ -217,7 +233,7 @@ public class GuiScript : MonoBehaviour
         weaponScript.availableMagazines.Remove(magazine.name);
         SetActiveIfExists(magazine.model, true);
 
-        magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
+        if (magazineSlot.transform.childCount > 2) magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
 
@@ -242,7 +258,7 @@ public class GuiScript : MonoBehaviour
         sightBig.sprite = scope.spriteBig;
         sightBig.color = Color.white; // deze regel weg als er een iron sight sprite is
 
-        if (weaponScript.currentScope.name != "no scope")
+        if (weaponScript.currentScope.name != "no scope" && sightSlot.transform.childCount > 2)
         {
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
             sightSlot.transform.GetChild(1).SetParent(sightInventory.transform);
@@ -280,8 +296,7 @@ public class GuiScript : MonoBehaviour
         }
         else OpenInventory(sightInventory);
     }
-
-    public void NewMagazine(MagazineAttachment magazine)
+    public GameObject NewMagazine(MagazineAttachment magazine)
     {
         if (!weaponScript.availableMagazines.Contains(magazine.name) && weaponScript.currentMagazine.name != magazine.name)
         {
@@ -294,10 +309,12 @@ public class GuiScript : MonoBehaviour
             button.transform.GetChild(1).GetComponent<Image>().sprite = magazine.ammoType.sprite;
             Destroy(button.transform.GetChild(2).gameObject);
             button.GetComponent<AttachmentButtonScript>().magazineAttachment = magazine;
+            return button;
         }
+        return null;
     }
 
-    public void NewScope(ScopeAttachment scope)
+    public GameObject NewScope(ScopeAttachment scope)
     {
         if (!weaponScript.availableScopes.Contains(scope.name) && weaponScript.currentScope.name != scope.name && scope.name != "no scope")
         {
@@ -309,7 +326,9 @@ public class GuiScript : MonoBehaviour
             if (scope.sprite != null) button.transform.GetChild(2).GetComponent<Image>().sprite = scope.sprite;
             Destroy(button.transform.GetChild(1).gameObject);
             Destroy(button.transform.GetChild(0).gameObject);
+            return button;
         }
+        return null;
     }
 
     public void ChangeMagazineStats(MagazineAttachment magazine, bool currentMagazine)
@@ -392,7 +411,154 @@ public class GuiScript : MonoBehaviour
     public void ExitToMainMenu()
     {
         audioSource.PlayOneShot(clickSound);
+
+        SaveData data = new(GetComponent<PlayerHealth>(), enemyParent, weaponScript, interactScript, unlockableDoorHandler, enableEnemiesTriggers, this);
+        SaveScript.Save(data);
+
         SceneManager.LoadScene("Menu");
+    }
+
+    public void LoadGame()
+    {
+        SaveData data = SaveScript.Load();
+        if (data == null)
+        {
+            print("no save data found");
+            return;
+        }
+
+        GetComponent<PlayerHealth>().health = data.playerHealth;
+        transform.position = new(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
+
+        for (int i = 0; i < data.enemyHealths.Length; i++)
+        {
+            Transform nodes;
+            Transform cover;
+            switch (data.enemyRooms[i])
+            {
+                case "Computer Room": 
+                    nodes = allNodes.GetChild(0);
+                    cover = allCover.GetChild(0);
+                    break;
+                case "Storage Room":
+                    nodes = allNodes.GetChild(1);
+                    cover = allCover.GetChild(1);
+                    break;
+                case "Office Room":
+                    nodes = allNodes.GetChild(2);
+                    cover = allCover.GetChild(2);
+                    break;
+                case "Gravity Room":
+                    nodes = allNodes.GetChild(3);
+                    cover = allCover.GetChild(3);
+                    break;
+                case "Engine Room":
+                    nodes = allNodes.GetChild(4);
+                    cover = allCover.GetChild(4);
+                    break;
+                case "Fuel Room":
+                    nodes = allNodes.GetChild(5);
+                    cover = allCover.GetChild(5);
+                    break;
+                case "Escape Pod Room":
+                    nodes = allNodes.GetChild(6);
+                    cover = allCover.GetChild(6);
+                    break;
+                case "liftroom (1)":
+                    nodes = liftroom1.Find("nodes");
+                    cover = liftroom1.Find("cover");
+                    break;
+                case "liftroom (2)":
+                    nodes = liftroom2.Find("nodes");
+                    cover = liftroom2.Find("cover");
+                    break;
+                case "liftroom (3)":
+                    nodes = liftroom3.Find("nodes");
+                    cover = liftroom3.Find("cover");
+                    break;
+                default:
+                    print(data.enemyRooms[i]);
+                    nodes = null;
+                    cover = null;
+                    break;
+            }
+
+            GameObject enemy = Instantiate(originalEnemy, new(data.enemyPositions[i][0], data.enemyPositions[i][1], data.enemyPositions[i][2]), Quaternion.identity, enemyParent);
+            enemy.GetComponent<EnemyMovementScript>().enabled = true;
+            enemy.GetComponent<EnemyScript>().enabled = true;
+
+            enemy.GetComponent<EnemyMovementScript>().mode = data.enemyModes[i];
+            enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
+            enemy.GetComponent<EnemyMovementScript>().cover = cover;
+            enemy.GetComponent<EnemyMovementScript>().room = nodes.gameObject.name;
+            enemy.GetComponent<EnemyScript>().health = data.enemyHealths[i];
+            enemy.GetComponentInChildren<EnemyWeaponScript>().ammo = data.enemyAmmos[i];
+            enemy.GetComponentInChildren<EnemyWeaponScript>().magazineAttachment = weaponScript.magazines[data.enemyMagazines[i]];
+            enemy.GetComponentInChildren<EnemyWeaponScript>().scopeAttachment = weaponScript.scopes[data.enemyScopes[i]];
+        }
+
+        shootscript.ammo = data.loadedAmmo;
+        weaponScript.ammoAmounts["normal"] = data.ammoAmounts[0];
+        weaponScript.ammoAmounts["small"] = data.ammoAmounts[1];
+        weaponScript.ammoAmounts["big"] = data.ammoAmounts[2];
+        weaponScript.ammoAmounts["buckshot"] = data.ammoAmounts[3];
+        weaponScript.ammoAmounts["birdshot"] = data.ammoAmounts[4];
+
+        GameObject button = NewMagazine(weaponScript.magazines[data.currentMagazine]);
+        EquipMagazine(weaponScript.magazines[data.currentMagazine], button);
+
+        if (data.currentScope != "no scope")
+        {
+            button = NewScope(weaponScript.scopes[data.currentScope]);
+            EquipScope(weaponScript.scopes[data.currentScope], button);
+        }
+        else
+        {
+            weaponScript.currentScope = weaponScript.scopes["no scope"];
+        }
+
+        foreach (string magazine in data.availableMagazines)
+        {
+            weaponScript.availableMagazines.Add(magazine);
+            NewMagazine(weaponScript.magazines[magazine]);
+        }
+
+        foreach (string scope in data.availableScopes)
+        {
+            weaponScript.availableScopes.Add(scope);
+            NewScope(weaponScript.scopes[scope]);
+        }
+
+        interactScript.mapDownloaded = data.mapObtained;
+        interactScript.toolObtained = data.toolObtained;
+        interactScript.bombObtained = data.bombObtained;
+        interactScript.engine1Disabled = data.engine1Disabled;
+        interactScript.engine2Disabled = data.engine2Disabled;
+        InteractScript.enginesDisabled = data.enginesDisabled;
+        interactScript.bombPlanted = data.bombPlanted;
+        interactScript.timer = data.bombTimer;
+        InteractScript.gravityDisabled = data.gravityDisabled;
+
+        unlockableDoorHandler.enemiesKilled = data.enemiesKilled;
+        unlockableDoorHandler.door1.locked = data.door1locked;
+        unlockableDoorHandler.door2.locked = data.door2locked;
+
+        enableEnemiesTriggers.GetChild(0).GetComponent<BoxCollider>().enabled = data.computerRoomEnabled;
+        enableEnemiesTriggers.GetChild(1).GetComponent<BoxCollider>().enabled = data.storageRoomEnabled;
+        enableEnemiesTriggers.GetChild(2).GetComponent<BoxCollider>().enabled = data.engineRoomEnabled;
+        enableEnemiesTriggers.GetChild(3).GetComponent<BoxCollider>().enabled = data.officeRoomEnabled;
+        enableEnemiesTriggers.GetChild(4).GetComponent<BoxCollider>().enabled = data.gravityRoomEnabled;
+        enableEnemiesTriggers.GetChild(5).GetComponent<BoxCollider>().enabled = data.escapePodsEnabled;
+
+        enableEnemiesTriggers.GetChild(6).GetComponent<BoxCollider>().enabled = data.liftRoom1Enabled;
+        enableEnemiesTriggers.GetChild(7).GetComponent<BoxCollider>().enabled = data.liftRoom2aEnabled;
+        enableEnemiesTriggers.GetChild(8).GetComponent<BoxCollider>().enabled = data.liftRoom2bEnabled;
+        enableEnemiesTriggers.GetChild(9).GetComponent<BoxCollider>().enabled = data.liftRoom3aEnabled;
+        enableEnemiesTriggers.GetChild(10).GetComponent<BoxCollider>().enabled = data.liftRoom3bEnabled;
+
+        currentObjectiveIndex = data.currentObjectiveIndex;
+        currentAmountDone = data.currentAmountDone - 1;
+        UpdateObjective(objectives[currentObjectiveIndex]);
     }
 
     public void SetActiveIfExists(GameObject obj, bool active)

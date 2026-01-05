@@ -6,6 +6,4 @@ public class MagazineScript : MonoBehaviour
     public float reloadTime = 2;
     public float shotCooldown = 0.1f;
     public AmmoType ammoType;
-
-
 }

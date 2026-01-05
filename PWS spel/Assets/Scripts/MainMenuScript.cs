@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 public class MainMenuScript : MonoBehaviour
 {
@@ -12,6 +10,8 @@ public class MainMenuScript : MonoBehaviour
 
     public AudioClip clickSound;
     public AudioSource audioSource;
+
+    public static bool newGame = true;
     void Start()
     {
         volumeSlider.value = AudioListener.volume;
@@ -19,9 +19,10 @@ public class MainMenuScript : MonoBehaviour
         ChangeDifficulty();
     }
 
-    public void PlayGame()
+    public void NewGame()
     {
         audioSource.PlayOneShot(clickSound);
+        newGame = true;
         SceneManager.LoadScene("Game");
     }
 
@@ -48,38 +49,9 @@ public class MainMenuScript : MonoBehaviour
         else currentDifficultyText.text = "Impossible";
     }
 
-    public void Save()
+    public void LoadGame()
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/save.shoot";
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        string data = "piet";
-        formatter.Serialize(stream, data);
-        stream.Close();
-
+        newGame = false;
+        SceneManager.LoadScene("Game");
     }
-
-    public void Load()
-    {
-        string path = Application.persistentDataPath + "/save.shoot";
-        if (File.Exists(path))
-        {
-
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-
-            string data = formatter.Deserialize(stream) as string;
-            stream.Close();
-
-            Debug.Log(data);
-            
-        } else {
-            Debug.Log("nofile");
-        }
-        
-
-    }
-    
-
 }

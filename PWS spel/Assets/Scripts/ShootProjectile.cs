@@ -22,10 +22,10 @@ public class ShootProjectile : MonoBehaviour
     public Movement movement;
 
     public float speed;
-    public int ammo;
-    public string ammoType;
+    public int ammo = 0;
+    public string ammoType = "normal";
     public float damage;
-    public int amount;
+    public int projectilesPerShot;
     public float spread;
     public float size;
     public float recoil;
@@ -69,7 +69,7 @@ public class ShootProjectile : MonoBehaviour
         {
             audioSource.PlayOneShot(shotsound);
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < projectilesPerShot; i++)
             {
                 GameObject projectile = Instantiate(originalProjectile, transform.position+Vector3.up*down, transform.rotation, projectileParent);
                 projectile.GetComponent<ProjectileScript>().enabled = true;
@@ -77,7 +77,7 @@ public class ShootProjectile : MonoBehaviour
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
-            if (InteractScript.gravityDisabled) movement.velocity += amount * damage * 0.15f * -transform.forward;
+            if (InteractScript.gravityDisabled) movement.velocity += projectilesPerShot * damage * 0.15f * -transform.forward;
             ammo--;
 
             float recoilX = Random.Range(-50f, 50f);
@@ -206,7 +206,7 @@ public class ShootProjectile : MonoBehaviour
         cap = weaponScript.currentMagazine.capacity;
         reloadTime = weaponScript.currentMagazine.reloadTime;
         damage = weaponScript.currentMagazine.ammoType.damage;
-        amount = weaponScript.currentMagazine.ammoType.amount;
+        projectilesPerShot = weaponScript.currentMagazine.ammoType.amount;
         spread = weaponScript.currentMagazine.ammoType.spread;
         size = weaponScript.currentMagazine.ammoType.size;
         zoom = weaponScript.currentScope.zoomFactor;

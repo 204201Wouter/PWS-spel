@@ -50,16 +50,12 @@ public class WeaponScript : MonoBehaviour
     public GameObject snipermagObject;
 
     void Awake() // awake runt eerder dan start en dat moet hier
-    {                              //dmg
+    {
         ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal", ammoNormalSprite));
         ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small", ammoSmallSprite));
         ammoTypes.Add("big", new(30, 0, 1, 1, 0, 25, 1.5f, "big", ammoBigSprite));
-        /*ammoTypes.Add("normalAP", new(1.8f, 2, 0.5f, 1, 0, 15f, 1f, "normalAP")); // AP = armor piercing
-        ammoTypes.Add("smallAP", new(0.9f, 1.5f, 0.2f, 1, 0, 10f, 0.6f, "smallAP"));
-        ammoTypes.Add("bigAP", new(2.7f, 3, 1, 1, 0, 25f, 1.5f, "bigAP"));*/
         ammoTypes.Add("buckshot", new(5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot", buckshotSprite));
         ammoTypes.Add("birdshot", new(2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot", birdshotSprite));
-        // waarden voor ammo zijn waarschijnlijk niet goed, moeten we ooit nog veranderen
 
         foreach (string ammoType in ammoTypes.Keys)
         {
@@ -95,14 +91,17 @@ public class WeaponScript : MonoBehaviour
         lasers.Add("no laser", new(Color.red, 0, "no laser", null));
         // hier alle lasers
 
-        currentScope = scopes["no scope"];
-        currentMagazine = magazines["default magazine"];
-        currentSilencer = silencers["no silencer"];
-        currentLaser = lasers["no laser"];
+        if (MainMenuScript.newGame)
+        {
+            currentScope = scopes["no scope"];
+            currentMagazine = magazines["default magazine"];
+            currentSilencer = silencers["no silencer"];
+            currentLaser = lasers["no laser"];
 
-        GetComponent<ShootProjectile>().ChangeAttachment();
-        Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(1).GetComponent<Button>();
-        defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
+            GetComponent<ShootProjectile>().ChangeAttachment();
+            Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(1).GetComponent<Button>();
+            defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
+        }
 
         foreach (ScopeAttachment scope in scopes.Values)
         {
@@ -124,10 +123,13 @@ public class WeaponScript : MonoBehaviour
             guiScript.SetActiveIfExists(laser.model, false);
         }
 
-        guiScript.SetActiveIfExists(currentScope.model, true);
-        guiScript.SetActiveIfExists(currentMagazine.model, true);
-        guiScript.SetActiveIfExists(currentSilencer.model, true);
-        guiScript.SetActiveIfExists(currentLaser.model, true);
+        if (MainMenuScript.newGame)
+        {
+            guiScript.SetActiveIfExists(currentScope.model, true);
+            guiScript.SetActiveIfExists(currentMagazine.model, true);
+            guiScript.SetActiveIfExists(currentSilencer.model, true);
+            guiScript.SetActiveIfExists(currentLaser.model, true);
+        }
     }
 }
 
@@ -148,9 +150,6 @@ public struct ScopeAttachment
         this.spriteBig = spriteBig;
     }
 }
-
-
-
 
 public struct MagazineAttachment
 {
