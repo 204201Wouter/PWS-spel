@@ -11,9 +11,6 @@ public class ShootProjectile : MonoBehaviour
     public GameObject originalProjectile;
     public Transform projectileParent;
 
-    public GameObject originalGrenade;
-    public Transform grenadeParent;
-
     public GameObject player;
     public Transform weapon;
     public Transform weaponsight;
@@ -164,15 +161,6 @@ public class ShootProjectile : MonoBehaviour
             loadedAmmoText.text = "...";
             animator.SetTrigger("reload");
             animatorshadow.SetTrigger("reload");
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GameObject grenade = Instantiate(originalGrenade, transform.position, transform.rotation, grenadeParent);
-
-            grenade.GetComponent<BounceProjectileScript>().enabled = true;
-            grenade.GetComponent<BounceProjectileScript>().velocity = transform.forward * 20f + GetComponentInParent<Movement>().velocity;
-            grenade.GetComponent<BounceProjectileScript>().fuse = Time.time;
         }
 
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
