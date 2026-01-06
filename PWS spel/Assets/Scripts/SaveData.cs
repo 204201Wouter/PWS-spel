@@ -52,6 +52,9 @@ public class SaveData
     public int currentObjectiveIndex;
     public int currentAmountDone;
 
+    public float volume;
+    public float difficulty;
+
     public SaveData (PlayerHealth player, Transform enemyParent, WeaponScript weaponScript, InteractScript interactScript, UnlockableDoorHandler unlockableDoorHandler, Transform enableEnemiesTriggers, GuiScript guiScript)
     {
         playerHealth = player.health;
@@ -147,5 +150,8 @@ public class SaveData
 
         currentObjectiveIndex = guiScript.currentObjectiveIndex;
         currentAmountDone = guiScript.currentAmountDone;
+
+        volume = AudioListener.volume;
+        difficulty = PlayerHealth.difficulty;
     }
 }

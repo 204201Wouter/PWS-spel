@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+
 public class MainMenuScript : MonoBehaviour
 {
     public Slider volumeSlider;
@@ -51,7 +53,11 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadGame()
     {
-        newGame = false;
-        SceneManager.LoadScene("Game");
+        if (File.Exists(Application.persistentDataPath + "/save.shoot"))
+        {
+            newGame = false;
+            print("load button pressed");
+            SceneManager.LoadScene("Game");
+        }
     }
 }

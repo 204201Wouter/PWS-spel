@@ -30,6 +30,7 @@ public class EnemySpawnScript : MonoBehaviour
             enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
             enemy.GetComponent<EnemyMovementScript>().cover = cover;
             enemy.GetComponent<EnemyMovementScript>().room = spawnPositions.parent.gameObject.name;
+            enemy.GetComponentInChildren<EnemyWeaponScript>().RandomizeAttachments();
             enemy.GetComponentInChildren<EnemyWeaponScript>().InitializeValues();
 
             if (point.localPosition.x < 0) enemy.GetComponent<EnemyMovementScript>().targetPos = point.position + 5 * point.right;

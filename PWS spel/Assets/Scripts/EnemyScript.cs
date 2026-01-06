@@ -23,6 +23,7 @@ public class EnemyScript : MonoBehaviour
     bool dead = false;
     public void Hit(float damage)
     {
+        print(health);
         health -= damage;
 
         if (movementScript.mode != "move") movementScript.mode = "cover";

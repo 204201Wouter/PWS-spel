@@ -1,10 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-
 using UnityEngine.UI;
-
 
 public class ShootProjectile : MonoBehaviour
 {

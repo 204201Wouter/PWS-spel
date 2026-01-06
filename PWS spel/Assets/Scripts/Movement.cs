@@ -67,7 +67,6 @@ public class Movement : MonoBehaviour
             if (!isGrounded && Physics.CheckSphere(groundCheck.position, 0.1f, groundMask)) audioSource.PlayOneShot(walkSound);
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundMask);
 
-
             if (isGrounded && ySpeed < 0)
             {
                 ySpeed = -2;

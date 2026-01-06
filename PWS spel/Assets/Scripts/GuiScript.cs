@@ -66,6 +66,9 @@ public class GuiScript : MonoBehaviour
     public Transform allNodes;
     public Transform allCover;
 
+    int setPlayerPos = 0; // dit is voor rare bug die ik niet snap na 2 uur zoeken
+    Vector3 playerPosToSet;
+
     void Start()
     {
         gui.SetActive(false);
@@ -199,6 +202,11 @@ public class GuiScript : MonoBehaviour
                 miniPlayerMarker.rotation = Quaternion.Euler(0, 0, markerRot);
             }
         }
+        if (setPlayerPos > 0)
+        {
+            transform.position = playerPosToSet;
+            setPlayerPos--;
+        }
     }
 
     void OpenInventory(GameObject newInventory)
@@ -233,7 +241,7 @@ public class GuiScript : MonoBehaviour
         weaponScript.availableMagazines.Remove(magazine.name);
         SetActiveIfExists(magazine.model, true);
 
-        if (magazineSlot.transform.childCount > 2) magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
+        if (magazineSlot.transform.childCount > 1) magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
 
@@ -247,7 +255,7 @@ public class GuiScript : MonoBehaviour
     {
         if (activeInventory == magazineInventory)
         {
-            if (magazine.name != weaponScript.currentMagazine.name) EquipMagazine(magazine, button);
+            if (magazine.name != weaponScript.currentMagazine.name && !movement.reloading) EquipMagazine(magazine, button);
         }
         else OpenInventory(magazineInventory);
     }
@@ -258,7 +266,7 @@ public class GuiScript : MonoBehaviour
         sightBig.sprite = scope.spriteBig;
         sightBig.color = Color.white; // deze regel weg als er een iron sight sprite is
 
-        if (weaponScript.currentScope.name != "no scope" && sightSlot.transform.childCount > 2)
+        if (weaponScript.currentScope.name != "no scope" && sightSlot.transform.childCount > 1)
         {
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
             sightSlot.transform.GetChild(1).SetParent(sightInventory.transform);
@@ -424,11 +432,14 @@ public class GuiScript : MonoBehaviour
         if (data == null)
         {
             print("no save data found");
+            SceneManager.LoadScene("Menu");
             return;
         }
 
         GetComponent<PlayerHealth>().health = data.playerHealth;
         transform.position = new(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
+        playerPosToSet = new(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
+        setPlayerPos = 2;
 
         for (int i = 0; i < data.enemyHealths.Length; i++)
         {
@@ -478,6 +489,7 @@ public class GuiScript : MonoBehaviour
                     break;
                 default:
                     print(data.enemyRooms[i]);
+                    print(i);
                     nodes = null;
                     cover = null;
                     break;
@@ -487,7 +499,8 @@ public class GuiScript : MonoBehaviour
             enemy.GetComponent<EnemyMovementScript>().enabled = true;
             enemy.GetComponent<EnemyScript>().enabled = true;
 
-            enemy.GetComponent<EnemyMovementScript>().mode = data.enemyModes[i];
+            if (data.enemyModes[i] != "move") enemy.GetComponent<EnemyMovementScript>().mode = data.enemyModes[i];
+            else enemy.GetComponent<EnemyMovementScript>().mode = "guard";
             enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
             enemy.GetComponent<EnemyMovementScript>().cover = cover;
             enemy.GetComponent<EnemyMovementScript>().room = nodes.gameObject.name;
@@ -495,6 +508,7 @@ public class GuiScript : MonoBehaviour
             enemy.GetComponentInChildren<EnemyWeaponScript>().ammo = data.enemyAmmos[i];
             enemy.GetComponentInChildren<EnemyWeaponScript>().magazineAttachment = weaponScript.magazines[data.enemyMagazines[i]];
             enemy.GetComponentInChildren<EnemyWeaponScript>().scopeAttachment = weaponScript.scopes[data.enemyScopes[i]];
+            enemy.GetComponentInChildren<EnemyWeaponScript>().InitializeValues();
         }
 
         shootscript.ammo = data.loadedAmmo;
@@ -537,6 +551,8 @@ public class GuiScript : MonoBehaviour
         InteractScript.enginesDisabled = data.enginesDisabled;
         interactScript.bombPlanted = data.bombPlanted;
         interactScript.timer = data.bombTimer;
+        if (data.bombPlanted) StartCoroutine(interactScript.BombTimer());
+
         InteractScript.gravityDisabled = data.gravityDisabled;
 
         unlockableDoorHandler.enemiesKilled = data.enemiesKilled;
@@ -559,6 +575,12 @@ public class GuiScript : MonoBehaviour
         currentObjectiveIndex = data.currentObjectiveIndex;
         currentAmountDone = data.currentAmountDone - 1;
         UpdateObjective(objectives[currentObjectiveIndex]);
+
+        AudioListener.volume = data.volume;
+        PlayerHealth.difficulty = data.difficulty;
+        volumeSlider.value = AudioListener.volume;
+        difficultySlider.value = PlayerHealth.difficulty;
+        ChangeDifficulty();
     }
 
     public void SetActiveIfExists(GameObject obj, bool active)

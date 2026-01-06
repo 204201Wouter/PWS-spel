@@ -12,7 +12,8 @@ public class EnemiesTriggerScript : MonoBehaviour
     public Transform nodes;
     public Transform cover;
     public GameObject originalEnemy;
-    public Transform parent;
+    public Transform enemyParent;
+    public Transform room;
     public float zwidth;
     public float xwidth;
     public LayerMask groundMask;
@@ -25,6 +26,7 @@ public class EnemiesTriggerScript : MonoBehaviour
             "engine" => InteractScript.enginesDisabled,
             _ => true,
         };
+
         if (other.gameObject.name == "Player" && canTrigger)
         {
             if (isLiftRoomTrigger)
@@ -35,14 +37,15 @@ public class EnemiesTriggerScript : MonoBehaviour
             {
                 for (int i = 0; i < enemySpawnAmount; i++)
                 {   
-                    Vector3 pos = parent.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
+                    Vector3 pos = room.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
 
-                    while (Physics.CheckSphere(pos, 0.4f, groundMask))
+                    for (int j = 0; j < 20; j++)
                     {
-                        pos = parent.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
+                        if (Physics.CheckSphere(pos, 0.4f, groundMask)) pos = room.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
+                        else break;
                     }
 
-                    GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, parent);
+                    GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, enemyParent);
                     enemy.GetComponent<EnemyMovementScript>().enabled = true;
                     enemy.GetComponent<EnemyScript>().enabled = true;
 
@@ -50,6 +53,7 @@ public class EnemiesTriggerScript : MonoBehaviour
                     enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
                     enemy.GetComponent<EnemyMovementScript>().cover = cover;
                     enemy.GetComponent<EnemyMovementScript>().room = nodes.gameObject.name;
+                    enemy.GetComponentInChildren<EnemyWeaponScript>().RandomizeAttachments();
                     enemy.GetComponentInChildren<EnemyWeaponScript>().InitializeValues();
                 }
             }

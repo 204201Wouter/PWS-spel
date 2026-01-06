@@ -63,7 +63,7 @@ public class EnemyMovementScript : MonoBehaviour
 
         lastPlayerPos = player.transform.position;
 
-        if (mode == "move")
+        if (mode == "move" && lift != null)
         {
             Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift);
         }
@@ -87,7 +87,6 @@ public class EnemyMovementScript : MonoBehaviour
                         aimtimedone = Time.time + AimTimeFormula();
                         aiming = true;
                     }
-
                     if (ammo > 0 && Time.time > lastShot + magazineScript.shotCooldown && Time.time > aimtimedone)
                     {
                         lastShot = Time.time;
@@ -120,7 +119,6 @@ public class EnemyMovementScript : MonoBehaviour
                         audioSource.PlayOneShot(reloadsound);
 
                         animator.SetTrigger("reload");
-
                     }
                     if (Time.time > reloadStart + magazineScript.reloadTime && reloadStart != -1)
                     {
@@ -254,13 +252,13 @@ public class EnemyMovementScript : MonoBehaviour
                     else
                     {
                         mode = "guard";
-                        Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
+                        if (lift != null) Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
                     }
                 }
                 else if (diffTargetPos.magnitude < 0.05f)
                 {
                     mode = "guard";
-                    Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
+                    if (lift != null) Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift, false);
                 }
             }
             else if (path.Count > 1)

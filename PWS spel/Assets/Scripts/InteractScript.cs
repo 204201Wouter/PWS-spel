@@ -258,7 +258,7 @@ public class InteractScript : MonoBehaviour
         popup.SetActive(false);
     }
 
-    IEnumerator BombTimer()
+    public IEnumerator BombTimer()
     {
         while (timer >= 0)
         {

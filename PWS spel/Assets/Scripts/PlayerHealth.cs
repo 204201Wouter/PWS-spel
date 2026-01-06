@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Hit(float damage)
     {
-        health -= damage * difficulty;
+        health -= damage * difficulty * difficulty;
 
         Color c = damageimg.color;
         c.a = 1f;

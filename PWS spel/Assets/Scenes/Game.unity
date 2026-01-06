@@ -2203,6 +2203,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9596062}
   m_Mesh: {fileID: 4493585093827132993, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
+--- !u!1 &9710863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9710864}
+  m_Layer: 0
+  m_Name: Computer Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9710864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9710863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.42, y: 0.870017, z: 79.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &10364464
 GameObject:
   m_ObjectHideFlags: 0
@@ -35975,7 +36006,8 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 0}
+  room: {fileID: 0}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -36228,12 +36260,13 @@ MonoBehaviour:
   nodes: {fileID: 911126575}
   cover: {fileID: 669621412}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 9710864}
   zwidth: 50
   xwidth: 50
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2056
 --- !u!65 &196750362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46003,12 +46036,13 @@ MonoBehaviour:
   nodes: {fileID: 1196912739}
   cover: {fileID: 715197750}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 885069320}
   zwidth: 80
   xwidth: 80
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2056
 --- !u!65 &254930374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72494,12 +72528,13 @@ MonoBehaviour:
   nodes: {fileID: 522531098}
   cover: {fileID: 1675972873}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 1218177178}
   zwidth: 40
   xwidth: 65
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2056
 --- !u!65 &426622312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73883,7 +73918,8 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 0}
+  room: {fileID: 0}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -76286,7 +76322,8 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 0}
+  room: {fileID: 0}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -76829,37 +76866,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452589050}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &452883958
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 452883959}
-  m_Layer: 0
-  m_Name: test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &452883959
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452883958}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453524031
 GameObject:
   m_ObjectHideFlags: 0
@@ -82922,7 +82928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498830674}
   m_Layer: 7
-  m_Name: Gravity room
+  m_Name: Gravity Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87482,7 +87488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522531098}
   m_Layer: 7
-  m_Name: Fuel room
+  m_Name: Fuel Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108890,6 +108896,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643727357}
   m_Mesh: {fileID: -8678823145569952518, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
+--- !u!1 &643864193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643864194}
+  m_Layer: 0
+  m_Name: Storage Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &643864194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643864193}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.42, y: 0.870017, z: -172.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &644654177
 GameObject:
   m_ObjectHideFlags: 0
@@ -122313,6 +122350,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722392026}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &722573830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722573831}
+  m_Layer: 0
+  m_Name: Rooms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &722573831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722573830}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9710864}
+  - {fileID: 643864194}
+  - {fileID: 1218177178}
+  - {fileID: 885069320}
+  - {fileID: 1585382848}
+  - {fileID: 1012494901}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722661141
 GameObject:
   m_ObjectHideFlags: 0
@@ -127384,7 +127458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 749796820}
   m_Layer: 7
-  m_Name: Engine room
+  m_Name: Engine Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135315,7 +135389,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 792770024}
-  - component: {fileID: 792770023}
   m_Layer: 7
   m_Name: nodes
   m_TagString: Untagged
@@ -135323,21 +135396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &792770023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792770022}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c420b84b36f08c74e8aa07d9d669b869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!4 &792770024
 Transform:
   m_ObjectHideFlags: 0
@@ -151743,6 +151801,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885048329}
   m_Mesh: {fileID: -8678823145569952518, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
+--- !u!1 &885069319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885069320}
+  m_Layer: 0
+  m_Name: Office Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885069320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885069319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 286.26, y: 0.870017, z: -172.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &885994643
 GameObject:
   m_ObjectHideFlags: 0
@@ -156660,7 +156749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 911126575}
   m_Layer: 7
-  m_Name: Computer room
+  m_Name: Computer Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158165,7 +158254,8 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 0}
+  room: {fileID: 0}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -171120,12 +171210,13 @@ MonoBehaviour:
   nodes: {fileID: 1286046735}
   cover: {fileID: 1377817335}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 1012494901}
   zwidth: 80
   xwidth: 15
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2056
 --- !u!65 &1000797397
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -173356,6 +173447,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010979105}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1012494900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012494901}
+  m_Layer: 0
+  m_Name: Escape Pods
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1012494901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012494900}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -203.01, y: 0.870017, z: -172.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1012840687
 GameObject:
   m_ObjectHideFlags: 0
@@ -202247,7 +202369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186581252}
   m_Layer: 7
-  m_Name: Storage room
+  m_Name: Storage Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203355,12 +203477,13 @@ MonoBehaviour:
   nodes: {fileID: 1186581252}
   cover: {fileID: 198014799}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 643864194}
   zwidth: 80
   xwidth: 80
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2056
 --- !u!65 &1193165274
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -204012,7 +204135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196912739}
   m_Layer: 7
-  m_Name: Office room
+  m_Name: Office Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207286,6 +207409,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217218764}
   m_Mesh: {fileID: -5053925668127403250, guid: 049fedebdf0eaf940bff27bac3ce482a, type: 3}
+--- !u!1 &1218177177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1218177178}
+  m_Layer: 0
+  m_Name: Engine Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1218177178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218177177}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.42, y: 0.870017, z: -629.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218253915
 GameObject:
   m_ObjectHideFlags: 0
@@ -216012,7 +216166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1286046735}
   m_Layer: 7
-  m_Name: Escape pod room
+  m_Name: Escape pod Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270995,6 +271149,37 @@ Transform:
   - {fileID: 1865194869}
   m_Father: {fileID: 93501737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1585382847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1585382848}
+  m_Layer: 0
+  m_Name: Gravity Room
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1585382848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585382847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 780.16, y: 0.870017, z: -172.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 722573831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1586585792
 GameObject:
   m_ObjectHideFlags: 0
@@ -281275,12 +281460,13 @@ MonoBehaviour:
   nodes: {fileID: 498830674}
   cover: {fileID: 1858991176}
   originalEnemy: {fileID: 1030635562}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 1981224372}
+  room: {fileID: 1585382848}
   zwidth: 80
   xwidth: 80
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2056
 --- !u!65 &1644024223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -343459,7 +343645,8 @@ MonoBehaviour:
   nodes: {fileID: 0}
   cover: {fileID: 0}
   originalEnemy: {fileID: 0}
-  parent: {fileID: 1981224372}
+  enemyParent: {fileID: 0}
+  room: {fileID: 0}
   zwidth: 0
   xwidth: 0
   groundMask:
@@ -373616,7 +373803,7 @@ Transform:
   m_GameObject: {fileID: 2746109580620250209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.6, y: 1.1, z: 214.7}
+  m_LocalPosition: {x: 4.53, y: 1.1, z: 215.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -379961,6 +380148,7 @@ SceneRoots:
   - {fileID: 1717748149}
   - {fileID: 1646126897}
   - {fileID: 1445244973}
+  - {fileID: 722573831}
   - {fileID: 509026328}
   - {fileID: 792770024}
   - {fileID: 2024325245}
@@ -379970,6 +380158,5 @@ SceneRoots:
   - {fileID: 627853627}
   - {fileID: 1720097788}
   - {fileID: 1296198920}
-  - {fileID: 452883959}
   - {fileID: 1819871824}
   - {fileID: 1135704027}

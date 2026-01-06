@@ -15,13 +15,18 @@ public class EnemyWeaponScript : MonoBehaviour
     public float yspeed = 0;
     public MagazineScript magazinescript;
 
-    public void InitializeValues()
+    public void RandomizeAttachments()
     {
         scopeAttachment = weaponScript.scopes.Values.ToArray()[Random.Range(0, weaponScript.scopes.Count)];
         magazineAttachment = weaponScript.magazines.Values.ToArray()[Random.Range(0, weaponScript.magazines.Count)];
         silencerAttachment = weaponScript.silencers.Values.ToArray()[Random.Range(0, weaponScript.silencers.Count)];
         laserAttachment = weaponScript.lasers.Values.ToArray()[Random.Range(0, weaponScript.lasers.Count)];
-        
+
+        ammo = Random.Range(20, 150);
+    }
+
+    public void InitializeValues()
+    {
         GameObject sightobj = transform.Find("sight1").gameObject;
         GameObject scopeobj = transform.Find("scope1").gameObject;
         sightobj.SetActive(false);
@@ -71,9 +76,7 @@ public class EnemyWeaponScript : MonoBehaviour
         if (magazineAttachment.reloadTime == 4)
         {
             smallmag2.SetActive(true);
-        }    
-
-        ammo = Random.Range(20, 150);
+        }
 
         magazinescript.reloadTime = magazineAttachment.reloadTime;
         magazinescript.cap = magazineAttachment.capacity;

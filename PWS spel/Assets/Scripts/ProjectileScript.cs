@@ -12,7 +12,6 @@ public class ProjectileScript : MonoBehaviour
 
     public float dragFactor;
 
-
     void FixedUpdate()
     {
         if (!stopped)
