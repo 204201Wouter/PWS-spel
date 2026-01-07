@@ -53,6 +53,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadGame()
     {
+        // laad het spel als het save bestand bestaat
         if (File.Exists(Application.persistentDataPath + "/save.shoot"))
         {
             newGame = false;

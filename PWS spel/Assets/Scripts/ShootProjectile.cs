@@ -58,21 +58,26 @@ public class ShootProjectile : MonoBehaviour
 
     void Update()
     {
-        if (((Input.GetMouseButtonDown(0) && !automatic) || (Input.GetMouseButton(0) && automatic)) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
+        // als je kan schiet en op lmb drukt, schiet
+        if (Input.GetMouseButton(0) && ammo > 0 && Time.time > lastShot + shotCooldown && canShoot && reloadStart == -1)
         {
             audioSource.PlayOneShot(shotsound);
 
             for (int i = 0; i < projectilesPerShot; i++)
             {
+                // maak een projectile voor elke kogel die je schiet (alleen meerdere bij de shotguns)
                 GameObject projectile = Instantiate(originalProjectile, transform.position+Vector3.up*down, transform.rotation, projectileParent);
                 projectile.GetComponent<ProjectileScript>().enabled = true;
                 projectile.GetComponent<ProjectileScript>().velocity = transform.forward * speed + GetComponentInParent<Movement>().velocity + Random.onUnitSphere * spread;
                 projectile.GetComponent<ProjectileScript>().damage = damage;
                 projectile.transform.localScale *= size;
             }
+
+            // als zwaartekracht uit is beweeh de speler naar achteren
             if (InteractScript.gravityDisabled) movement.velocity += projectilesPerShot * damage * 0.15f * -transform.forward;
             ammo--;
 
+            // zorgt voor random recoil
             float recoilX = Random.Range(-50f, 50f);
                 
             recoilXSaved += recoilX;
@@ -96,6 +101,7 @@ public class ShootProjectile : MonoBehaviour
         }
         else
         {
+            // recoil gaat langzaam weg
             mouseLook.recoilX = -recoilXSaved * 0.1f;
             mouseLook.recoilY = -recoilYSaved * 0.1f;
             recoilXSaved *= 0.9f;
@@ -109,8 +115,10 @@ public class ShootProjectile : MonoBehaviour
             movement.recoil -= Time.deltaTime;
         }
 
+        // aimen logica
         if (Input.GetMouseButton(1) && reloadStart == -1 && canShoot)
         {   
+            // zoomt de camera geleidelijk in
             if (GetComponent<Camera>().fieldOfView > 60 / zoom) 
             {
                 GetComponent<Camera>().fieldOfView -= 2;
@@ -131,6 +139,7 @@ public class ShootProjectile : MonoBehaviour
         {
             fpsbody.SetActive(true);
             sight.enabled = false;
+            // zoomt de camera geleidelijk uit
             if (GetComponent<Camera>().fieldOfView < 60)
             {
                 GetComponent<Camera>().fieldOfView += 2;
@@ -148,6 +157,7 @@ public class ShootProjectile : MonoBehaviour
         animator.SetFloat("reloadspeed", 6f/reloadTime);
         animatorshadow.SetFloat("reloadspeed", 6f/reloadTime);
 
+        // start met reloaden als je op R drukt en het kan
         if ((Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && ammo == 0)) && reloadStart == -1 && canShoot)
         {
             fpsbody.SetActive(true);
@@ -158,7 +168,8 @@ public class ShootProjectile : MonoBehaviour
             animator.SetTrigger("reload");
             animatorshadow.SetTrigger("reload");
         }
-
+        
+        // als reload klaar is
         if (Time.time > reloadTime + reloadStart && reloadStart != -1) 
         {
             if (weaponScript.ammoAmounts[ammoType] + ammo >= cap)
@@ -195,6 +206,5 @@ public class ShootProjectile : MonoBehaviour
         size = weaponScript.currentMagazine.ammoType.size;
         zoom = weaponScript.currentScope.zoomFactor;
         recoil = weaponScript.currentMagazine.ammoType.recoil;
-        // andere modifiers nog toevoegen
     }
 }

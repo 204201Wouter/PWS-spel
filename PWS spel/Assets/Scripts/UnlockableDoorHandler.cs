@@ -14,6 +14,7 @@ public class UnlockableDoorHandler : MonoBehaviour
 
     public void CheckUnlockDoor1()
     {
+        // unlock door 1 als alle enemies in de eerste liftroom dood zijn
         enemiesKilled++;
         if (enemiesKilled >= 10) door1.locked = false;
         if (enemiesKilled <= 10) guiScript.UpdateObjective("Kill enemies");

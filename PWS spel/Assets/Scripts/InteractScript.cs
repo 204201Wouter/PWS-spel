@@ -72,10 +72,13 @@ public class InteractScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        // de raycast checkt of er iets in de lijn van de positie van de camere recht vooruit zit
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, reach, layerMask))
         {
+            // als er een computer zit laat het informatieve goede tekstje zien
             if (hit.collider.gameObject.CompareTag("computer") && !mapDownloaded)
             {
+                // als je op F drukt, download de map
                 if (Input.GetKey(KeyCode.F))
                 {
                     computerInteractLength += Time.fixedDeltaTime;
@@ -100,19 +103,17 @@ public class InteractScript : MonoBehaviour
                 computerInteractPopup.SetActive(false);
             }
 
-
+            // als er een enemy weapon zit laat het goede informatieve tekstje zien
             if (hit.collider.gameObject.CompareTag("enemy weapon"))
             {
                 pickUpWeaponPopup.SetActive(true);
+                // als je op E drukt pak het wapen op
                 if (Input.GetKey(KeyCode.E))
                 {
                     EnemyWeaponScript enemyWeaponScript = hit.collider.GetComponent<EnemyWeaponScript>();
 
                     guiScript.NewScope(enemyWeaponScript.scopeAttachment);
                     guiScript.NewMagazine(enemyWeaponScript.magazineAttachment);
-
-                    if (!weaponScript.availableSilencers.Contains(enemyWeaponScript.silencerAttachment.name)) weaponScript.availableSilencers.Add(enemyWeaponScript.silencerAttachment.name);
-                    if (!weaponScript.availableLasers.Contains(enemyWeaponScript.laserAttachment.name)) weaponScript.availableLasers.Add(enemyWeaponScript.laserAttachment.name);
 
                     weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
 
@@ -122,9 +123,11 @@ public class InteractScript : MonoBehaviour
             }
             else pickUpWeaponPopup.SetActive(false);
 
+            // als er een storage box zit laat het goede informatieve tekstje zien
             if (hit.collider.gameObject.CompareTag("tool storage box") && !toolObtained && mapDownloaded)
             {
                 storageBoxInteractPopup.SetActive(true);
+                // als je op E drukt open de storage box
                 if (Input.GetKey(KeyCode.E))
                 {
                     toolObtained = true;
@@ -138,6 +141,7 @@ public class InteractScript : MonoBehaviour
             else if (hit.collider.gameObject.CompareTag("bomb storage box") && !bombObtained && mapDownloaded)
             {
                 storageBoxInteractPopup.SetActive(true);
+                // als je op E drukt open de storage box
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombObtained = true;
@@ -150,12 +154,13 @@ public class InteractScript : MonoBehaviour
             }
             else storageBoxInteractPopup.SetActive(false);
 
-
+            // als er een engine zit laat het informatieve goede tekstje zien
             if (hit.collider.gameObject.CompareTag("engine") && !enginesDisabled && toolObtained)
             {
                 bool engine1 = hit.collider.transform.parent.gameObject.name == "engine 1";
                 if ((engine1 && !engine1Disabled) || (!engine1 && !engine2Disabled))
                 {
+                    // als je op F drukt disable de engine
                     if (Input.GetKey(KeyCode.F))
                     {
                         engineInteractLength += Time.fixedDeltaTime;
@@ -187,10 +192,11 @@ public class InteractScript : MonoBehaviour
                 engineInteractLength = 0;
             }
 
-
+            // als er een fuel tank zit laat het informatieve goede tekstje zien
             if (hit.collider.gameObject.CompareTag("fuel tank") && bombObtained && enginesDisabled && !bombPlanted)
             {
                 fuelTankInteractPopup.SetActive(true);
+                // als je op E drukt plant de bom
                 if (Input.GetKey(KeyCode.E))
                 {
                     bombPlanted = true;
@@ -205,9 +211,10 @@ public class InteractScript : MonoBehaviour
             }
             else fuelTankInteractPopup.SetActive(false);
 
-
+            // als er een gravity generator zit laat het informatieve goede tekstje zien
             if (hit.collider.gameObject.CompareTag("gravity generator") && !gravityDisabled && toolObtained)
             {
+                // als je op E drukt disable de gravity generator
                 if (Input.GetKey(KeyCode.F))
                 {
                     gravityGeneratorInteractLength += Time.fixedDeltaTime;
@@ -260,6 +267,7 @@ public class InteractScript : MonoBehaviour
 
     public IEnumerator BombTimer()
     {
+        // functie om de timer van de bom af te laten tellen
         while (timer >= 0)
         {
             int minutes = Mathf.FloorToInt(timer / 60);
@@ -273,5 +281,9 @@ public class InteractScript : MonoBehaviour
 
             timer--;
         }
+
+        // ga dood als bom ontploft
+        GetComponentInParent<PlayerHealth>().health = -100;
+        GetComponentInParent<PlayerHealth>().Hit(1);
     }
  }

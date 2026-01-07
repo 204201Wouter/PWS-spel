@@ -7,8 +7,6 @@ public class WeaponScript : MonoBehaviour
     public Dictionary<string, AmmoType> ammoTypes = new();
     public Dictionary<string, ScopeAttachment> scopes = new();
     public Dictionary<string, MagazineAttachment> magazines = new();
-    public Dictionary<string, SilencerAttachment> silencers = new();
-    public Dictionary<string, LaserAttachment> lasers = new();
 
     public List<string> availableScopes = new();
     public List<string> availableMagazines = new();
@@ -17,8 +15,6 @@ public class WeaponScript : MonoBehaviour
 
     public ScopeAttachment currentScope;
     public MagazineAttachment currentMagazine;
-    public SilencerAttachment currentSilencer;
-    public LaserAttachment currentLaser;
 
     public Dictionary<string, int> ammoAmounts = new();
 
@@ -40,7 +36,7 @@ public class WeaponScript : MonoBehaviour
     public Sprite drumMagSpriteBig;
     public Sprite ironSightSpriteBig;
 
-    public Sprite scopeSprite; // voor meer scopesprites hier nieuwe doen en assignen in inspector, en dan variabele hieronder doen
+    public Sprite scopeSprite;
     public Sprite redDotSprite;
 
     public GameObject scopeObject;
@@ -51,21 +47,22 @@ public class WeaponScript : MonoBehaviour
 
     void Awake() // awake runt eerder dan start en dat moet hier
     {
-        ammoTypes.Add("normal", new(20, 0, 0.5f, 1, 0, 15, 1f, "normal", ammoNormalSprite));
-        ammoTypes.Add("small", new(10, 0, 0.2f, 1, 0, 10, 0.6f, "small", ammoSmallSprite));
-        ammoTypes.Add("big", new(30, 0, 1, 1, 0, 25, 1.5f, "big", ammoBigSprite));
-        ammoTypes.Add("buckshot", new(5f, 0, 1, 6, 60f, 8f, 0.8f, "buckshot", buckshotSprite));
-        ammoTypes.Add("birdshot", new(2f, 0, 1, 20, 100f, 5f, 0.5f, "birdshot", birdshotSprite));
+        // Initialiseer alle waarden van de ammo, magazines en scopes
+        ammoTypes.Add("normal", new(20, 0.5f, 1, 0, 1f, "normal", ammoNormalSprite));
+        ammoTypes.Add("small", new(10, 0.2f, 1, 0, 0.6f, "small", ammoSmallSprite));
+        ammoTypes.Add("big", new(100, 2, 1, 0, 1.5f, "big", ammoBigSprite));
+        ammoTypes.Add("buckshot", new(10f, 2, 6, 60f, 0.8f, "buckshot", buckshotSprite));
+        ammoTypes.Add("birdshot", new(4f, 2, 20, 100f, 0.5f, "birdshot", birdshotSprite));
 
-        foreach (string ammoType in ammoTypes.Keys)
-        {
-            ammoAmounts.Add(ammoType, 1000); // nu beginnen met 1000 van elke kogel
-        }
+        ammoAmounts.Add("normal", 200);
+        ammoAmounts.Add("small", 400);
+        ammoAmounts.Add("big", 20);
+        ammoAmounts.Add("buckshot", 500);
+        ammoAmounts.Add("birdshot", 500);
 
-        scopes.Add("scope", new(4, "scope", scopeObject, scopeSprite, scopeSpriteBig)); // scopeSprite vervangen voor nieuwe sprite dan
+        scopes.Add("scope", new(4, "scope", scopeObject, scopeSprite, scopeSpriteBig)); 
         scopes.Add("red dot", new(2, "red dot", reddotObject, redDotSprite, redDotSpriteBig));
         scopes.Add("no scope", new(1.3f, "no scope", null, null, null));
-        // hier alle scopes
 
         // magazine models
         GameObject ARMag = armagObject;
@@ -76,33 +73,24 @@ public class WeaponScript : MonoBehaviour
         magazines.Add("normal drum", new(100, 5, 0.1f, ammoTypes["normal"], "normal drum", drumMag, drumMagSprite, drumMagSpriteBig));
         magazines.Add("small", new(100, 2, 0.05f, ammoTypes["small"], "small", ARMag, ARMagSprite, ARMagSpriteBig));
         magazines.Add("small drum", new(200, 5, 0.05f, ammoTypes["small"], "small drum", drumMag, drumMagSprite, drumMagSpriteBig));
-        magazines.Add("big", new(5, 4, 0.5f, ammoTypes["big"], "big", sniperMag, sniperMagSprite, sniperMagSpriteBig));
+        magazines.Add("big", new(5, 4, 1f, ammoTypes["big"], "big", sniperMag, sniperMagSprite, sniperMagSpriteBig));
         magazines.Add("buckshot", new(5, 4, 0.5f, ammoTypes["buckshot"], "buckshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
         magazines.Add("buckshot drum", new(20, 5, 0.5f, ammoTypes["buckshot"], "buckshot drum", drumMag, drumMagSprite, drumMagSpriteBig));
         magazines.Add("birdshot", new(5, 4, 0.5f, ammoTypes["birdshot"], "birdshot", sniperMag, sniperMagSprite, sniperMagSpriteBig));
         magazines.Add("birdshot drum", new(20, 5, 0.5f, ammoTypes["birdshot"], "birdshot drum", drumMag, drumMagSprite, drumMagSpriteBig));
-        // hier alle magazines
-
-        silencers.Add("silencerding", new(1, "silencerding", GameObject.Find("nog niet toegevoegd")));
-        silencers.Add("no silencer", new(0, "no silencer", null));
-        // hier alle silencers
-
-        lasers.Add("laserding", new(Color.red, 0.1f, "laserding", GameObject.Find("nog niet toegevoegd")));
-        lasers.Add("no laser", new(Color.red, 0, "no laser", null));
-        // hier alle lasers
 
         if (MainMenuScript.newGame)
         {
+            // als dit eennieuw spel is, begin met deze attachments equipped
             currentScope = scopes["no scope"];
             currentMagazine = magazines["default magazine"];
-            currentSilencer = silencers["no silencer"];
-            currentLaser = lasers["no laser"];
 
             GetComponent<ShootProjectile>().ChangeAttachment();
             Button defaultMagazine = guiScript.magazineSlot.transform.GetChild(1).GetComponent<Button>();
             defaultMagazine.onClick.AddListener(() => guiScript.ClickMagazine(magazines["default magazine"], defaultMagazine.gameObject));
         }
 
+        // Zet alle models uit
         foreach (ScopeAttachment scope in scopes.Values)
         {
             guiScript.SetActiveIfExists(scope.model, false);
@@ -113,28 +101,18 @@ public class WeaponScript : MonoBehaviour
             guiScript.SetActiveIfExists(magazine.model, false);
         }
 
-        foreach (SilencerAttachment silencer in silencers.Values)
-        {
-            guiScript.SetActiveIfExists(silencer.model, false);
-        }
-
-        foreach (LaserAttachment laser in lasers.Values)
-        {
-            guiScript.SetActiveIfExists(laser.model, false);
-        }
-
         if (MainMenuScript.newGame)
         {
+            // zet de gebruikte models aan
             guiScript.SetActiveIfExists(currentScope.model, true);
             guiScript.SetActiveIfExists(currentMagazine.model, true);
-            guiScript.SetActiveIfExists(currentSilencer.model, true);
-            guiScript.SetActiveIfExists(currentLaser.model, true);
         }
     }
 }
 
 public struct ScopeAttachment
 {
+    // de waarden van scopes
     public float zoomFactor;
     public string name;
     public GameObject model;
@@ -153,6 +131,7 @@ public struct ScopeAttachment
 
 public struct MagazineAttachment
 {
+    // de waarden van magazines
     public int capacity;
     public float reloadTime;
     public float shotCooldown;
@@ -175,56 +154,23 @@ public struct MagazineAttachment
     }
 }
 
-public struct SilencerAttachment 
-{
-    public float soundVolume;
-    public string name;
-    public GameObject model;
-
-    public SilencerAttachment(float soundVolume, string name, GameObject model)
-    {
-        this.soundVolume = soundVolume;
-        this.name = name;
-        this.model = model;
-    }
-}
-
-public struct LaserAttachment
-{
-    public Color color;
-    public float radius;
-    public string name;
-    public GameObject model;
-
-    public LaserAttachment(Color color, float radius, string name, GameObject model)
-    {
-        this.color = color;
-        this.radius = radius;
-        this.name = name;
-        this.model = model;
-    }
-}
-
 public struct AmmoType
 {
+    // de waarden van soorten ammo
     public float damage;
-    public float armorPiercing;
     public float recoil;
     public int amount;
     public float spread;
-    public float range;
     public float size;
     public string name;
     public Sprite sprite;
 
-    public AmmoType(float damage, float armorPiercing, float recoil, int amount, float spread, float range, float size, string name, Sprite sprite)
+    public AmmoType(float damage, float recoil, int amount, float spread, float size, string name, Sprite sprite)
     {
         this.damage = damage;
-        this.armorPiercing = armorPiercing;
         this.recoil = recoil;
         this.amount = amount;
         this.spread = spread;
-        this.range = range;
         this.size = size;
         this.name = name;
         this.sprite = sprite;

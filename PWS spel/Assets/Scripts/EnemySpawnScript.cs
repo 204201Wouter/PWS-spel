@@ -21,11 +21,12 @@ public class EnemySpawnScript : MonoBehaviour
         {
             Transform point = spawnPositions.GetChild(posIndex);
             point.GetComponent<AudioSource>().PlayOneShot(doorSound);
+
+            // spawn de enemy en initialiseer hem
             GameObject enemy = Instantiate(originalEnemy, point.position, point.rotation, enemyParent);
 
             enemy.GetComponent<EnemyScript>().enabled = true;
             enemy.GetComponent<EnemyMovementScript>().enabled = true;
-            enemy.GetComponent<EnemyMovementScript>().mode = "move";
             enemy.GetComponent<EnemyMovementScript>().lift = boxes.GetChild(posIndex).GetChild(0).GetComponent<BoxCollider>();
             enemy.GetComponent<EnemyMovementScript>().nodes = nodes;
             enemy.GetComponent<EnemyMovementScript>().cover = cover;
@@ -33,9 +34,12 @@ public class EnemySpawnScript : MonoBehaviour
             enemy.GetComponentInChildren<EnemyWeaponScript>().RandomizeAttachments();
             enemy.GetComponentInChildren<EnemyWeaponScript>().InitializeValues();
 
+            // zorgt ervoor dat de enemy eerst uit de lift loopt
+            enemy.GetComponent<EnemyMovementScript>().mode = "move";
             if (point.localPosition.x < 0) enemy.GetComponent<EnemyMovementScript>().targetPos = point.position + 5 * point.right;
             else enemy.GetComponent<EnemyMovementScript>().targetPos = point.position - 5 * point.right;
 
+            // doe de lift deuren open en dicht
             Transform door1 = doors1.GetChild(posIndex);
             Transform door2 = doors2.GetChild(posIndex);
 
@@ -50,9 +54,6 @@ public class EnemySpawnScript : MonoBehaviour
                 yield return null;
             }
 
-            posIndex += 5;
-            posIndex %= 8;
-
             yield return new WaitForSeconds(3);
 
             while ((door1.position - endpos).magnitude < 5f)
@@ -63,6 +64,9 @@ public class EnemySpawnScript : MonoBehaviour
             }
             door1.position = startpos1;
             door2.position = startpos2;
+
+            posIndex += 5;
+            posIndex %= 8;
         }
     }
 }

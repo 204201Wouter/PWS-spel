@@ -16,18 +16,20 @@ public class ProjectileScript : MonoBehaviour
     {
         if (!stopped)
         {
-            Vector3 gravity = new Vector3(0f, -9.81f, 0f);
+            // bepaal waar het projectile de volgende fixedupdate (constant aantal updates per seconde) komt
+            Vector3 gravity = new(0f, -9.81f, 0f);
             velocity = (velocity + gravity * Time.fixedDeltaTime) / (1 + dragFactor * velocity.magnitude * Time.fixedDeltaTime);
             Vector3 nextPos = transform.position + velocity * Time.fixedDeltaTime;
 
-            Ray ray = new Ray(transform.position, velocity.normalized);
+            Ray ray = new(transform.position, velocity.normalized);
 
+            // als het projectile tussen deze fixedupdate en de volgende iets raakt
             if (Physics.Raycast(ray, out RaycastHit hit, velocity.magnitude * Time.fixedDeltaTime, hitable))
             {
                 dragFactor = 1f;
                 transform.position = hit.point;
 
-
+                // als het een enemie is ga erheen
                 EnemyScript enemyScript = hit.collider.GetComponent<EnemyScript>();
                 if (enemyScript == null) enemyScript = hit.collider.GetComponentInParent<EnemyScript>();
                 if (enemyScript != null)
@@ -36,9 +38,12 @@ public class ProjectileScript : MonoBehaviour
                     Destroy(gameObject);
                 }
 
+                // ga op de plek zitten en stop met bewegen
                 transform.SetParent(hit.transform);
                 stopped = true;
                 GetComponent<MeshRenderer>().enabled = true;
+
+                // despawn na ongeveer 5 seconden
                 Destroy(gameObject, 5f + Random.Range(-0.5f, 0.5f));
             }
             else

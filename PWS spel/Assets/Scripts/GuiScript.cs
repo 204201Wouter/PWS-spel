@@ -66,11 +66,12 @@ public class GuiScript : MonoBehaviour
     public Transform allNodes;
     public Transform allCover;
 
-    int setPlayerPos = 0; // dit is voor rare bug die ik niet snap na 2 uur zoeken
+    int setPlayerPos = 0; // dit is voor rare bug met de build die opeens positie van speler reset die ik niet snap na 2 uur zoeken
     Vector3 playerPosToSet;
 
     void Start()
     {
+        // sluit de inventaris
         gui.SetActive(false);
         sightInventory.SetActive(false);
         magazineInventory.SetActive(true);
@@ -110,6 +111,7 @@ public class GuiScript : MonoBehaviour
 
     void Update()
     {
+        // open inventory als je op T drukt
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (gui.activeSelf)
@@ -135,6 +137,7 @@ public class GuiScript : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
+        // open settings als je op escape drukt
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (settingsMenu.activeSelf)
@@ -160,6 +163,7 @@ public class GuiScript : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
+        // open map als je op M drukt en de map gedownload hebt
         if (Input.GetKeyDown(KeyCode.M) && interactScript.mapDownloaded)
         {
             if (map.activeSelf)
@@ -187,6 +191,7 @@ public class GuiScript : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
+        // update de marker op de map of de minimap
         if (interactScript.mapDownloaded)
         {
             Vector2 markerPos = new((transform.position.x - 135f) * 1.743f, (transform.position.z + 57f) * 1.743f);
@@ -220,6 +225,7 @@ public class GuiScript : MonoBehaviour
 
     void EquipMagazine(MagazineAttachment magazine, GameObject button)
     {
+        // zet alle waarden van het nieuwe magazine goed
         shootscript.shotCooldown = magazine.shotCooldown;
         shootscript.cap = magazine.capacity;
         shootscript.reloadTime = magazine.reloadTime;
@@ -235,16 +241,19 @@ public class GuiScript : MonoBehaviour
 
         ChangeMagazineStats(magazine, true);
 
+        // zet het goede model aan
         SetActiveIfExists(weaponScript.currentMagazine.model, false);
         weaponScript.availableMagazines.Add(weaponScript.currentMagazine.name);
         weaponScript.currentMagazine = magazine;
         weaponScript.availableMagazines.Remove(magazine.name);
         SetActiveIfExists(magazine.model, true);
 
+        // verplaats het item van het magazine in de inventory
         if (magazineSlot.transform.childCount > 1) magazineSlot.transform.GetChild(1).SetParent(magazineInventory.transform);
         button.transform.SetParent(magazineSlot.transform);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, -30);
 
+        // zet de sprites in de inventory en HUD goed
         magazineImage.sprite = magazine.sprite;
         ammoImage.sprite = magazine.ammoType.sprite;
         magazineBig.sprite = magazine.spriteBig;
@@ -253,6 +262,7 @@ public class GuiScript : MonoBehaviour
 
     public void ClickMagazine(MagazineAttachment magazine, GameObject button)
     {
+        // logica voor als je op een magazine item klikt
         if (activeInventory == magazineInventory)
         {
             if (magazine.name != weaponScript.currentMagazine.name && !movement.reloading) EquipMagazine(magazine, button);
@@ -268,6 +278,7 @@ public class GuiScript : MonoBehaviour
 
         if (weaponScript.currentScope.name != "no scope" && sightSlot.transform.childCount > 1)
         {
+            // als je een andere scope geequipped had, haal die dan weg
             weaponScript.availableScopes.Add(weaponScript.currentScope.name);
             sightSlot.transform.GetChild(1).SetParent(sightInventory.transform);
         }
@@ -281,7 +292,7 @@ public class GuiScript : MonoBehaviour
         audioSource.PlayOneShot(clickSound);
     }
 
-    void UnequipScope(GameObject button)
+    void UnequipScope(GameObject button) // deze functie is er niet voor magazines omdat je altijd een magazine moet hebben
     {
         weaponScript.availableScopes.Add(weaponScript.currentScope.name);
         SetActiveIfExists(weaponScript.currentScope.model, false);
@@ -297,6 +308,7 @@ public class GuiScript : MonoBehaviour
 
     void ClickScope(ScopeAttachment scope, GameObject button)
     {
+        // logica voor als je op een scope item klikt
         if (activeInventory == sightInventory)
         {
             if (scope.name != weaponScript.currentScope.name) EquipScope(scope, button);
@@ -306,6 +318,7 @@ public class GuiScript : MonoBehaviour
     }
     public GameObject NewMagazine(MagazineAttachment magazine)
     {
+        // als je deze magazine nog niet hebt, maak dan de item ervoor aan in de inventory
         if (!weaponScript.availableMagazines.Contains(magazine.name) && weaponScript.currentMagazine.name != magazine.name)
         {
             weaponScript.availableMagazines.Add(magazine.name);
@@ -324,6 +337,7 @@ public class GuiScript : MonoBehaviour
 
     public GameObject NewScope(ScopeAttachment scope)
     {
+        // als je deze scope nog niet hebt, maak dan de item ervoor aan in de inventory
         if (!weaponScript.availableScopes.Contains(scope.name) && weaponScript.currentScope.name != scope.name && scope.name != "no scope")
         {
             weaponScript.availableScopes.Add(scope.name);
@@ -341,6 +355,7 @@ public class GuiScript : MonoBehaviour
 
     public void ChangeMagazineStats(MagazineAttachment magazine, bool currentMagazine)
     {
+        // laat de stats van de magazine waar je overheen hovert zien, en die van de magazine die geequipped is
         if (currentMagazine)
         {
             equippedMagazineStats.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = magazine.ammoType.name[0].ToString().ToUpper() + magazine.ammoType.name[1..];
@@ -372,6 +387,7 @@ public class GuiScript : MonoBehaviour
 
     public void NextObjective()
     {
+        // laat het volgende objective zien
         currentAmountDone = 0;
         currentObjectiveIndex++;
         if (objectiveRequiredAmounts[currentObjectiveIndex] == 1)
@@ -380,12 +396,13 @@ public class GuiScript : MonoBehaviour
         }
         else
         {
-            objectiveText.text = objectives[currentObjectiveIndex] + " (" + currentAmountDone.ToString() + "/" + objectiveRequiredAmounts[currentObjectiveIndex].ToString() + ")";
+            objectiveText.text = objectives[currentObjectiveIndex] + " (0/" + objectiveRequiredAmounts[currentObjectiveIndex].ToString() + ")";
         }
     }
 
     public void UpdateObjective(string objective)
     {
+        // als dit objective degene is die nu bezig is, verhoog de voortgang met 1
         if (objective == objectives[currentObjectiveIndex])
         {
             currentAmountDone++;
@@ -420,7 +437,7 @@ public class GuiScript : MonoBehaviour
     {
         audioSource.PlayOneShot(clickSound);
 
-        if (GetComponent<PlayerHealth>().health > 0)
+        if (GetComponent<PlayerHealth>().health > 0) // save alleen als je niet dood bent
         {
             SaveData data = new(GetComponent<PlayerHealth>(), enemyParent, weaponScript, interactScript, unlockableDoorHandler, enableEnemiesTriggers, this);
             SaveScript.Save(data);
@@ -431,6 +448,7 @@ public class GuiScript : MonoBehaviour
 
     public void LoadGame()
     {
+        // haal de data op uit het bestand
         SaveData data = SaveScript.Load();
         if (data == null)
         {
@@ -439,6 +457,7 @@ public class GuiScript : MonoBehaviour
             return;
         }
 
+        // zet alle waarden uit het save bestand in het spel
         GetComponent<PlayerHealth>().health = data.playerHealth;
         transform.position = new(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         playerPosToSet = new(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
@@ -446,6 +465,7 @@ public class GuiScript : MonoBehaviour
 
         for (int i = 0; i < data.enemyHealths.Length; i++)
         {
+            // bepaal in welke kamer de enemy zit en neem de goede waarde voor die kamer
             Transform nodes;
             Transform cover;
             switch (data.enemyRooms[i])
@@ -498,6 +518,7 @@ public class GuiScript : MonoBehaviour
                     break;
             }
 
+            // maak de enemy
             GameObject enemy = Instantiate(originalEnemy, new(data.enemyPositions[i][0], data.enemyPositions[i][1], data.enemyPositions[i][2]), Quaternion.identity, enemyParent);
             enemy.GetComponent<EnemyMovementScript>().enabled = true;
             enemy.GetComponent<EnemyScript>().enabled = true;
@@ -521,9 +542,11 @@ public class GuiScript : MonoBehaviour
         weaponScript.ammoAmounts["buckshot"] = data.ammoAmounts[3];
         weaponScript.ammoAmounts["birdshot"] = data.ammoAmounts[4];
 
+        // maak de items voor de attachments aan
         GameObject button = NewMagazine(weaponScript.magazines[data.currentMagazine]);
         EquipMagazine(weaponScript.magazines[data.currentMagazine], button);
 
+        // maak alleen knop aan voor de scope als het niet de no scope is
         if (data.currentScope != "no scope")
         {
             button = NewScope(weaponScript.scopes[data.currentScope]);

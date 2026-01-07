@@ -8,8 +8,6 @@ public class EnemyWeaponScript : MonoBehaviour
     public bool isDropped = false;
     public ScopeAttachment scopeAttachment;
     public MagazineAttachment magazineAttachment;
-    public SilencerAttachment silencerAttachment;
-    public LaserAttachment laserAttachment;
     public int ammo;
     public LayerMask ground; 
     public float yspeed = 0;
@@ -19,14 +17,13 @@ public class EnemyWeaponScript : MonoBehaviour
     {
         scopeAttachment = weaponScript.scopes.Values.ToArray()[Random.Range(0, weaponScript.scopes.Count)];
         magazineAttachment = weaponScript.magazines.Values.ToArray()[Random.Range(0, weaponScript.magazines.Count)];
-        silencerAttachment = weaponScript.silencers.Values.ToArray()[Random.Range(0, weaponScript.silencers.Count)];
-        laserAttachment = weaponScript.lasers.Values.ToArray()[Random.Range(0, weaponScript.lasers.Count)];
 
         ammo = Random.Range(20, 150);
     }
 
     public void InitializeValues()
     {
+        // schakel de goede modellen in
         GameObject sightobj = transform.Find("sight1").gameObject;
         GameObject scopeobj = transform.Find("scope1").gameObject;
         sightobj.SetActive(false);
@@ -39,6 +36,7 @@ public class EnemyWeaponScript : MonoBehaviour
         {
             scopeobj.SetActive(true);
         }
+
         Transform gunParent = transform.parent.parent.Find("Bone.016").Find("ar mag.002");
         GameObject medmag = gunParent.Find("ar mag1").gameObject;
         GameObject bigmag = gunParent.Find("drum mag1").gameObject;
@@ -78,6 +76,7 @@ public class EnemyWeaponScript : MonoBehaviour
             smallmag2.SetActive(true);
         }
 
+        // zet de waarden in het andere script
         magazinescript.reloadTime = magazineAttachment.reloadTime;
         magazinescript.cap = magazineAttachment.capacity;
         magazinescript.shotCooldown = magazineAttachment.shotCooldown;
@@ -86,7 +85,8 @@ public class EnemyWeaponScript : MonoBehaviour
 
     void Update()
     {
-        if (isDropped && !Physics.CheckSphere(transform.position, 0.09f, ground) && !InteractScript.gravityDisabled)
+        // val naar beneden als gedropt
+        if (isDropped && !Physics.CheckSphere(transform.position + 0.15f * Vector3.down, 0.05f, ground) && !InteractScript.gravityDisabled)
         {
             transform.position -= Time.deltaTime * yspeed * Vector3.up;
             yspeed += Time.deltaTime * 10f;

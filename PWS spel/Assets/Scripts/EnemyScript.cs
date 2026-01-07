@@ -23,14 +23,16 @@ public class EnemyScript : MonoBehaviour
     bool dead = false;
     public void Hit(float damage)
     {
-        print(health);
         health -= damage;
 
+        // verander mode enemy als hij geraakt wordt
         if (movementScript.mode != "move") movementScript.mode = "cover";
 
         if (health <= 0 && !dead)
         {
-            dead = true;
+            dead = true; // zorgt ervoor dat een enemy niet 2 keer tegelijk doodgaat
+
+            // drop het wapen
             weaponScript.isDropped = true;
             weapon.transform.parent = droppedWeaponsParent;
             mag.SetActive(true);

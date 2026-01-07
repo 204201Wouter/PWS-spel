@@ -3,6 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    // Bevat alle waarden die opgeslagen moeten worden
+    // Sommige waarden zijn opgeslagen als arrays (die met []), omdat dingen als Lists en Vector3 niet opgeslagen kunnen worden
+
     public float playerHealth;
     public float[] playerPosition;
 
@@ -55,6 +58,7 @@ public class SaveData
     public float volume;
     public float difficulty;
 
+    // Zet alle waardes uit het spel bij elkaar
     public SaveData (PlayerHealth player, Transform enemyParent, WeaponScript weaponScript, InteractScript interactScript, UnlockableDoorHandler unlockableDoorHandler, Transform enableEnemiesTriggers, GuiScript guiScript)
     {
         playerHealth = player.health;

@@ -14,6 +14,8 @@ public class OpenDoorScript : MonoBehaviour
     AudioSource audioSource;
     public AudioClip doorSound;
 
+    // opent deuren als ze niet op slot zitten en er iets in de buurt zit
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();

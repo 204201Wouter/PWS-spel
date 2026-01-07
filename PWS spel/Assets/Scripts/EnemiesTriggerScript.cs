@@ -39,12 +39,14 @@ public class EnemiesTriggerScript : MonoBehaviour
                 {   
                     Vector3 pos = room.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
 
+                    // als ik hier een while loop van maak crasht het spel, dus nu probeert hij gewoon 20 keer om een positie te krijgen die niet in een object zit
                     for (int j = 0; j < 20; j++)
                     {
                         if (Physics.CheckSphere(pos, 0.4f, groundMask)) pos = room.position + (Random.value - 0.5f) * xwidth * Vector3.left + (Random.value - 0.5f) * zwidth * Vector3.forward;
                         else break;
                     }
 
+                    // spawn de enemy en initialiseer hem
                     GameObject enemy = Instantiate(originalEnemy, pos, transform.rotation, enemyParent);
                     enemy.GetComponent<EnemyMovementScript>().enabled = true;
                     enemy.GetComponent<EnemyScript>().enabled = true;
@@ -58,6 +60,7 @@ public class EnemiesTriggerScript : MonoBehaviour
                 }
             }
 
+            // schakel uit na triggeren
             Destroy(GetComponent<BoxCollider>());
         }
     }

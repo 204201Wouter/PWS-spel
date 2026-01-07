@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class endScript : MonoBehaviour
+public class EndScript : MonoBehaviour
 {
     public GameObject targetObject;
     public GameObject credits;

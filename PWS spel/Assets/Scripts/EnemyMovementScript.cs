@@ -65,13 +65,14 @@ public class EnemyMovementScript : MonoBehaviour
 
         if (mode == "move" && lift != null)
         {
+            // zorgt ervoor dat de enemy gewoon uit de lift kan lopen zonder er tegen te botsen
             Physics.IgnoreCollision(GetComponent<CapsuleCollider>(), lift);
         }
     }
 
     void Update()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < 90)
+        if (Vector3.Distance(player.transform.position, transform.position) < 90) // verry enemies doen niks hierdoor om het spel sneller te maken
         {
             if (mode != "move")
             {
@@ -79,16 +80,17 @@ public class EnemyMovementScript : MonoBehaviour
                 if (HasLineOfSight())
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position);
-
+                    // zorgt ervoor dat de enemy geleidelijk draait
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360f * Time.deltaTime);
                     lastHearPlayer = Time.time;
                     if (!aiming)
                     {
-                        aimtimedone = Time.time + AimTimeFormula();
+                        aimtimedone = Time.time + AimTimeFormula(); // bepaal wanneer de enemy klaar is met richten
                         aiming = true;
                     }
                     if (ammo > 0 && Time.time > lastShot + magazineScript.shotCooldown && Time.time > aimtimedone)
                     {
+                        // als de enemy kan schieten, schiet
                         lastShot = Time.time;
                         ammo -= 1;
                         audioSource.PlayOneShot(shotsound);
@@ -101,7 +103,7 @@ public class EnemyMovementScript : MonoBehaviour
                         }
 
                         float accuracy = AccuracyFormula();
-                        for (int i = 0; i < magazineScript.ammoType.amount; i++)
+                        for (int i = 0; i < magazineScript.ammoType.amount; i++) // deze loop is voor als de enemy een shotgun (buck of birdshot) heeft
                         {
                             if (Random.value < accuracy)
                             {
@@ -109,11 +111,12 @@ public class EnemyMovementScript : MonoBehaviour
                             }
                         }
                         
-                        velocity += 0.003f * -transform.forward;
+                        velocity += magazineScript.ammoType.amount * magazineScript.ammoType.damage * 0.15f * -transform.forward; // beweeg enemy naar achter als hij schiet, doet alleen wat als gravity uit is
                     }
 
                     if (ammo == 0 && reloadStart == -1)
                     {
+                        // reload als enemy moet reloaden
                         animator.SetFloat("reloadspeed", 6f/magazineScript.reloadTime);
                         reloadStart = Time.time;
                         audioSource.PlayOneShot(reloadsound);
@@ -137,7 +140,6 @@ public class EnemyMovementScript : MonoBehaviour
                 // cover
                 if (HasLineOfSight() && mode == "scout")
                 {
-                    // mode = "cover";
                     lastPlayerPos = player.transform.position + Vector3.up * 2;
                 }
                 // zoek player
@@ -151,13 +153,12 @@ public class EnemyMovementScript : MonoBehaviour
 
                     lastHearPlayer = Time.time;
                 }
-
                 else if (mode == "cover" && Time.time > lastHearPlayer + 5f)
                 {
+                    // stop met cover zoeken als player 5 seconden niet gehoord
                     mode = "scout";
                     lastPlayerPos = player.transform.position + Vector3.up * 2;
                 }
-
                 else if (mode == "scout" && (targetPos - transform.position).magnitude <= 0.05f && path.Count <= 1)
                 {
                     mode = "guard";
@@ -176,6 +177,7 @@ public class EnemyMovementScript : MonoBehaviour
                 }
                 else
                 {
+                    // zweef willekeurig een beetje omhoog en omlaag als gravity disabled is
                     ySpeed += Random.Range(-0.01f, 0.01f);
                     ySpeed = Mathf.Clamp(ySpeed, -0.1f, 0.1f);
                 }
@@ -358,19 +360,15 @@ public class EnemyMovementScript : MonoBehaviour
         rpos = pos2 + Vector3.up * height + left;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
-       // Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + left;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
-      //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.up * height + right;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
-      //  Debug.DrawRay(pos, dir, Color.blue);
         rpos = pos2 + Vector3.down * height + right;
         dir = rpos - pos;
         if (!Physics.Raycast(pos, dir.normalized, dir.magnitude, groundMask)) return true;
-      //  Debug.DrawRay(pos, dir, Color.blue);
 
         return false;
     }
@@ -469,7 +467,6 @@ public class EnemyMovementScript : MonoBehaviour
                     path.Add(current);
                 }
 
-
                 return path;
             }
 
@@ -542,7 +539,7 @@ public class EnemyMovementScript : MonoBehaviour
                 if (!openSet.Contains(neighbor) && !closedSet.Contains(neighbor))
                 {
                     openSet.Add(neighbor);
-                    float distance = HCost(bestNode, neighbor);
+                    float distance = Vector2.Distance(bestNode, neighbor);
                     gScores.Add(neighbor, gScores[bestNode] + distance);
                     fScores.Add(neighbor, gScores[bestNode] + distance + HCost(neighbor, target));
                     cameFrom.Add(neighbor, bestNode);
@@ -558,5 +555,3 @@ public class EnemyMovementScript : MonoBehaviour
         return Vector2.Distance(pos, target);
     }
 }
-
-

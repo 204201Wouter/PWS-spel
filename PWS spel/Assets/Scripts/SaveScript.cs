@@ -4,6 +4,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveScript
 {
+    // Deze code komt voornamelijk uit deze video: https://www.youtube.com/watch?v=XOjd_qU2Ido
+
     public static void Save(SaveData data)
     {
         BinaryFormatter formatter = new();
