@@ -116,6 +116,7 @@ public class InteractScript : MonoBehaviour
                     guiScript.NewMagazine(enemyWeaponScript.magazineAttachment);
 
                     weaponScript.ammoAmounts[enemyWeaponScript.magazineAttachment.ammoType.name] += enemyWeaponScript.ammo;
+                    GetComponent<ShootProjectile>().UpdateAmmoText();
 
                     Destroy(hit.collider.gameObject);
                     audioSource.PlayOneShot(interactSound);
