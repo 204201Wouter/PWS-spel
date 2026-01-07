@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        health += Time.deltaTime;
+        if (health > 0) health += Time.deltaTime;
         
         if (health > starthealth)
         {

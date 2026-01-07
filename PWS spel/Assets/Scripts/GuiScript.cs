@@ -420,8 +420,11 @@ public class GuiScript : MonoBehaviour
     {
         audioSource.PlayOneShot(clickSound);
 
-        SaveData data = new(GetComponent<PlayerHealth>(), enemyParent, weaponScript, interactScript, unlockableDoorHandler, enableEnemiesTriggers, this);
-        SaveScript.Save(data);
+        if (GetComponent<PlayerHealth>().health > 0)
+        {
+            SaveData data = new(GetComponent<PlayerHealth>(), enemyParent, weaponScript, interactScript, unlockableDoorHandler, enableEnemiesTriggers, this);
+            SaveScript.Save(data);
+        }
 
         SceneManager.LoadScene("Menu");
     }
