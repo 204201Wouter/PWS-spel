@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndScript : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class EndScript : MonoBehaviour
         if (timer >= 15f)
         {
             credits.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 }

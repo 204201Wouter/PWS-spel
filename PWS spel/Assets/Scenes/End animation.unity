@@ -29923,7 +29923,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 500, y: 50}
+  m_SizeDelta: {x: 750, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896325709
 MonoBehaviour:
@@ -29947,11 +29947,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Shoot 3000
 
-    By Rafael Bleeker and Wouter geldof
+    By Rafael Bleeker and Wouter Geldof
 
 
     Programming:
     Rafael Bleeker and Wouter Geldof
+
+
+    Music: Rafael Bleeker
+
+
+    Game testing:
+    Adrian Bleeker, Dalin de Jong, Nathan Balk and Rob Kraaier
+
+
+    Special thanks
+    to: Twan Snijders and Adrian Bleeker
 
 '
   m_isRightToLeft: 0
